@@ -6,12 +6,13 @@ LH_SRC = common/letterhead/letter.tex
 LH_PDF = $(LH_SRC:.tex=.pdf)
 LH_DEP = $(filter-out $(LH_PDF) $(LH_SRC) $(wildcard common/letterhead/*.log) common/letterhead/LICENSE common/letterhead/Makefile common/letterhead/README.md $(wildcard common/letterhead/.git*), $(shell find common/letterhead -type f))
 
-LH_FONT_DIR = common/letterhead/font
-SIG_PDF     = common/signature/yuyang.pdf
+LH_FONT_DIR       = common/letterhead/font
+SIG_PDF           = common/signature/yuyang.pdf
+LETTER_COMMON_SRC = common/cover_letter_common.tex
 
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_example_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
-EXAMPLE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF)
+EXAMPLE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC)
 
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
