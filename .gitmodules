@@ -1,0 +1,6 @@
+[submodule "common/cv"]
+	path = common/cv
+	url = https://git.overleaf.com/63939dc5a1d49250f8421b55
+[submodule "common/letterhead"]
+	path = common/letterhead
+	url = git@github.com:wyywyy23/CNI_letterhead.git
