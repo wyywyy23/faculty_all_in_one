@@ -135,6 +135,9 @@ sympy-plots-for-*.tex/
 # xelatex output
 *.xdv
 
+# Makefile cache
+.latex-cache
+
 # other
 common/signature/yuyang.pdf
 
