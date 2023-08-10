@@ -1,7 +1,7 @@
 % !TEX program = lualatex
 
 \documentclass[11pt]{letter}
-\usepackage[toAddrLeft,sigLeft]{cniletter}
+\usepackage[toAddrLeft,sigLeft]{../../common/letterhead/cniletter}
 
 \usepackage{kantlipsum}
 \usepackage{pdfpages} % for \includepdf
@@ -11,7 +11,8 @@
     Title\\
     Affiliation
 }
-\signatureFile[height=0.3in]{signature/yuyang.pdf}
+
+\signatureFile[height=0.3in]{./../../common/signature/yuyang.pdf}
 
 \address{%
     From Address\\

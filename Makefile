@@ -6,7 +6,6 @@ LH_SRC = common/letterhead/letter.tex
 LH_PDF = $(LH_SRC:.tex=.pdf)
 LH_DEP = $(filter-out $(LH_PDF) $(LH_SRC) $(wildcard common/letterhead/*.log) common/letterhead/LICENSE common/letterhead/Makefile common/letterhead/README.md $(wildcard common/letterhead/.git*), $(shell find common/letterhead -type f))
 
-LH_STY      = common/letterhead/cniletter.sty
 LH_FONT_DIR = common/letterhead/font
 SIG_PDF     = common/signature/yuyang.pdf
 
@@ -47,9 +46,7 @@ $(LH_PDF): $(LH_SRC) $(LH_DEP) | clean-cache $(CACHE_DIR)
 	@cp $(CACHE_DIR)/$(notdir $(LH_PDF)) $(LH_PDF)
 
 $(EXAMPLE_LETTER_PDF): $(EXAMPLE_LETTER_SRC) $(EXAMPLE_LETTER_DEP) | clean-cache $(CACHE_DIR)
-	@cp $(LH_STY) $(dir $(EXAMPLE_LETTER_SRC))/$(notdir $(LH_STY))
 	@cp -r $(LH_FONT_DIR) $(dir $(EXAMPLE_LETTER_SRC))/.
-	@cp $(SIG_PDF) $(dir $(EXAMPLE_LETTER_SRC))/signature/$(notdir $(SIG_PDF))
 	@cd $(dir $(EXAMPLE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(EXAMPLE_LETTER_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(EXAMPLE_LETTER_PDF)) $(EXAMPLE_LETTER_PDF)
 
