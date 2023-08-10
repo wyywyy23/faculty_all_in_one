@@ -1,0 +1,43 @@
+% !TEX program = lualatex
+
+\documentclass[11pt]{letter}
+\usepackage[toAddrLeft,sigLeft]{cniletter}
+
+\usepackage{kantlipsum}
+\usepackage{pdfpages} % for \includepdf
+ 
+\signature{%
+    My Name\\
+    Title\\
+    Affiliation
+}
+\signatureFile[height=0.3in]{signature/yuyang.pdf}
+
+\address{%
+    From Address\\
+    City, State Zip Code
+}
+ 
+\date{\today}
+
+\regard{A LaTeX template for typing letters with CNI letterhead}
+ 
+\begin{document}
+
+\begin{letter}{Addressee Name \\ To Address \\ City, State Zip Code}
+
+    \opening{To Whom It May Concern:}
+
+    \kant[1-3]
+
+    \closing{Yours sincerely,}
+
+    \encl{Attachment \#1 \\ Attachment \#2}
+
+    \cc{Prof. Keren Bergman \\ Eugene ``Gene'' S. Profanato}
+
+    \ps{Some postscript words.}
+
+\end{letter}
+
+\end{document}
