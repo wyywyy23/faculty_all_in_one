@@ -1,0 +1,30 @@
+\documentclass[nobib]{tufte-handout}
+
+\usepackage[T1]{fontenc}
+% load babel here
+\usepackage[p,osf]{cochineal}
+\usepackage[scale=0.925]{FiraMono}
+\usepackage[varqu,varl,var0]{inconsolata}
+\usepackage[scale=.95,type1]{cabin}
+\usepackage[cochineal,vvarbb]{newtxmath}
+\usepackage[cal=boondoxo]{mathalfa}
+
+% Dummy text
+\usepackage{kantlipsum}
+
+% Absolute path
+\usepackage{currfile-abspath}
+\getmainfile % get real main file (can be different than jobname in some cases)
+\getabspath{\themainfile} % or use \jobname.tex instead (not as safe)
+\let\mainabsdir\theabsdir % save result away (macro will be overwritten by the next \getabspath
+\let\mainabspath\theabspath % save result away (macro will be overwritten by the next \getabspath
+
+% Support IEEE BST control in non-IEEEtran document
+\makeatletter
+\def\bstctlcite{\@ifnextchar[{\@bstctlcite}{\@bstctlcite[@auxout]}}
+\def\@bstctlcite[#1]#2{\@bsphack
+    \@for\@citeb:=#2\do{%
+        \edef\@citeb{\expandafter\@firstofone\@citeb}%
+        \if@filesw\immediate\write\csname #1\endcsname{\string\citation{\@citeb}}\fi}%
+    \@esphack}
+\makeatother

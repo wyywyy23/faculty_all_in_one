@@ -10,15 +10,21 @@ LH_FONT_DIR       = common/letterhead/font
 SIG_PDF           = common/signature/yuyang.pdf
 LETTER_COMMON_SRC = common/cover_letter_common.tex
 
+RS_COMMON_SRC = common/research_statement_common.tex
+
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_example_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
 EXAMPLE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC)
+
+EXAMPLE_RS_SRC = example/research_statement/research_statement_example_yw.tex
+EXAMPLE_RS_PDF = $(EXAMPLE_RS_SRC:.tex=.pdf)
+EXAMPLE_RS_DEP = $(RS_COMMON_SRC)
 
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all cv letterhead example example-letter clean clean-cache
+.PHONY: all cv letterhead example example-letter example-rs clean clean-cache
 
 all: cv letterhead example
 
@@ -26,9 +32,10 @@ cv: $(CV_PDF)
 
 letterhead: $(LH_PDF)
 
-example: example-letter
+example: example-letter example-rs
 
 example-letter: $(EXAMPLE_LETTER_PDF)
+example-rs: $(EXAMPLE_RS_PDF)
 
 clean: clean-cache
 
@@ -50,4 +57,8 @@ $(EXAMPLE_LETTER_PDF): $(EXAMPLE_LETTER_SRC) $(EXAMPLE_LETTER_DEP) | clean-cache
 	@cp -r $(LH_FONT_DIR) $(dir $(EXAMPLE_LETTER_SRC))/.
 	@cd $(dir $(EXAMPLE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(EXAMPLE_LETTER_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(EXAMPLE_LETTER_PDF)) $(EXAMPLE_LETTER_PDF)
+
+$(EXAMPLE_RS_PDF): $(EXAMPLE_RS_SRC) $(EXAMPLE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(EXAMPLE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(EXAMPLE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(EXAMPLE_RS_PDF)) $(EXAMPLE_RS_PDF)
 
