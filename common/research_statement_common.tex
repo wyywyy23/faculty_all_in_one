@@ -1,4 +1,4 @@
-\documentclass[nobib]{tufte-handout}
+\documentclass{tufte-handout}
 
 \usepackage[T1]{fontenc}
 % load babel here
@@ -18,6 +18,8 @@
 \getabspath{\themainfile} % or use \jobname.tex instead (not as safe)
 \let\mainabsdir\theabsdir % save result away (macro will be overwritten by the next \getabspath
 \let\mainabspath\theabspath % save result away (macro will be overwritten by the next \getabspath
+
+\bibliographystyle{IEEEtranN}
 
 % Support IEEE BST control in non-IEEEtran document
 \makeatletter
