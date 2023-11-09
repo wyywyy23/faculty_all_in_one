@@ -7,13 +7,18 @@
 \author{Yuyang Wang}
 \date{\today}
 
+\makeatletter
+\fancyfoot[L]{\scshape \MakeLowercase{\@author}}
+\fancyfoot[R]{{\scshape \MakeLowercase{\@title}}\quad{\LARGE\sfrac{\thepage}{\pageref*{LastPage}}}\hspace{0.5in}}
+\makeatother
+
 \begin{document}
 
 \maketitle% this prints the handout title, author, and date
 
-\kant[1-6]
+\kant[1-7]
 
-\cite[-3in]{wangScalableArchitectureSubpJ2023}
+\cite[1in]{wangScalableArchitectureSubpJ2023}
 
 \footnotesize
 \bibliography{\mainabsdir../../common/bibliography}
