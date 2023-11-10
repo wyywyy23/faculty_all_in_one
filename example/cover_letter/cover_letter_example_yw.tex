@@ -5,6 +5,7 @@
 
 %%%%%% Customize the following lines %%%%%%
 \def\appPosition{super-duper faculty}
+\def\jobID{123456}
 \def\appDept{Department of ABC}
 \def\appSchool{XYZ University}
 \def\appAddr{%
@@ -19,7 +20,12 @@
     \kant[3]
 }
 %%%%%% End of customization %%%%%%
-
+\def\appJobID{%
+    \if\relax\detokenize{\jobID}\relax%
+    \else%
+    \textemdash Job \# \jobID{}%
+    \fi%
+}
 \def\toAddr{%
 Faculty Search Committee \\ \appDept{} \\ \appSchool{} \\ \appAddr{}%
 }
