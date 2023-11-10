@@ -8,9 +8,9 @@ LH_DEP = $(filter-out $(LH_PDF) $(LH_SRC) $(wildcard common/letterhead/*.log) co
 
 LH_FONT_DIR       = common/letterhead/font
 SIG_PDF           = common/signature/yuyang.pdf
-LETTER_COMMON_SRC = common/cover_letter_common.tex
+LETTER_COMMON_SRC = $(wildcard common/cover_letter/*.tex)
 
-RS_COMMON_SRC = common/research_statement_common.tex
+RS_COMMON_SRC = $(wildcard common/research_statement/*.tex)
 
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_example_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
