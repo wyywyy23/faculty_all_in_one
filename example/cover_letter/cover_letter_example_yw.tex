@@ -20,11 +20,9 @@
     \kant[3]
 }
 %%%%%% End of customization %%%%%%
+
 \def\appJobID{%
-    \if\relax\detokenize{\jobID}\relax%
-    \else%
-    \textemdash Job \# \jobID{}%
-    \fi%
+    \ifthenelse{\equal{\jobID}{}}{\unskip}{\unskip\textemdash Job \# \jobID{}}%
 }
 \def\toAddr{%
 Faculty Search Committee \\ \appDept{} \\ \appSchool{} \\ \appAddr{}%
