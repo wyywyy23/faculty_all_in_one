@@ -11,6 +11,8 @@ SIG_PDF           = common/signature/yuyang.pdf
 LETTER_COMMON_SRC = $(wildcard common/cover_letter/*.tex)
 
 RS_COMMON_SRC = $(wildcard common/research_statement/*.tex)
+TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex)
+DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex)
 
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_example_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
@@ -18,13 +20,21 @@ EXAMPLE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(w
 
 EXAMPLE_RS_SRC = example/research_statement/research_statement_example_yw.tex
 EXAMPLE_RS_PDF = $(EXAMPLE_RS_SRC:.tex=.pdf)
-EXAMPLE_RS_DEP = $(RS_COMMON_SRC)
+EXAMPLE_RS_DEP = $(TS_COMMON_SRC)
+
+EXAMPLE_TS_SRC = example/teaching_statement/teaching_statement_example_yw.tex
+EXAMPLE_TS_PDF = $(EXAMPLE_TS_SRC:.tex=.pdf)
+EXAMPLE_TS_DEP = $(TS_COMMON_SRC)
+
+EXAMPLE_DS_SRC = example/diversity_statement/diversity_statement_example_yw.tex
+EXAMPLE_DS_PDF = $(EXAMPLE_DS_SRC:.tex=.pdf)
+EXAMPLE_DS_DEP = $(DS_COMMON_SRC)
 
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all cv letterhead example example-letter example-rs clean clean-cache
+.PHONY: all cv letterhead example example-letter example-rs example-ts example-ds clean clean-cache
 
 all: cv letterhead example
 
@@ -32,10 +42,12 @@ cv: $(CV_PDF)
 
 letterhead: $(LH_PDF)
 
-example: example-letter example-rs
+example: example-letter example-rs example-ts example-ds
 
 example-letter: $(EXAMPLE_LETTER_PDF)
 example-rs: $(EXAMPLE_RS_PDF)
+example-ts: $(EXAMPLE_TS_PDF)
+example-ds: $(EXAMPLE_DS_PDF)
 
 clean: clean-cache
 
@@ -62,3 +74,10 @@ $(EXAMPLE_RS_PDF): $(EXAMPLE_RS_SRC) $(EXAMPLE_RS_DEP) | clean-cache $(CACHE_DIR
 	@cd $(dir $(EXAMPLE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(EXAMPLE_RS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(EXAMPLE_RS_PDF)) $(EXAMPLE_RS_PDF)
 
+$(EXAMPLE_TS_PDF): $(EXAMPLE_TS_SRC) $(EXAMPLE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(EXAMPLE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(EXAMPLE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(EXAMPLE_TS_PDF)) $(EXAMPLE_TS_PDF)
+
+$(EXAMPLE_DS_PDF): $(EXAMPLE_DS_SRC) $(EXAMPLE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(EXAMPLE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(EXAMPLE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(EXAMPLE_DS_PDF)) $(EXAMPLE_DS_PDF)
