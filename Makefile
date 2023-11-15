@@ -20,7 +20,7 @@ EXAMPLE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(w
 
 EXAMPLE_RS_SRC = example/research_statement/research_statement_example_yw.tex
 EXAMPLE_RS_PDF = $(EXAMPLE_RS_SRC:.tex=.pdf)
-EXAMPLE_RS_DEP = $(TS_COMMON_SRC)
+EXAMPLE_RS_DEP = $(RS_COMMON_SRC)
 
 EXAMPLE_TS_SRC = example/teaching_statement/teaching_statement_example_yw.tex
 EXAMPLE_TS_PDF = $(EXAMPLE_TS_SRC:.tex=.pdf)
