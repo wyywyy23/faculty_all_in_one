@@ -1,0 +1,56 @@
+%!TEX root = teaching_statement_duke_yw.tex
+%!TEX program = lualatex
+
+\input{../../common/teaching_statement/teaching_statement_pre.tex}
+\input{../duke_common.tex}
+\setstretch{0.99}
+
+%%%%%% Customize the following lines %%%%%%
+\title{Teaching Statement}
+
+\def\courseOneName{Computer Architecture}
+\def\courseOneNumber{ECE 250D}
+\def\courseTwoName{CMOS VLSI Design Methodologies}
+\def\courseTwoNumber{ECE 539}
+\def\courseThreeName{Optics and Photonics}
+\def\courseThreeNumber{ECE 340L}
+\def\courseFourName{Computer Network Architecture}
+\def\courseFourNumber{ECE 356}
+\def\courseSixName{Electronic Photonic Design Automation}
+\def\courseSevenName{Integrated Silicon Photonics}
+
+\def\rsCustom{%
+such as \courseOneName{} (\courseOneNumber{}), \courseTwoName{} (\courseTwoNumber{}), and \courseThreeName{} (\courseThreeNumber{}). Believing that the preparation for teaching materials deepens my own understanding of the subject matter, I am also open to teaching courses outside my expertise, such as \courseFourName{} (\courseFourNumber{}). Moreover, I am enthusiastic about the prospect of designing new courses, currently not offered at the \appSchool{}, such as \courseSixName{} and \courseSevenName{}, which could expand and enrich the department's already distinguished curriculum%
+\footnote[][-1.6in]{%
+Courses that I am interested in teaching/developing at the \appDept{}:
+\begin{enumerate}
+    \item \courseOneNumber{} \courseOneName{}
+    \item \courseTwoNumber{} \courseTwoName{}
+    \item \courseThreeNumber{} \courseThreeName{}
+    \item \courseFourNumber{} \courseFourName{}
+    \item \courseSixName{}
+    \item \courseSevenName{}
+\end{enumerate}
+}.
+}
+%%%%%% End of customization %%%%%%
+
+\author{Yuyang Wang}
+\date{November 15, 2023}
+\makeatletter
+\fancyfoot[L]{\scshape \MakeLowercase{\@author}}
+\fancyfoot[R]{{\scshape \MakeLowercase{\@title}}\quad{\fontsize{16}{20}\selectfont\sfrac{\thepage}{\pageref*{LastPage}}}\hspace{0.25in}}
+\makeatother
+
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+
+\input{../../common/teaching_statement/teaching_statement_common.tex}
+\rsCustom{}
+\input{../../common/teaching_statement/teaching_statement_closing.tex}
+
+\footnotesize
+\nobibliography{\mainabsdir../../common/teaching_statement/bibliography}
+
+\end{document}

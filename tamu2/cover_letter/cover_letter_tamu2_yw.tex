@@ -1,0 +1,35 @@
+%!TEX root = cover_letter_tamu2_yw.tex
+%!TEX program = lualatex
+
+\input{../../common/cover_letter/cover_letter_pre.tex}
+\input{../tamu2_common.tex}
+
+%%%%%% Customize the following lines %%%%%%
+\addAttach%
+{Curriculum Vitae}%
+{Research Statement}%
+{Teaching Statement}%
+{Diversity Statement}
+\def\appSpecific{with significant implications for the research fields related to Device Science and Nanotechnology}
+\def\letterCustom{%
+    in the field of \emph{CAD of VLSI interconnects} (Linda Katehi), integrated optics (Christi Madsen), nanophotonics (Rusty Harris), and other exceptional faculty members working in device physics (Philip Hemmer, Laszlo Kish, Pao-Tai Lin, Peter Rentzepis, Mark Weichold, Jun Zou), to innovate transformative connectivity solutions across the full system stack.%
+}
+%%%%%% End of customization %%%%%%
+
+\def\appJobID{%
+    \ifthenelse{\equal{\jobID}{}}{\unskip}{\unskip\textemdash Job \# \jobID{}}%
+}
+\def\toAddr{%
+Faculty Search Committee \\ \appDept{} \\ \appSchool{} \\ \appAddr{}%
+}
+\regard{Application for the \capitalisewords{\appPosition{}} Position}
+\begin{document}
+\begin{letter}{\toAddr{}}
+    \opening{\myOpening{}}
+    \input{../../common/cover_letter/cover_letter_common.tex}
+    \letterCustom{}
+    \input{../../common/cover_letter/cover_letter_closing.tex}
+    \closing{Yours sincerely,}
+    \encl{\listAttach{}}
+\end{letter}
+\end{document}
