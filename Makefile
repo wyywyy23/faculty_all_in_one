@@ -62,19 +62,19 @@ TAMU2_DS_SRC = tamu2/diversity_statement/diversity_statement_tamu2_yw.tex
 TAMU2_DS_PDF = $(TAMU2_DS_SRC:.tex=.pdf)
 TAMU2_DS_DEP = $(DS_COMMON_SRC)
 
-DUKE_LETTER_SRC = duke/cover_letter/cover_letter_duke_yw.tex
+DUKE_LETTER_SRC = duke/cover_letter/cover_letter_yw.tex
 DUKE_LETTER_PDF = $(DUKE_LETTER_SRC:.tex=.pdf)
 DUKE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC)
 
-DUKE_RS_SRC = duke/research_statement/research_statement_duke_yw.tex
+DUKE_RS_SRC = duke/research_statement/research_statement_yw.tex
 DUKE_RS_PDF = $(DUKE_RS_SRC:.tex=.pdf)
 DUKE_RS_DEP = $(RS_COMMON_SRC)
 
-DUKE_TS_SRC = duke/teaching_statement/teaching_statement_duke_yw.tex
+DUKE_TS_SRC = duke/teaching_statement/teaching_statement_yw.tex
 DUKE_TS_PDF = $(DUKE_TS_SRC:.tex=.pdf)
 DUKE_TS_DEP = $(TS_COMMON_SRC)
 
-DUKE_DS_SRC = duke/diversity_statement/diversity_statement_duke_yw.tex
+DUKE_DS_SRC = duke/diversity_statement/diversity_statement_yw.tex
 DUKE_DS_PDF = $(DUKE_DS_SRC:.tex=.pdf)
 DUKE_DS_DEP = $(DS_COMMON_SRC)
 
