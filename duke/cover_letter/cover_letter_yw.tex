@@ -1,0 +1,34 @@
+%!TEX root = cover_letter_yw.tex
+%!TEX program = lualatex
+
+\input{../../common/cover_letter/cover_letter_pre.tex}
+\input{../common.tex}
+
+%%%%%% Customize the following lines %%%%%%
+\addAttach%
+{Curriculum Vitae}%
+{Research Statement}%
+{Teaching Statement}
+\def\appSpecific{with significant implications for the broad area of computer engineering}
+\def\letterCustom{%
+    in the field of \emph{emerging architectures and hardware for machine learning acceleration} (Hai ``Helen'' Li, Yiran Cheng, Christ D Richmond), \emph{integrated circuit design and automation} (Xin Li), \emph{data center efficiency} (Tyler K Bletsch), \emph{high performance computing and computer architectures} (John A. Board, Andrew Douglas Hilton, Daniel J. Sorin, Lisa Wills), \emph{optic and photonic devices} (William T. Joines, Natalia Litchinitser), \emph{wireless and optical networking} (Tingjun Chen), as well as \emph{AI/machine learning} (Lawrence Carin, Neil Gong, Henry Pfister, Galen Reeves, Cynthia D. Rudin), to innovate transformative connectivity solutions across the full system stack.%
+}
+%%%%%% End of customization %%%%%%
+
+\def\appJobID{%
+    \ifthenelse{\equal{\jobID}{}}{\unskip}{\unskip\textemdash Job \# \jobID{}}%
+}
+\def\toAddr{%
+Faculty Search Committee \\ \appDept{} \\ \appSchool{} \\ \appAddr{}%
+}
+\regard{Application for the \capitalisewords{\appPosition{}} Position}
+\begin{document}
+\begin{letter}{\toAddr{}}
+    \opening{\myOpening{}}
+    \input{../../common/cover_letter/cover_letter_common.tex}
+    \letterCustom{}
+    \input{../../common/cover_letter/cover_letter_closing.tex}
+    \closing{Yours sincerely,}
+    \encl{\listAttach{}}
+\end{letter}
+\end{document}
