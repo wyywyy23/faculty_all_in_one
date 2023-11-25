@@ -1,13 +1,8 @@
-\documentclass{tufte-handout}
+\documentclass{article}
 
-\geometry{
-    top=0.75in, % top margin
-    bottom=0.75in, % bottom margin
-    left=0.75in, % left margin
-    textwidth=4.7in, % main text block
-    marginparsep=0.3in, % gutter between main text block and margin notes
-    marginparwidth=2.25in % width of margin notes
-}
+\usepackage[margin=0.75in]{geometry}           % Margins
+\usepackage{fancyhdr}                         % Headers and footers
+\usepackage{url}
 
 \usepackage{lastpage}
 \usepackage{xfrac}
@@ -19,6 +14,7 @@
 \usepackage[T1]{fontenc}
 % load babel here
 \usepackage[p,osf]{cochineal}
+\usepackage[no-math]{fontspec}
 \usepackage[varqu,varl,var0]{inconsolata}
 \usepackage[scale=.95,type1]{cabin}
 \usepackage[cochineal,vvarbb]{newtxmath}
