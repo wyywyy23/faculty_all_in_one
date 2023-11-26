@@ -10,9 +10,11 @@ LH_FONT_DIR       = common/letterhead/font
 SIG_PDF           = common/signature/yuyang.pdf
 LETTER_COMMON_SRC = $(wildcard common/cover_letter/*.tex)
 
-RS_COMMON_SRC = $(wildcard common/research_statement/*.tex)
-TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex)
-DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex)
+STATEMENT_PRE = common/statement_pre.tex
+
+RS_COMMON_SRC = $(wildcard common/research_statement/*.tex) $(STATEMENT_PRE)
+TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex) $(STATEMENT_PRE)
+DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(STATEMENT_PRE)
 
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
