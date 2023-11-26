@@ -11,10 +11,12 @@ SIG_PDF           = common/signature/yuyang.pdf
 LETTER_COMMON_SRC = $(wildcard common/cover_letter/*.tex)
 
 STATEMENT_PRE = common/statement_pre.tex
+TS_FIG = fig/color.pdf
+DS_FIG = fig/diversity.png
 
 RS_COMMON_SRC = $(wildcard common/research_statement/*.tex) $(STATEMENT_PRE)
-TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex) $(STATEMENT_PRE)
-DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(STATEMENT_PRE)
+TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex) $(STATEMENT_PRE) $(TS_FIG)
+DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(STATEMENT_PRE) $(DS_FIG)
 
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
