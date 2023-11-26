@@ -13,12 +13,13 @@
 \date{\today}
 \makeatletter
 \fancyfoot[L]{\scshape \MakeLowercase{\@author}}
-\fancyfoot[R]{{\scshape \MakeLowercase{\@title}}\quad{\fontsize{16}{20}\selectfont\sfrac{\thepage}{\pageref*{LastPage}}}\hspace{0.25in}}
+\fancyfoot[R]{{\scshape \MakeLowercase{\@title}}\quad{\fontsize{16}{20}\selectfont\sfrac{\thepage}{\pageref*{LastPage}}}}
 \makeatother
 
 \begin{document}
 
 \maketitle% this prints the handout title, author, and date
+\thispagestyle{fancy}
 
 \input{../../common/diversity_statement/diversity_statement_common.tex}
 \rsCustom{}
