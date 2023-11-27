@@ -20,67 +20,67 @@ DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(STATEMENT_PRE) $(
 
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
-EXAMPLE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC)
+EXAMPLE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) example/common.tex
 
 EXAMPLE_RS_SRC = example/research_statement/research_statement_yw.tex
 EXAMPLE_RS_PDF = $(EXAMPLE_RS_SRC:.tex=.pdf)
-EXAMPLE_RS_DEP = $(RS_COMMON_SRC)
+EXAMPLE_RS_DEP = $(RS_COMMON_SRC) example/common.tex
 
 EXAMPLE_TS_SRC = example/teaching_statement/teaching_statement_yw.tex
 EXAMPLE_TS_PDF = $(EXAMPLE_TS_SRC:.tex=.pdf)
-EXAMPLE_TS_DEP = $(TS_COMMON_SRC)
+EXAMPLE_TS_DEP = $(TS_COMMON_SRC) example/common.tex
 
 EXAMPLE_DS_SRC = example/diversity_statement/diversity_statement_yw.tex
 EXAMPLE_DS_PDF = $(EXAMPLE_DS_SRC:.tex=.pdf)
-EXAMPLE_DS_DEP = $(DS_COMMON_SRC)
+EXAMPLE_DS_DEP = $(DS_COMMON_SRC) example/common.tex
 
 TAMU_LETTER_SRC = tamu/cover_letter/cover_letter_yw.tex
 TAMU_LETTER_PDF = $(TAMU_LETTER_SRC:.tex=.pdf)
-TAMU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC)
+TAMU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) tamu/common.tex
 
 TAMU_RS_SRC = tamu/research_statement/research_statement_yw.tex
 TAMU_RS_PDF = $(TAMU_RS_SRC:.tex=.pdf)
-TAMU_RS_DEP = $(RS_COMMON_SRC)
+TAMU_RS_DEP = $(RS_COMMON_SRC) tamu/common.tex
 
 TAMU_TS_SRC = tamu/teaching_statement/teaching_statement_yw.tex
 TAMU_TS_PDF = $(TAMU_TS_SRC:.tex=.pdf)
-TAMU_TS_DEP = $(TS_COMMON_SRC)
+TAMU_TS_DEP = $(TS_COMMON_SRC) tamu/common.tex
 
 TAMU_DS_SRC = tamu/diversity_statement/diversity_statement_yw.tex
 TAMU_DS_PDF = $(TAMU_DS_SRC:.tex=.pdf)
-TAMU_DS_DEP = $(DS_COMMON_SRC)
+TAMU_DS_DEP = $(DS_COMMON_SRC) tamu/common.tex
 
 TAMU2_LETTER_SRC = tamu2/cover_letter/cover_letter_yw.tex
 TAMU2_LETTER_PDF = $(TAMU2_LETTER_SRC:.tex=.pdf)
-TAMU2_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC)
+TAMU2_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) tamu2/common.tex
 
 TAMU2_RS_SRC = tamu2/research_statement/research_statement_yw.tex
 TAMU2_RS_PDF = $(TAMU2_RS_SRC:.tex=.pdf)
-TAMU2_RS_DEP = $(RS_COMMON_SRC)
+TAMU2_RS_DEP = $(RS_COMMON_SRC) tamu2/common.tex
 
 TAMU2_TS_SRC = tamu2/teaching_statement/teaching_statement_yw.tex
 TAMU2_TS_PDF = $(TAMU2_TS_SRC:.tex=.pdf)
-TAMU2_TS_DEP = $(TS_COMMON_SRC)
+TAMU2_TS_DEP = $(TS_COMMON_SRC) tamu2/common.tex
 
 TAMU2_DS_SRC = tamu2/diversity_statement/diversity_statement_yw.tex
 TAMU2_DS_PDF = $(TAMU2_DS_SRC:.tex=.pdf)
-TAMU2_DS_DEP = $(DS_COMMON_SRC)
+TAMU2_DS_DEP = $(DS_COMMON_SRC) tamu2/common.tex
 
 DUKE_LETTER_SRC = duke/cover_letter/cover_letter_yw.tex
 DUKE_LETTER_PDF = $(DUKE_LETTER_SRC:.tex=.pdf)
-DUKE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC)
+DUKE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) duke/common.tex
 
 DUKE_RS_SRC = duke/research_statement/research_statement_yw.tex
 DUKE_RS_PDF = $(DUKE_RS_SRC:.tex=.pdf)
-DUKE_RS_DEP = $(RS_COMMON_SRC)
+DUKE_RS_DEP = $(RS_COMMON_SRC) duke/common.tex
 
 DUKE_TS_SRC = duke/teaching_statement/teaching_statement_yw.tex
 DUKE_TS_PDF = $(DUKE_TS_SRC:.tex=.pdf)
-DUKE_TS_DEP = $(TS_COMMON_SRC)
+DUKE_TS_DEP = $(TS_COMMON_SRC) duke/common.tex
 
 DUKE_DS_SRC = duke/diversity_statement/diversity_statement_yw.tex
 DUKE_DS_PDF = $(DUKE_DS_SRC:.tex=.pdf)
-DUKE_DS_DEP = $(DS_COMMON_SRC)
+DUKE_DS_DEP = $(DS_COMMON_SRC) duke/common.tex
 
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
