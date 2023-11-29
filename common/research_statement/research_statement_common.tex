@@ -12,26 +12,26 @@ These design enabling techniques have been practically utilized in creating two 
 These accomplishments have advanced my research into exploring \textbf{traffic adaptability} for optical interconnects in distributed computing systems, grounding them in credible performance models and hardware validation. Notably, I have delved into runtime adjustments of parameters such as laser power and link bandwidth, aiming at accelerating distributed machine learning applications with reduced energy consumption~\cite{wangTaskMappingAssistedLaser2019,wangTrafficAdaptivePowerReconfiguration2021,brianJOCN}. These investigations underscore the significance of integrating architectural innovations and optimization strategies at the system level, a process which\textemdash without meticulous execution\textemdash could inadvertently counteract the advancements achieved at both device and link levels. This realization is a key driver behind my future research directions.
 
 \section{Research Vision and Agenda}
-Some leading sentences here.
+% The need for high-bandwidth and energy-efficient connectivity is ubiquitous across all levels of network hierarchies. This necessity, coupled with the growing complexities arising from heterogeneous and dynamic traffic, calls for novel interconnect architectures that are not only high-performance but also versatile and adaptive.
+My research agenda is set to continue at the system level, leveraging the latest breakthroughs at the device and link levels, while simultaneously informing their future advancements from a system application perspective. In light of the evolving data landscape, I plan to focus on two synergistic research thrusts in pursuit of groundbreaking connectivity solutions.
+
 \subsection{Thrust 1: Reconfigurable System Connectivity}
-The need for high-bandwidth and energy-efficient connectivity is ubiquitous across all levels of network hierarchies. That, combined with growing concerns over traffic heterogeneity and dynamics, motivates the pursuit of
+
+With the advent of augmented reality (AR), virtual reality (VR), and Metaverse applications, distributed machine learning frameworks are seeing an increase in data privacy concerns that were previously confined to sectors with sensitive information, such as banking and healthcare. These sectors typically handle smaller volumes of data with more flexible latency requirements. In response, decentralized learning frameworks like federated learning have received growing popularity, as they allow the exchange of model parameters over raw data. Yet, certain applications still prioritize data parallelism to meet stringent requirements on model accuracy. Consequently, the data landscape in distributed computing is evolving toward both larger volumes and greater heterogeneity. This evolution, coinciding with the expansion of large models like GPTs, necessitates the next generation of optical interconnects to further excel in traffic adaptability, in addition to bandwidth and energy efficiency.
+
+In this thrust, I will work on to greatly enrich the traffic adaptability through a co-design of reconfigurable link architectures and runtime reconfiguration strategies. I will build on the SiPh transceiver that I have developed in my postdoctoral studies, which provides a good starting point that is high-bandwidth and energy-efficient.
+
 
 \subsection{Thrust 2: Innovative System Architectures}
 
 
 \section{Research Collaborations and Initiatives}
 
-% \begin{figure}[!ht]%
-%     \includegraphics[width=\linewidth]{../../fig/research.pdf}
-%     \caption{Cross-level design enablement and optimization techniques serving as research foundation.}
-%     \label{fig:research}
-% \end{figure}
-
-My interdisciplinary research vision is positioned at the intersection of electronics/photonics, devices/systems, and design/applications. It necessitates a collaborative synthesis across various sub-disciplines, which I conceptualize along two orthogonal dimensions, as depicted in Fig.~\ref{fig:research}. The comprehensive skill set acquired through my doctoral and postdoctoral experiences has allowed me to integrate design methodologies and optimization techniques in both vertical and horizontal facets, thereby laying a solid groundwork for the research agenda that I propose. The expertise and insights gained from these endeavors will seamlessly inform and underpin the trio of research thrusts that I will elaborate as following.
+My research experience has been deeply rooted in multidisciplinary collaboration, a skill I mastered during my postdoctoral training at the Columbia University. There, I led research initiatives within our group, benefiting from the mentorship of my supervisor and backed by funding from agencies like DARPA, SRC, and ARPA-E. These initiatives required seamless teamwork with colleagues from academia, industry, and governmental bodies. In addition, I have a proven track record in assisting both my doctoral advisor and postdoctoral supervisor with fundraising activities. My responsibilities also encompassed preparing and compiling reports and materials, as well as participating in presentations at quarterly reviews to fulfill the requirements of our funded projects.
 
 \section{Thrust 1: Traffic-Adaptable Optical Interconnects}
 
-With the advent of augmented reality (AR), virtual reality (VR), and Metaverse applications, distributed machine learning frameworks are seeing an increase in data privacy concerns that were previously confined to sectors with sensitive information, such as banking and healthcare. These sectors typically handle smaller volumes of data with more flexible latency requirements. In response, decentralized learning frameworks like federated learning have been preferred, as they allow the exchange of model parameters over raw data. Yet, certain applications still prioritize data parallelism to meet stringent requirements on model accuracy. Consequently, the data landscape in distributed computing is evolving toward not only larger volumes but also greater heterogeneity. This shift necessitates the next-generation of optical interconnects to provide traffic-adaptable runtime reconfiguration capabilities, in addition to high bandwidth capacities, to accommodate these evolving demands.
+
 
 This research direction will leverage the pioneering work on integrated silicon photonics chip I/O from my postdoctoral studies\cite{wangScalableArchitectureSubpJ2023}, which achieved ultra high-bandwidth and low-energy transmission through a scalable dense wavelength division multiplexing (DWDM) link architecture. Additionally, it will build upon preliminary investigations into bandwidth reconfiguration within distributed deep learning environments, where previously, traffic patterns exhibited less temporal variations\cite{brianJOCN}.
 
@@ -44,17 +44,6 @@ The successful advancement of this research thrust will involve the following cr
 \end{enumerate}
 By addressing the critical need for adaptive, high-performance optical interconnects that can keep pace with the ever-increasing demands of modern computing applications, this research thrust has the potential to reshape the landscape of future distributed computing infrastructures with tangible improvements in efficiency and versatility.
 
-% \begin{figure}[!ht]%
-%     \includegraphics[width=\linewidth]{../../fig/stair.png}
-%     \caption{Conceptual rendering of compact 3D waveguide routing enabled by multiple layers of low-loss adiabatic tapers.}
-%     \label{fig:stair}
-% \end{figure}
-% \begin{figure}[!ht]%
-%     \includegraphics[width=\linewidth]{../../fig/cube.png}
-%     \caption{Conceptual rendering of a 3D optical I/O featuring switching and broadcasting capabilities for flexible die-to-die connectivity.}
-%     \label{fig:cube}
-% \end{figure}
-
 \section{Thrust 2: 3D Optoelectronic Architectures}
 
 State-of-the-art accelerator systems, composed of clusters of computing units (CUs), are confronting a ``memory wall'' caused by the significant disparity between the bandwidth for intra- and inter-cluster communications. The option to expand the number of on-chip high-bandwidth memory (HBM) stacks is becoming less viable as the bandwidth capacity of electronic interposers nears saturation. Traditional approaches using optical fibers for interconnecting memory pools are impractical for densely arranged CU clusters due to the size and pitch limitations of fiber arrays. Nonetheless, the emerging concept of 3D optical I/Os, which facilitate dense waveguide routing in multiple layers, could unlock new possibilities for scaling up CU clusters with optical connectivity achieved directly through waveguides. Having contributed to the preparation for the concept's showcase at the 2023 DARPA ERI Summit, I am inspired to pursue this avant-garde research thrust, which has the potential to pioneer a novel computing architecture through a deeply integrated electronic-photonic synergy. I look forward to exploring several key research topics, in collaboration with field experts, including:
@@ -65,11 +54,6 @@ State-of-the-art accelerator systems, composed of clusters of computing units (C
 \end{enumerate}
 The fruition of this research direction promises not just to scale accelerator systems in alignment with the computational demands of the future, but also to broaden the scope for on-chip optical interconnects to assume a more dynamic and integral role in computing architectures.
 
-% \begin{figure}[!ht]%
-%     \includegraphics[width=\linewidth]{../../fig/new_arch.png}
-%     \caption{Conceptual rendering of densely interconnected computing units featuring fiber-less optical connectivity.}
-%     \label{fig:new_arch}
-% \end{figure}
 
 \section{Thrust 3: Design Automation for Future Integrated Photonics}
 Successfully navigating the design and optimization intricacies presented by the proposed research thrusts is crucial for actualizing the advanced connectivity solutions I envision. The anticipated challenges include:
@@ -81,8 +65,7 @@ Successfully navigating the design and optimization intricacies presented by the
 With the cross-disciplinary design ecosystem that I have cultivated during my academic journey\cite{wangDispersionEngineeredFabricationRobustSOI2023}\cite{wangCharacterizationApplicationsSpatial2020}\cite{wangEnergyEfficiencyYield2021}, I am poised to leverage my expertise to forge a comprehensive design automation framework for the next generation of integrated silicon photonics interconnect systems.
 
 
-\section{Research Collaborations and Initiatives}
-My experience has been deeply rooted in multidisciplinary collaboration, a skill I mastered during my postdoctoral training at Columbia University, where I spearheaded research initiatives within our group, guided by my supervisor, and fueled by DARPA and SRC funding. These initiatives necessitated seamless teamwork with colleagues from academia, industry, and governmental bodies. Additionally, I have a proven track record of supporting my advisor in fundraising endeavors, notably contributing to the writing and visual elements of a successful \$35M SRC JUMP 2.0 grant application. My role also extended to compiling regular reports and presenting at quarterly reviews to meet the obligations of our funded projects.
+
 
 I am eager to bring my expertise and enthusiasm to your esteemed university, where I look forward to collaborating with a community that shares my dedication to innovation and to making a meaningful impact on the future of technology.
 
