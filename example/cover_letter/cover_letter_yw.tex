@@ -11,9 +11,6 @@
 {Teaching Statement}%
 {Diversity Statement}
 \def\appSpecific{with significant implications for \appArea{}}
-\def\letterCustom{%
-    [\emph{field 1} (Professor A and B), \emph{field 2} (Professor C and D), \emph{field 3} (Professor E and F), \emph{field 4} (Professor G and H), and \emph{field 5} (Professor I and J)]%
-}
 %%%%%% End of customization %%%%%%
 
 \def\appJobID{%
@@ -27,7 +24,7 @@ Faculty Search Committee \\ \appDept{} \\ \appSchool{} \\ \appAddr{}%
 \begin{letter}{\toAddr{}}
     \opening{\myOpening{}}
     \input{../../common/cover_letter/cover_letter_common.tex}
-    \letterCustom{}%
+    \collabCustom{}%
     \input{../../common/cover_letter/cover_letter_closing.tex}
     \closing{Yours sincerely,}
     \encl{\listAttach{}}
