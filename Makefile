@@ -35,37 +35,37 @@ EXAMPLE_DS_SRC = example/diversity_statement/diversity_statement_yw.tex
 EXAMPLE_DS_PDF = $(EXAMPLE_DS_SRC:.tex=.pdf)
 EXAMPLE_DS_DEP = $(DS_COMMON_SRC) example/common.tex
 
-TAMU_LETTER_SRC = tamu/cover_letter/cover_letter_yw.tex
-TAMU_LETTER_PDF = $(TAMU_LETTER_SRC:.tex=.pdf)
-TAMU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) tamu/common.tex
+TAMU_CESG_LETTER_SRC = tamu_cesg/cover_letter/cover_letter_yw.tex
+TAMU_CESG_LETTER_PDF = $(TAMU_CESG_LETTER_SRC:.tex=.pdf)
+TAMU_CESG_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) tamu_cesg/common.tex
 
-TAMU_RS_SRC = tamu/research_statement/research_statement_yw.tex
-TAMU_RS_PDF = $(TAMU_RS_SRC:.tex=.pdf)
-TAMU_RS_DEP = $(RS_COMMON_SRC) tamu/common.tex
+TAMU_CESG_RS_SRC = tamu_cesg/research_statement/research_statement_yw.tex
+TAMU_CESG_RS_PDF = $(TAMU_CESG_RS_SRC:.tex=.pdf)
+TAMU_CESG_RS_DEP = $(RS_COMMON_SRC) tamu_cesg/common.tex
 
-TAMU_TS_SRC = tamu/teaching_statement/teaching_statement_yw.tex
-TAMU_TS_PDF = $(TAMU_TS_SRC:.tex=.pdf)
-TAMU_TS_DEP = $(TS_COMMON_SRC) tamu/common.tex
+TAMU_CESG_TS_SRC = tamu_cesg/teaching_statement/teaching_statement_yw.tex
+TAMU_CESG_TS_PDF = $(TAMU_CESG_TS_SRC:.tex=.pdf)
+TAMU_CESG_TS_DEP = $(TS_COMMON_SRC) tamu_cesg/common.tex
 
-TAMU_DS_SRC = tamu/diversity_statement/diversity_statement_yw.tex
-TAMU_DS_PDF = $(TAMU_DS_SRC:.tex=.pdf)
-TAMU_DS_DEP = $(DS_COMMON_SRC) tamu/common.tex
+TAMU_CESG_DS_SRC = tamu_cesg/diversity_statement/diversity_statement_yw.tex
+TAMU_CESG_DS_PDF = $(TAMU_CESG_DS_SRC:.tex=.pdf)
+TAMU_CESG_DS_DEP = $(DS_COMMON_SRC) tamu_cesg/common.tex
 
-TAMU2_LETTER_SRC = tamu2/cover_letter/cover_letter_yw.tex
-TAMU2_LETTER_PDF = $(TAMU2_LETTER_SRC:.tex=.pdf)
-TAMU2_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) tamu2/common.tex
+TAMU_NANO_LETTER_SRC = tamu_nano/cover_letter/cover_letter_yw.tex
+TAMU_NANO_LETTER_PDF = $(TAMU_NANO_LETTER_SRC:.tex=.pdf)
+TAMU_NANO_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) tamu_nano/common.tex
 
-TAMU2_RS_SRC = tamu2/research_statement/research_statement_yw.tex
-TAMU2_RS_PDF = $(TAMU2_RS_SRC:.tex=.pdf)
-TAMU2_RS_DEP = $(RS_COMMON_SRC) tamu2/common.tex
+TAMU_NANO_RS_SRC = tamu_nano/research_statement/research_statement_yw.tex
+TAMU_NANO_RS_PDF = $(TAMU_NANO_RS_SRC:.tex=.pdf)
+TAMU_NANO_RS_DEP = $(RS_COMMON_SRC) tamu_nano/common.tex
 
-TAMU2_TS_SRC = tamu2/teaching_statement/teaching_statement_yw.tex
-TAMU2_TS_PDF = $(TAMU2_TS_SRC:.tex=.pdf)
-TAMU2_TS_DEP = $(TS_COMMON_SRC) tamu2/common.tex
+TAMU_NANO_TS_SRC = tamu_nano/teaching_statement/teaching_statement_yw.tex
+TAMU_NANO_TS_PDF = $(TAMU_NANO_TS_SRC:.tex=.pdf)
+TAMU_NANO_TS_DEP = $(TS_COMMON_SRC) tamu_nano/common.tex
 
-TAMU2_DS_SRC = tamu2/diversity_statement/diversity_statement_yw.tex
-TAMU2_DS_PDF = $(TAMU2_DS_SRC:.tex=.pdf)
-TAMU2_DS_DEP = $(DS_COMMON_SRC) tamu2/common.tex
+TAMU_NANO_DS_SRC = tamu_nano/diversity_statement/diversity_statement_yw.tex
+TAMU_NANO_DS_PDF = $(TAMU_NANO_DS_SRC:.tex=.pdf)
+TAMU_NANO_DS_DEP = $(DS_COMMON_SRC) tamu_nano/common.tex
 
 DUKE_LETTER_SRC = duke/cover_letter/cover_letter_yw.tex
 DUKE_LETTER_PDF = $(DUKE_LETTER_SRC:.tex=.pdf)
@@ -119,9 +119,9 @@ CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu tamu-letter tamu-rs tamu-ts tamu-ds tamu2 tamu2-letter tamu2-rs tamu2-ts tamu2-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds
+.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds
 
-all: cv letterhead example tamu tamu2 duke purdue-ece uw-ece
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece uw-ece
 
 cv: $(CV_PDF)
 
@@ -133,17 +133,17 @@ example-rs: $(EXAMPLE_RS_PDF)
 example-ts: $(EXAMPLE_TS_PDF)
 example-ds: $(EXAMPLE_DS_PDF)
 
-tamu: tamu-letter tamu-rs tamu-ts tamu-ds
-tamu-letter: $(TAMU_LETTER_PDF)
-tamu-rs: $(TAMU_RS_PDF)
-tamu-ts: $(TAMU_TS_PDF)
-tamu-ds: $(TAMU_DS_PDF)
+tamu-cesg: tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds
+tamu-cesg-letter: $(TAMU_CESG_LETTER_PDF)
+tamu-cesg-rs: $(TAMU_CESG_RS_PDF)
+tamu-cesg-ts: $(TAMU_CESG_TS_PDF)
+tamu-cesg-ds: $(TAMU_CESG_DS_PDF)
 
-tamu2: tamu2-letter tamu2-rs tamu2-ts tamu2-ds
-tamu2-letter: $(TAMU2_LETTER_PDF)
-tamu2-rs: $(TAMU2_RS_PDF)
-tamu2-ts: $(TAMU2_TS_PDF)
-tamu2-ds: $(TAMU2_DS_PDF)
+tamu-nano: tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds
+tamu-nano-letter: $(TAMU_NANO_LETTER_PDF)
+tamu-nano-rs: $(TAMU_NANO_RS_PDF)
+tamu-nano-ts: $(TAMU_NANO_TS_PDF)
+tamu-nano-ds: $(TAMU_NANO_DS_PDF)
 
 duke: duke-letter duke-rs duke-ts duke-ds
 duke-letter: $(DUKE_LETTER_PDF)
@@ -196,39 +196,39 @@ $(EXAMPLE_DS_PDF): $(EXAMPLE_DS_SRC) $(EXAMPLE_DS_DEP) | clean-cache $(CACHE_DIR
 	@cd $(dir $(EXAMPLE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(EXAMPLE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(EXAMPLE_DS_PDF)) $(EXAMPLE_DS_PDF)
 
-$(TAMU_LETTER_PDF): $(TAMU_LETTER_SRC) $(TAMU_LETTER_DEP) | clean-cache $(CACHE_DIR)
-	@cp -r $(LH_FONT_DIR) $(dir $(TAMU_LETTER_SRC))/.
-	@cd $(dir $(TAMU_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_LETTER_SRC))
-	@cp $(CACHE_DIR)/$(notdir $(TAMU_LETTER_PDF)) $(TAMU_LETTER_PDF)
+$(TAMU_CESG_LETTER_PDF): $(TAMU_CESG_LETTER_SRC) $(TAMU_CESG_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(TAMU_CESG_LETTER_SRC))/.
+	@cd $(dir $(TAMU_CESG_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_CESG_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(TAMU_CESG_LETTER_PDF)) $(TAMU_CESG_LETTER_PDF)
 
-$(TAMU_RS_PDF): $(TAMU_RS_SRC) $(TAMU_RS_DEP) | clean-cache $(CACHE_DIR)
-	@cd $(dir $(TAMU_RS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_RS_SRC))
-	@cp $(CACHE_DIR)/$(notdir $(TAMU_RS_PDF)) $(TAMU_RS_PDF)
+$(TAMU_CESG_RS_PDF): $(TAMU_CESG_RS_SRC) $(TAMU_CESG_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(TAMU_CESG_RS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_CESG_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(TAMU_CESG_RS_PDF)) $(TAMU_CESG_RS_PDF)
 
-$(TAMU_TS_PDF): $(TAMU_TS_SRC) $(TAMU_TS_DEP) | clean-cache $(CACHE_DIR)
-	@cd $(dir $(TAMU_TS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_TS_SRC))
-	@cp $(CACHE_DIR)/$(notdir $(TAMU_TS_PDF)) $(TAMU_TS_PDF)
+$(TAMU_CESG_TS_PDF): $(TAMU_CESG_TS_SRC) $(TAMU_CESG_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(TAMU_CESG_TS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_CESG_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(TAMU_CESG_TS_PDF)) $(TAMU_CESG_TS_PDF)
 
-$(TAMU_DS_PDF): $(TAMU_DS_SRC) $(TAMU_DS_DEP) | clean-cache $(CACHE_DIR)
-	@cd $(dir $(TAMU_DS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_DS_SRC))
-	@cp $(CACHE_DIR)/$(notdir $(TAMU_DS_PDF)) $(TAMU_DS_PDF)
+$(TAMU_CESG_DS_PDF): $(TAMU_CESG_DS_SRC) $(TAMU_CESG_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(TAMU_CESG_DS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_CESG_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(TAMU_CESG_DS_PDF)) $(TAMU_CESG_DS_PDF)
 
-$(TAMU2_LETTER_PDF): $(TAMU2_LETTER_SRC) $(TAMU2_LETTER_DEP) | clean-cache $(CACHE_DIR)
-	@cp -r $(LH_FONT_DIR) $(dir $(TAMU2_LETTER_SRC))/.
-	@cd $(dir $(TAMU2_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU2_LETTER_SRC))
-	@cp $(CACHE_DIR)/$(notdir $(TAMU2_LETTER_PDF)) $(TAMU2_LETTER_PDF)
+$(TAMU_NANO_LETTER_PDF): $(TAMU_NANO_LETTER_SRC) $(TAMU_NANO_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(TAMU_NANO_LETTER_SRC))/.
+	@cd $(dir $(TAMU_NANO_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_NANO_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(TAMU_NANO_LETTER_PDF)) $(TAMU_NANO_LETTER_PDF)
 
-$(TAMU2_RS_PDF): $(TAMU2_RS_SRC) $(TAMU2_RS_DEP) | clean-cache $(CACHE_DIR)
-	@cd $(dir $(TAMU2_RS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU2_RS_SRC))
-	@cp $(CACHE_DIR)/$(notdir $(TAMU2_RS_PDF)) $(TAMU2_RS_PDF)
+$(TAMU_NANO_RS_PDF): $(TAMU_NANO_RS_SRC) $(TAMU_NANO_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(TAMU_NANO_RS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_NANO_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(TAMU_NANO_RS_PDF)) $(TAMU_NANO_RS_PDF)
 
-$(TAMU2_TS_PDF): $(TAMU2_TS_SRC) $(TAMU2_TS_DEP) | clean-cache $(CACHE_DIR)
-	@cd $(dir $(TAMU2_TS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU2_TS_SRC))
-	@cp $(CACHE_DIR)/$(notdir $(TAMU2_TS_PDF)) $(TAMU2_TS_PDF)
+$(TAMU_NANO_TS_PDF): $(TAMU_NANO_TS_SRC) $(TAMU_NANO_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(TAMU_NANO_TS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_NANO_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(TAMU_NANO_TS_PDF)) $(TAMU_NANO_TS_PDF)
 
-$(TAMU2_DS_PDF): $(TAMU2_DS_SRC) $(TAMU2_DS_DEP) | clean-cache $(CACHE_DIR)
-	@cd $(dir $(TAMU2_DS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU2_DS_SRC))
-	@cp $(CACHE_DIR)/$(notdir $(TAMU2_DS_PDF)) $(TAMU2_DS_PDF)
+$(TAMU_NANO_DS_PDF): $(TAMU_NANO_DS_SRC) $(TAMU_NANO_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(TAMU_NANO_DS_SRC)) && $(COMPILE_LUA) $(notdir $(TAMU_NANO_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(TAMU_NANO_DS_PDF)) $(TAMU_NANO_DS_PDF)
 
 $(DUKE_LETTER_PDF): $(DUKE_LETTER_SRC) $(DUKE_LETTER_DEP) | clean-cache $(CACHE_DIR)
 	@cp -r $(LH_FONT_DIR) $(dir $(DUKE_LETTER_SRC))/.
