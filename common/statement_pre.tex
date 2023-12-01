@@ -1,5 +1,10 @@
 \documentclass[10pt]{article}
-\usepackage[margin=0.75in]{geometry}
+\usepackage[
+    top=0.5in,
+    bottom=0.75in,
+    left=0.5in,
+    right=0.5in,
+]{geometry}
 \usepackage[
     protrusion=true,
     tracking=true,
@@ -93,3 +98,28 @@ Contextuals=Alternate, Scale=0.925]{JetBrains Mono}%
 \usepackage{xcolor}
 \definecolor{link_col}{HTML}{5e81ac}
 \usepackage[colorlinks=true, allcolors=link_col]{hyperref}
+
+% Placeholder images
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage[precision=2, unit=mm]{lengthconvert}
+\newcommand{\dummyfigure}[3]{%
+    \begin{tikzpicture}
+        \draw [
+            thick,
+            pattern=north east lines,
+            pattern color=black!10,
+            inner sep=0,
+        ]
+        (0,0) rectangle (#1 - \pgflinewidth, #2 - \pgflinewidth)
+        node[
+                pos=0.5,
+                align=center,
+                font=\small,
+                text width=#1,
+            ] {
+                #3 \\[2mm]
+                \texttt{\tiny{Figure size: (\Convert{#1}, \Convert{#2})}}
+            };
+    \end{tikzpicture}%
+}

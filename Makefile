@@ -13,10 +13,11 @@ LETTER_COMMON_SRC = $(wildcard common/cover_letter/*.tex)
 STATEMENT_PRE = common/statement_pre.tex
 TS_FIG = fig/color.pdf
 DS_FIG = fig/diversity.png
+RS_FIG = fig/research.pdf
 
-RS_COMMON_SRC = $(wildcard common/research_statement/*.tex) $(STATEMENT_PRE)
-TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex) $(STATEMENT_PRE) $(TS_FIG)
-DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(STATEMENT_PRE) $(DS_FIG)
+RS_COMMON_SRC = $(wildcard common/research_statement/*.tex) $(wildcard common/research_statement/*.bib) $(STATEMENT_PRE) $(RS_FIG)
+TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex) $(wildcard common/research_statement/*.bib) $(STATEMENT_PRE) $(TS_FIG)
+DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(wildcard common/research_statement/*.bib) $(STATEMENT_PRE) $(DS_FIG)
 
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
