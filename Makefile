@@ -98,13 +98,29 @@ PURDUE_ECE_DS_SRC = purdue_ece/diversity_statement/diversity_statement_yw.tex
 PURDUE_ECE_DS_PDF = $(PURDUE_ECE_DS_SRC:.tex=.pdf)
 PURDUE_ECE_DS_DEP = $(DS_COMMON_SRC) purdue_ece/common.tex
 
+UW_ECE_LETTER_SRC = uw_ece/cover_letter/cover_letter_yw.tex
+UW_ECE_LETTER_PDF = $(UW_ECE_LETTER_SRC:.tex=.pdf)
+UW_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) uw_ece/common.tex
+
+UW_ECE_RS_SRC = uw_ece/research_statement/research_statement_yw.tex
+UW_ECE_RS_PDF = $(UW_ECE_RS_SRC:.tex=.pdf)
+UW_ECE_RS_DEP = $(RS_COMMON_SRC) uw_ece/common.tex
+
+UW_ECE_TS_SRC = uw_ece/teaching_statement/teaching_statement_yw.tex
+UW_ECE_TS_PDF = $(UW_ECE_TS_SRC:.tex=.pdf)
+UW_ECE_TS_DEP = $(TS_COMMON_SRC) uw_ece/common.tex
+
+UW_ECE_DS_SRC = uw_ece/diversity_statement/diversity_statement_yw.tex
+UW_ECE_DS_PDF = $(UW_ECE_DS_SRC:.tex=.pdf)
+UW_ECE_DS_DEP = $(DS_COMMON_SRC) uw_ece/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all cv letterhead example example-letter example-rs example-ts example-ds tamu tamu-letter tamu-rs tamu-ts tamu-ds tamu2 tamu2-letter tamu2-rs tamu2-ts tamu2-ds duke duke-letter duke-rs duke-ts duke-ds purdue_ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds clean clean-cache
+.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu tamu-letter tamu-rs tamu-ts tamu-ds tamu2 tamu2-letter tamu2-rs tamu2-ts tamu2-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds
 
-all: cv letterhead example tamu tamu2 duke purdue_ece
+all: cv letterhead example tamu tamu2 duke purdue-ece uw-ece
 
 cv: $(CV_PDF)
 
@@ -134,11 +150,17 @@ duke-rs: $(DUKE_RS_PDF)
 duke-ts: $(DUKE_TS_PDF)
 duke-ds: $(DUKE_DS_PDF)
 
-purdue_ece: purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds
+purdue-ece: purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds
 purdue-ece-letter: $(PURDUE_ECE_LETTER_PDF)
 purdue-ece-rs: $(PURDUE_ECE_RS_PDF)
 purdue-ece-ts: $(PURDUE_ECE_TS_PDF)
 purdue-ece-ds: $(PURDUE_ECE_DS_PDF)
+
+uw-ece: uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds
+uw-ece-letter: $(UW_ECE_LETTER_PDF)
+uw-ece-rs: $(UW_ECE_RS_PDF)
+uw-ece-ts: $(UW_ECE_TS_PDF)
+uw-ece-ds: $(UW_ECE_DS_PDF)
 
 clean: clean-cache
 
@@ -240,3 +262,20 @@ $(PURDUE_ECE_TS_PDF): $(PURDUE_ECE_TS_SRC) $(PURDUE_ECE_TS_DEP) | clean-cache $(
 $(PURDUE_ECE_DS_PDF): $(PURDUE_ECE_DS_SRC) $(PURDUE_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(PURDUE_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(PURDUE_ECE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(PURDUE_ECE_DS_PDF)) $(PURDUE_ECE_DS_PDF)
+
+$(UW_ECE_LETTER_PDF): $(UW_ECE_LETTER_SRC) $(UW_ECE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UW_ECE_LETTER_SRC))/.
+	@cd $(dir $(UW_ECE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UW_ECE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UW_ECE_LETTER_PDF)) $(UW_ECE_LETTER_PDF)
+
+$(UW_ECE_RS_PDF): $(UW_ECE_RS_SRC) $(UW_ECE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UW_ECE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UW_ECE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UW_ECE_RS_PDF)) $(UW_ECE_RS_PDF)
+
+$(UW_ECE_TS_PDF): $(UW_ECE_TS_SRC) $(UW_ECE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UW_ECE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UW_ECE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UW_ECE_TS_PDF)) $(UW_ECE_TS_PDF)
+
+$(UW_ECE_DS_PDF): $(UW_ECE_DS_SRC) $(UW_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UW_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UW_ECE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UW_ECE_DS_PDF)) $(UW_ECE_DS_PDF)
