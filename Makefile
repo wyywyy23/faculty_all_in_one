@@ -99,6 +99,22 @@ PURDUE_ECE_DS_SRC = purdue_ece/diversity_statement/diversity_statement_yw.tex
 PURDUE_ECE_DS_PDF = $(PURDUE_ECE_DS_SRC:.tex=.pdf)
 PURDUE_ECE_DS_DEP = $(DS_COMMON_SRC) purdue_ece/common.tex
 
+PURDUE_COMPUTES_LETTER_SRC = purdue_computes/cover_letter/cover_letter_yw.tex
+PURDUE_COMPUTES_LETTER_PDF = $(PURDUE_COMPUTES_LETTER_SRC:.tex=.pdf)
+PURDUE_COMPUTES_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) purdue_computes/common.tex
+
+PURDUE_COMPUTES_RS_SRC = purdue_computes/research_statement/research_statement_yw.tex
+PURDUE_COMPUTES_RS_PDF = $(PURDUE_COMPUTES_RS_SRC:.tex=.pdf)
+PURDUE_COMPUTES_RS_DEP = $(RS_COMMON_SRC) purdue_computes/common.tex
+
+PURDUE_COMPUTES_TS_SRC = purdue_computes/teaching_statement/teaching_statement_yw.tex
+PURDUE_COMPUTES_TS_PDF = $(PURDUE_COMPUTES_TS_SRC:.tex=.pdf)
+PURDUE_COMPUTES_TS_DEP = $(TS_COMMON_SRC) purdue_computes/common.tex
+
+PURDUE_COMPUTES_DS_SRC = purdue_computes/diversity_statement/diversity_statement_yw.tex
+PURDUE_COMPUTES_DS_PDF = $(PURDUE_COMPUTES_DS_SRC:.tex=.pdf)
+PURDUE_COMPUTES_DS_DEP = $(DS_COMMON_SRC) purdue_computes/common.tex
+
 UW_ECE_LETTER_SRC = uw_ece/cover_letter/cover_letter_yw.tex
 UW_ECE_LETTER_PDF = $(UW_ECE_LETTER_SRC:.tex=.pdf)
 UW_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) uw_ece/common.tex
@@ -135,9 +151,9 @@ CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds
+.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece uw-ece uw-cse
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse
 
 cv: $(CV_PDF)
 
@@ -172,6 +188,12 @@ purdue-ece-letter: $(PURDUE_ECE_LETTER_PDF)
 purdue-ece-rs: $(PURDUE_ECE_RS_PDF)
 purdue-ece-ts: $(PURDUE_ECE_TS_PDF)
 purdue-ece-ds: $(PURDUE_ECE_DS_PDF)
+
+purdue-computes: purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds
+purdue-computes-letter: $(PURDUE_COMPUTES_LETTER_PDF)
+purdue-computes-rs: $(PURDUE_COMPUTES_RS_PDF)
+purdue-computes-ts: $(PURDUE_COMPUTES_TS_PDF)
+purdue-computes-ds: $(PURDUE_COMPUTES_DS_PDF)
 
 uw-ece: uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds
 uw-ece-letter: $(UW_ECE_LETTER_PDF)
@@ -285,6 +307,23 @@ $(PURDUE_ECE_TS_PDF): $(PURDUE_ECE_TS_SRC) $(PURDUE_ECE_TS_DEP) | clean-cache $(
 $(PURDUE_ECE_DS_PDF): $(PURDUE_ECE_DS_SRC) $(PURDUE_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(PURDUE_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(PURDUE_ECE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(PURDUE_ECE_DS_PDF)) $(PURDUE_ECE_DS_PDF)
+
+$(PURDUE_COMPUTES_LETTER_PDF): $(PURDUE_COMPUTES_LETTER_SRC) $(PURDUE_COMPUTES_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(PURDUE_COMPUTES_LETTER_SRC))/.
+	@cd $(dir $(PURDUE_COMPUTES_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(PURDUE_COMPUTES_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PURDUE_COMPUTES_LETTER_PDF)) $(PURDUE_COMPUTES_LETTER_PDF)
+
+$(PURDUE_COMPUTES_RS_PDF): $(PURDUE_COMPUTES_RS_SRC) $(PURDUE_COMPUTES_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PURDUE_COMPUTES_RS_SRC)) && $(COMPILE_LUA) $(notdir $(PURDUE_COMPUTES_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PURDUE_COMPUTES_RS_PDF)) $(PURDUE_COMPUTES_RS_PDF)
+
+$(PURDUE_COMPUTES_TS_PDF): $(PURDUE_COMPUTES_TS_SRC) $(PURDUE_COMPUTES_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PURDUE_COMPUTES_TS_SRC)) && $(COMPILE_LUA) $(notdir $(PURDUE_COMPUTES_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PURDUE_COMPUTES_TS_PDF)) $(PURDUE_COMPUTES_TS_PDF)
+
+$(PURDUE_COMPUTES_DS_PDF): $(PURDUE_COMPUTES_DS_SRC) $(PURDUE_COMPUTES_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PURDUE_COMPUTES_DS_SRC)) && $(COMPILE_LUA) $(notdir $(PURDUE_COMPUTES_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PURDUE_COMPUTES_DS_PDF)) $(PURDUE_COMPUTES_DS_PDF)
 
 $(UW_ECE_LETTER_PDF): $(UW_ECE_LETTER_SRC) $(UW_ECE_LETTER_DEP) | clean-cache $(CACHE_DIR)
 	@cp -r $(LH_FONT_DIR) $(dir $(UW_ECE_LETTER_SRC))/.
