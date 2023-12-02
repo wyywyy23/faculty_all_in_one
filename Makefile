@@ -147,13 +147,29 @@ UW_CSE_DS_SRC = uw_cse/diversity_statement/diversity_statement_yw.tex
 UW_CSE_DS_PDF = $(UW_CSE_DS_SRC:.tex=.pdf)
 UW_CSE_DS_DEP = $(DS_COMMON_SRC) uw_cse/common.tex
 
+MIT_LETTER_SRC = mit/cover_letter/cover_letter_yw.tex
+MIT_LETTER_PDF = $(MIT_LETTER_SRC:.tex=.pdf)
+MIT_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) mit/common.tex
+
+MIT_RS_SRC = mit/research_statement/research_statement_yw.tex
+MIT_RS_PDF = $(MIT_RS_SRC:.tex=.pdf)
+MIT_RS_DEP = $(RS_COMMON_SRC) mit/common.tex
+
+MIT_TS_SRC = mit/teaching_statement/teaching_statement_yw.tex
+MIT_TS_PDF = $(MIT_TS_SRC:.tex=.pdf)
+MIT_TS_DEP = $(TS_COMMON_SRC) mit/common.tex
+
+MIT_DS_SRC = mit/diversity_statement/diversity_statement_yw.tex
+MIT_DS_PDF = $(MIT_DS_SRC:.tex=.pdf)
+MIT_DS_DEP = $(DS_COMMON_SRC) mit/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds
+.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit
 
 cv: $(CV_PDF)
 
@@ -206,6 +222,12 @@ uw-cse-letter: $(UW_CSE_LETTER_PDF)
 uw-cse-rs: $(UW_CSE_RS_PDF)
 uw-cse-ts: $(UW_CSE_TS_PDF)
 uw-cse-ds: $(UW_CSE_DS_PDF)
+
+mit: mit-letter mit-rs mit-ts mit-ds
+mit-letter: $(MIT_LETTER_PDF)
+mit-rs: $(MIT_RS_PDF)
+mit-ts: $(MIT_TS_PDF)
+mit-ds: $(MIT_DS_PDF)
 
 clean: clean-cache
 
@@ -359,3 +381,19 @@ $(UW_CSE_DS_PDF): $(UW_CSE_DS_SRC) $(UW_CSE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UW_CSE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UW_CSE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UW_CSE_DS_PDF)) $(UW_CSE_DS_PDF)
 	
+$(MIT_LETTER_PDF): $(MIT_LETTER_SRC) $(MIT_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(MIT_LETTER_SRC))/.
+	@cd $(dir $(MIT_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(MIT_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(MIT_LETTER_PDF)) $(MIT_LETTER_PDF)
+
+$(MIT_RS_PDF): $(MIT_RS_SRC) $(MIT_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(MIT_RS_SRC)) && $(COMPILE_LUA) $(notdir $(MIT_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(MIT_RS_PDF)) $(MIT_RS_PDF)
+
+$(MIT_TS_PDF): $(MIT_TS_SRC) $(MIT_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(MIT_TS_SRC)) && $(COMPILE_LUA) $(notdir $(MIT_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(MIT_TS_PDF)) $(MIT_TS_PDF)
+
+$(MIT_DS_PDF): $(MIT_DS_SRC) $(MIT_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(MIT_DS_SRC)) && $(COMPILE_LUA) $(notdir $(MIT_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(MIT_DS_PDF)) $(MIT_DS_PDF)
