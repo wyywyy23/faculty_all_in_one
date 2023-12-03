@@ -243,13 +243,29 @@ UVA_DS_SRC = uva/diversity_statement/diversity_statement_yw.tex
 UVA_DS_PDF = $(UVA_DS_SRC:.tex=.pdf)
 UVA_DS_DEP = $(DS_COMMON_SRC) uva/common.tex
 
+NYU_LETTER_SRC = nyu/cover_letter/cover_letter_yw.tex
+NYU_LETTER_PDF = $(NYU_LETTER_SRC:.tex=.pdf)
+NYU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) nyu/common.tex
+
+NYU_RS_SRC = nyu/research_statement/research_statement_yw.tex
+NYU_RS_PDF = $(NYU_RS_SRC:.tex=.pdf)
+NYU_RS_DEP = $(RS_COMMON_SRC) nyu/common.tex
+
+NYU_TS_SRC = nyu/teaching_statement/teaching_statement_yw.tex
+NYU_TS_PDF = $(NYU_TS_SRC:.tex=.pdf)
+NYU_TS_DEP = $(TS_COMMON_SRC) nyu/common.tex
+
+NYU_DS_SRC = nyu/diversity_statement/diversity_statement_yw.tex
+NYU_DS_PDF = $(NYU_DS_SRC:.tex=.pdf)
+NYU_DS_DEP = $(DS_COMMON_SRC) nyu/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds upenn upenn-letter upenn-rs upenn-ts upenn-ds uiuc uiuc-letter uiuc-rs uiuc-ts uiuc-ds dartmouth dartmouth-letter dartmouth-rs dartmouth-ts dartmouth-ds uva uva-letter uva-rs uva-ts uva-ds
+.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds upenn upenn-letter upenn-rs upenn-ts upenn-ds uiuc uiuc-letter uiuc-rs uiuc-ts uiuc-ds dartmouth dartmouth-letter dartmouth-rs dartmouth-ts dartmouth-ds uva uva-letter uva-rs uva-ts uva-ds nyu nyu-letter nyu-rs nyu-ts nyu-ds
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu
 
 cv: $(CV_PDF)
 
@@ -338,6 +354,12 @@ uva-letter: $(UVA_LETTER_PDF)
 uva-rs: $(UVA_RS_PDF)
 uva-ts: $(UVA_TS_PDF)
 uva-ds: $(UVA_DS_PDF)
+
+nyu: nyu-letter nyu-rs nyu-ts nyu-ds
+nyu-letter: $(NYU_LETTER_PDF)
+nyu-rs: $(NYU_RS_PDF)
+nyu-ts: $(NYU_TS_PDF)
+nyu-ds: $(NYU_DS_PDF)
 
 clean: clean-cache
 
@@ -592,4 +614,21 @@ $(UVA_TS_PDF): $(UVA_TS_SRC) $(UVA_TS_DEP) | clean-cache $(CACHE_DIR)
 $(UVA_DS_PDF): $(UVA_DS_SRC) $(UVA_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UVA_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UVA_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UVA_DS_PDF)) $(UVA_DS_PDF)
+
+$(NYU_LETTER_PDF): $(NYU_LETTER_SRC) $(NYU_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(NYU_LETTER_SRC))/.
+	@cd $(dir $(NYU_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(NYU_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NYU_LETTER_PDF)) $(NYU_LETTER_PDF)
+
+$(NYU_RS_PDF): $(NYU_RS_SRC) $(NYU_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NYU_RS_SRC)) && $(COMPILE_LUA) $(notdir $(NYU_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NYU_RS_PDF)) $(NYU_RS_PDF)
+
+$(NYU_TS_PDF): $(NYU_TS_SRC) $(NYU_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NYU_TS_SRC)) && $(COMPILE_LUA) $(notdir $(NYU_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NYU_TS_PDF)) $(NYU_TS_PDF)
+
+$(NYU_DS_PDF): $(NYU_DS_SRC) $(NYU_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NYU_DS_SRC)) && $(COMPILE_LUA) $(notdir $(NYU_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NYU_DS_PDF)) $(NYU_DS_PDF)
 	
