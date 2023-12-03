@@ -179,13 +179,45 @@ UCB_DS_SRC = ucb/diversity_statement/diversity_statement_yw.tex
 UCB_DS_PDF = $(UCB_DS_SRC:.tex=.pdf)
 UCB_DS_DEP = $(DS_COMMON_SRC) ucb/common.tex
 
+UPENN_LETTER_SRC = upenn/cover_letter/cover_letter_yw.tex
+UPENN_LETTER_PDF = $(UPENN_LETTER_SRC:.tex=.pdf)
+UPENN_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) upenn/common.tex
+
+UPENN_RS_SRC = upenn/research_statement/research_statement_yw.tex
+UPENN_RS_PDF = $(UPENN_RS_SRC:.tex=.pdf)
+UPENN_RS_DEP = $(RS_COMMON_SRC) upenn/common.tex
+
+UPENN_TS_SRC = upenn/teaching_statement/teaching_statement_yw.tex
+UPENN_TS_PDF = $(UPENN_TS_SRC:.tex=.pdf)
+UPENN_TS_DEP = $(TS_COMMON_SRC) upenn/common.tex
+
+UPENN_DS_SRC = upenn/diversity_statement/diversity_statement_yw.tex
+UPENN_DS_PDF = $(UPENN_DS_SRC:.tex=.pdf)
+UPENN_DS_DEP = $(DS_COMMON_SRC) upenn/common.tex
+
+UIUC_LETTER_SRC = uiuc/cover_letter/cover_letter_yw.tex
+UIUC_LETTER_PDF = $(UIUC_LETTER_SRC:.tex=.pdf)
+UIUC_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) uiuc/common.tex
+
+UIUC_RS_SRC = uiuc/research_statement/research_statement_yw.tex
+UIUC_RS_PDF = $(UIUC_RS_SRC:.tex=.pdf)
+UIUC_RS_DEP = $(RS_COMMON_SRC) uiuc/common.tex
+
+UIUC_TS_SRC = uiuc/teaching_statement/teaching_statement_yw.tex
+UIUC_TS_PDF = $(UIUC_TS_SRC:.tex=.pdf)
+UIUC_TS_DEP = $(TS_COMMON_SRC) uiuc/common.tex
+
+UIUC_DS_SRC = uiuc/diversity_statement/diversity_statement_yw.tex
+UIUC_DS_PDF = $(UIUC_DS_SRC:.tex=.pdf)
+UIUC_DS_DEP = $(DS_COMMON_SRC) uiuc/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds
+.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds upenn upenn-letter upenn-rs upenn-ts upenn-ds uiuc uiuc-letter uiuc-rs uiuc-ts uiuc-ds
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc
 
 cv: $(CV_PDF)
 
@@ -250,6 +282,18 @@ ucb-letter: $(UCB_LETTER_PDF)
 ucb-rs: $(UCB_RS_PDF)
 ucb-ts: $(UCB_TS_PDF)
 ucb-ds: $(UCB_DS_PDF)
+
+upenn: upenn-letter upenn-rs upenn-ts upenn-ds
+upenn-letter: $(UPENN_LETTER_PDF)
+upenn-rs: $(UPENN_RS_PDF)
+upenn-ts: $(UPENN_TS_PDF)
+upenn-ds: $(UPENN_DS_PDF)
+
+uiuc: uiuc-letter uiuc-rs uiuc-ts uiuc-ds
+uiuc-letter: $(UIUC_LETTER_PDF)
+uiuc-rs: $(UIUC_RS_PDF)
+uiuc-ts: $(UIUC_TS_PDF)
+uiuc-ds: $(UIUC_DS_PDF)
 
 clean: clean-cache
 
@@ -436,3 +480,37 @@ $(UCB_TS_PDF): $(UCB_TS_SRC) $(UCB_TS_DEP) | clean-cache $(CACHE_DIR)
 $(UCB_DS_PDF): $(UCB_DS_SRC) $(UCB_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UCB_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UCB_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UCB_DS_PDF)) $(UCB_DS_PDF)
+
+$(UPENN_LETTER_PDF): $(UPENN_LETTER_SRC) $(UPENN_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UPENN_LETTER_SRC))/.
+	@cd $(dir $(UPENN_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UPENN_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UPENN_LETTER_PDF)) $(UPENN_LETTER_PDF)
+
+$(UPENN_RS_PDF): $(UPENN_RS_SRC) $(UPENN_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UPENN_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UPENN_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UPENN_RS_PDF)) $(UPENN_RS_PDF)
+
+$(UPENN_TS_PDF): $(UPENN_TS_SRC) $(UPENN_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UPENN_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UPENN_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UPENN_TS_PDF)) $(UPENN_TS_PDF)
+
+$(UPENN_DS_PDF): $(UPENN_DS_SRC) $(UPENN_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UPENN_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UPENN_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UPENN_DS_PDF)) $(UPENN_DS_PDF)
+
+$(UIUC_LETTER_PDF): $(UIUC_LETTER_SRC) $(UIUC_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UIUC_LETTER_SRC))/.
+	@cd $(dir $(UIUC_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UIUC_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UIUC_LETTER_PDF)) $(UIUC_LETTER_PDF)
+
+$(UIUC_RS_PDF): $(UIUC_RS_SRC) $(UIUC_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UIUC_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UIUC_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UIUC_RS_PDF)) $(UIUC_RS_PDF)
+
+$(UIUC_TS_PDF): $(UIUC_TS_SRC) $(UIUC_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UIUC_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UIUC_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UIUC_TS_PDF)) $(UIUC_TS_PDF)
+
+$(UIUC_DS_PDF): $(UIUC_DS_SRC) $(UIUC_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UIUC_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UIUC_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UIUC_DS_PDF)) $(UIUC_DS_PDF)
