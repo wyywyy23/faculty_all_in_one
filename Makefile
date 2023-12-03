@@ -211,13 +211,29 @@ UIUC_DS_SRC = uiuc/diversity_statement/diversity_statement_yw.tex
 UIUC_DS_PDF = $(UIUC_DS_SRC:.tex=.pdf)
 UIUC_DS_DEP = $(DS_COMMON_SRC) uiuc/common.tex
 
+DARTMOUTH_LETTER_SRC = dartmouth/cover_letter/cover_letter_yw.tex
+DARTMOUTH_LETTER_PDF = $(DARTMOUTH_LETTER_SRC:.tex=.pdf)
+DARTMOUTH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) dartmouth/common.tex
+
+DARTMOUTH_RS_SRC = dartmouth/research_statement/research_statement_yw.tex
+DARTMOUTH_RS_PDF = $(DARTMOUTH_RS_SRC:.tex=.pdf)
+DARTMOUTH_RS_DEP = $(RS_COMMON_SRC) dartmouth/common.tex
+
+DARTMOUTH_TS_SRC = dartmouth/teaching_statement/teaching_statement_yw.tex
+DARTMOUTH_TS_PDF = $(DARTMOUTH_TS_SRC:.tex=.pdf)
+DARTMOUTH_TS_DEP = $(TS_COMMON_SRC) dartmouth/common.tex
+
+DARTMOUTH_DS_SRC = dartmouth/diversity_statement/diversity_statement_yw.tex
+DARTMOUTH_DS_PDF = $(DARTMOUTH_DS_SRC:.tex=.pdf)
+DARTMOUTH_DS_DEP = $(DS_COMMON_SRC) dartmouth/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds upenn upenn-letter upenn-rs upenn-ts upenn-ds uiuc uiuc-letter uiuc-rs uiuc-ts uiuc-ds
+.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds upenn upenn-letter upenn-rs upenn-ts upenn-ds uiuc uiuc-letter uiuc-rs uiuc-ts uiuc-ds dartmouth dartmouth-letter dartmouth-rs dartmouth-ts dartmouth-ds
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth
 
 cv: $(CV_PDF)
 
@@ -294,6 +310,12 @@ uiuc-letter: $(UIUC_LETTER_PDF)
 uiuc-rs: $(UIUC_RS_PDF)
 uiuc-ts: $(UIUC_TS_PDF)
 uiuc-ds: $(UIUC_DS_PDF)
+
+dartmouth: dartmouth-letter dartmouth-rs dartmouth-ts dartmouth-ds
+dartmouth-letter: $(DARTMOUTH_LETTER_PDF)
+dartmouth-rs: $(DARTMOUTH_RS_PDF)
+dartmouth-ts: $(DARTMOUTH_TS_PDF)
+dartmouth-ds: $(DARTMOUTH_DS_PDF)
 
 clean: clean-cache
 
@@ -514,3 +536,20 @@ $(UIUC_TS_PDF): $(UIUC_TS_SRC) $(UIUC_TS_DEP) | clean-cache $(CACHE_DIR)
 $(UIUC_DS_PDF): $(UIUC_DS_SRC) $(UIUC_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UIUC_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UIUC_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UIUC_DS_PDF)) $(UIUC_DS_PDF)
+
+$(DARTMOUTH_LETTER_PDF): $(DARTMOUTH_LETTER_SRC) $(DARTMOUTH_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(DARTMOUTH_LETTER_SRC))/.
+	@cd $(dir $(DARTMOUTH_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(DARTMOUTH_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(DARTMOUTH_LETTER_PDF)) $(DARTMOUTH_LETTER_PDF)
+
+$(DARTMOUTH_RS_PDF): $(DARTMOUTH_RS_SRC) $(DARTMOUTH_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(DARTMOUTH_RS_SRC)) && $(COMPILE_LUA) $(notdir $(DARTMOUTH_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(DARTMOUTH_RS_PDF)) $(DARTMOUTH_RS_PDF)
+
+$(DARTMOUTH_TS_PDF): $(DARTMOUTH_TS_SRC) $(DARTMOUTH_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(DARTMOUTH_TS_SRC)) && $(COMPILE_LUA) $(notdir $(DARTMOUTH_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(DARTMOUTH_TS_PDF)) $(DARTMOUTH_TS_PDF)
+
+$(DARTMOUTH_DS_PDF): $(DARTMOUTH_DS_SRC) $(DARTMOUTH_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(DARTMOUTH_DS_SRC)) && $(COMPILE_LUA) $(notdir $(DARTMOUTH_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(DARTMOUTH_DS_PDF)) $(DARTMOUTH_DS_PDF)
