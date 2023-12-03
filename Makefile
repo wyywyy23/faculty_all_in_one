@@ -227,13 +227,29 @@ DARTMOUTH_DS_SRC = dartmouth/diversity_statement/diversity_statement_yw.tex
 DARTMOUTH_DS_PDF = $(DARTMOUTH_DS_SRC:.tex=.pdf)
 DARTMOUTH_DS_DEP = $(DS_COMMON_SRC) dartmouth/common.tex
 
+UVA_LETTER_SRC = uva/cover_letter/cover_letter_yw.tex
+UVA_LETTER_PDF = $(UVA_LETTER_SRC:.tex=.pdf)
+UVA_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) uva/common.tex
+
+UVA_RS_SRC = uva/research_statement/research_statement_yw.tex
+UVA_RS_PDF = $(UVA_RS_SRC:.tex=.pdf)
+UVA_RS_DEP = $(RS_COMMON_SRC) uva/common.tex
+
+UVA_TS_SRC = uva/teaching_statement/teaching_statement_yw.tex
+UVA_TS_PDF = $(UVA_TS_SRC:.tex=.pdf)
+UVA_TS_DEP = $(TS_COMMON_SRC) uva/common.tex
+
+UVA_DS_SRC = uva/diversity_statement/diversity_statement_yw.tex
+UVA_DS_PDF = $(UVA_DS_SRC:.tex=.pdf)
+UVA_DS_DEP = $(DS_COMMON_SRC) uva/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds upenn upenn-letter upenn-rs upenn-ts upenn-ds uiuc uiuc-letter uiuc-rs uiuc-ts uiuc-ds dartmouth dartmouth-letter dartmouth-rs dartmouth-ts dartmouth-ds
+.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds upenn upenn-letter upenn-rs upenn-ts upenn-ds uiuc uiuc-letter uiuc-rs uiuc-ts uiuc-ds dartmouth dartmouth-letter dartmouth-rs dartmouth-ts dartmouth-ds uva uva-letter uva-rs uva-ts uva-ds
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva
 
 cv: $(CV_PDF)
 
@@ -316,6 +332,12 @@ dartmouth-letter: $(DARTMOUTH_LETTER_PDF)
 dartmouth-rs: $(DARTMOUTH_RS_PDF)
 dartmouth-ts: $(DARTMOUTH_TS_PDF)
 dartmouth-ds: $(DARTMOUTH_DS_PDF)
+
+uva: uva-letter uva-rs uva-ts uva-ds
+uva-letter: $(UVA_LETTER_PDF)
+uva-rs: $(UVA_RS_PDF)
+uva-ts: $(UVA_TS_PDF)
+uva-ds: $(UVA_DS_PDF)
 
 clean: clean-cache
 
@@ -553,3 +575,21 @@ $(DARTMOUTH_TS_PDF): $(DARTMOUTH_TS_SRC) $(DARTMOUTH_TS_DEP) | clean-cache $(CAC
 $(DARTMOUTH_DS_PDF): $(DARTMOUTH_DS_SRC) $(DARTMOUTH_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(DARTMOUTH_DS_SRC)) && $(COMPILE_LUA) $(notdir $(DARTMOUTH_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(DARTMOUTH_DS_PDF)) $(DARTMOUTH_DS_PDF)
+
+$(UVA_LETTER_PDF): $(UVA_LETTER_SRC) $(UVA_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UVA_LETTER_SRC))/.
+	@cd $(dir $(UVA_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UVA_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UVA_LETTER_PDF)) $(UVA_LETTER_PDF)
+
+$(UVA_RS_PDF): $(UVA_RS_SRC) $(UVA_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UVA_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UVA_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UVA_RS_PDF)) $(UVA_RS_PDF)
+
+$(UVA_TS_PDF): $(UVA_TS_SRC) $(UVA_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UVA_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UVA_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UVA_TS_PDF)) $(UVA_TS_PDF)
+
+$(UVA_DS_PDF): $(UVA_DS_SRC) $(UVA_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UVA_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UVA_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UVA_DS_PDF)) $(UVA_DS_PDF)
+	
