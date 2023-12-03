@@ -15,7 +15,8 @@ TS_FIG = fig/color.pdf
 DS_FIG = fig/diversity.png
 RS_FIG = fig/research.pdf
 
-RS_COMMON_SRC = $(wildcard common/research_statement/*.tex) $(wildcard common/research_statement/*.bib) $(STATEMENT_PRE) $(RS_FIG)
+RS_COMMON_SRC = $(filter-out common/research_statement/*2_page.tex, $(wildcard common/research_statement/*.tex)) $(wildcard common/research_statement/bibliography.bib) $(STATEMENT_PRE) $(RS_FIG)
+RS_COMMON_2PAGE_SRC = $(filter-out common/research_statement/research_statement_common.tex, $(wildcard common/research_statement/*.tex)) $(wildcard common/research_statement/bibliography_short.bib) $(STATEMENT_PRE) $(RS_FIG)
 TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex) $(wildcard common/research_statement/*.bib) $(STATEMENT_PRE) $(TS_FIG)
 DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(wildcard common/research_statement/*.bib) $(STATEMENT_PRE) $(DS_FIG)
 
@@ -265,7 +266,7 @@ ASU_COMPUTING_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/
 
 ASU_COMPUTING_RS_SRC = asu_computing/research_statement/research_statement_yw.tex
 ASU_COMPUTING_RS_PDF = $(ASU_COMPUTING_RS_SRC:.tex=.pdf)
-ASU_COMPUTING_RS_DEP = $(RS_COMMON_SRC) asu_computing/common.tex
+ASU_COMPUTING_RS_DEP = $(RS_COMMON_2PAGE_SRC) asu_computing/common.tex
 
 ASU_COMPUTING_TS_SRC = asu_computing/teaching_statement/teaching_statement_yw.tex
 ASU_COMPUTING_TS_PDF = $(ASU_COMPUTING_TS_SRC:.tex=.pdf)
