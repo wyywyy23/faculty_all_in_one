@@ -15,10 +15,10 @@ TS_FIG = fig/color.pdf
 DS_FIG = fig/diversity.png
 RS_FIG = fig/research.pdf
 
-RS_COMMON_SRC = $(filter-out common/research_statement/*2_page.tex, $(wildcard common/research_statement/*.tex)) $(wildcard common/research_statement/bibliography.bib) $(STATEMENT_PRE) $(RS_FIG)
-RS_COMMON_2PAGE_SRC = $(filter-out common/research_statement/research_statement_common.tex, $(wildcard common/research_statement/*.tex)) $(wildcard common/research_statement/bibliography_short.bib) $(STATEMENT_PRE) $(RS_FIG)
-TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex) $(wildcard common/research_statement/*.bib) $(STATEMENT_PRE) $(TS_FIG)
-DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(wildcard common/research_statement/*.bib) $(STATEMENT_PRE) $(DS_FIG)
+RS_COMMON_SRC = $(filter-out common/research_statement/research_statement_common_2_page.tex, $(wildcard common/research_statement/*.tex)) common/research_statement/bibliography.bib $(STATEMENT_PRE) $(RS_FIG)
+RS_COMMON_2PAGE_SRC = $(filter-out common/research_statement/research_statement_common.tex, $(wildcard common/research_statement/*.tex)) common/research_statement/bibliography_short.bib $(STATEMENT_PRE) $(RS_FIG)
+TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex) $(wildcard common/teaching_statement/*.bib) $(STATEMENT_PRE) $(TS_FIG)
+DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(wildcard common/diversity_statement/*.bib) $(STATEMENT_PRE) $(DS_FIG)
 
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
