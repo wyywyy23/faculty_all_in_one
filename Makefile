@@ -324,13 +324,29 @@ UMICH_ECE_DS_SRC = umich_ece/diversity_statement/diversity_statement_yw.tex
 UMICH_ECE_DS_PDF = $(UMICH_ECE_DS_SRC:.tex=.pdf)
 UMICH_ECE_DS_DEP = $(DS_COMMON_SRC) umich_ece/common.tex
 
+UMICH_CSE_LETTER_SRC = umich_cse/cover_letter/cover_letter_yw.tex
+UMICH_CSE_LETTER_PDF = $(UMICH_CSE_LETTER_SRC:.tex=.pdf)
+UMICH_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) umich_cse/common.tex
+
+UMICH_CSE_RS_SRC = umich_cse/research_statement/research_statement_yw.tex
+UMICH_CSE_RS_PDF = $(UMICH_CSE_RS_SRC:.tex=.pdf)
+UMICH_CSE_RS_DEP = $(RS_COMMON_SRC) umich_cse/common.tex
+
+UMICH_CSE_TS_SRC = umich_cse/teaching_statement/teaching_statement_yw.tex
+UMICH_CSE_TS_PDF = $(UMICH_CSE_TS_SRC:.tex=.pdf)
+UMICH_CSE_TS_DEP = $(TS_COMMON_SRC) umich_cse/common.tex
+
+UMICH_CSE_DS_SRC = umich_cse/diversity_statement/diversity_statement_yw.tex
+UMICH_CSE_DS_PDF = $(UMICH_CSE_DS_SRC:.tex=.pdf)
+UMICH_CSE_DS_DEP = $(DS_COMMON_SRC) umich_cse/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds upenn upenn-letter upenn-rs upenn-ts upenn-ds uiuc uiuc-letter uiuc-rs uiuc-ts uiuc-ds dartmouth dartmouth-letter dartmouth-rs dartmouth-ts dartmouth-ds uva uva-letter uva-rs uva-ts uva-ds nyu nyu-letter nyu-rs nyu-ts nyu-ds asu-computing asu-computing-letter asu-computing-rs asu-computing-ts asu-computing-ds asu-digital asu-digital-letter asu-digital-rs asu-digital-ts asu-digital-ds asu-micro asu-micro-letter asu-micro-rs asu-micro-ts asu-micro-ds umich-ece umich-ece-letter umich-ece-rs umich-ece-ts umich-ece-ds
+.PHONY: all clean clean-cache
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse
 
 cv: $(CV_PDF)
 
@@ -449,6 +465,12 @@ umich-ece-letter: $(UMICH_ECE_LETTER_PDF)
 umich-ece-rs: $(UMICH_ECE_RS_PDF)
 umich-ece-ts: $(UMICH_ECE_TS_PDF)
 umich-ece-ds: $(UMICH_ECE_DS_PDF)
+
+umich-cse: umich-cse-letter umich-cse-rs umich-cse-ts umich-cse-ds
+umich-cse-letter: $(UMICH_CSE_LETTER_PDF)
+umich-cse-rs: $(UMICH_CSE_RS_PDF)
+umich-cse-ts: $(UMICH_CSE_TS_PDF)
+umich-cse-ds: $(UMICH_CSE_DS_PDF)
 
 clean: clean-cache
 
@@ -788,4 +810,20 @@ $(UMICH_ECE_TS_PDF): $(UMICH_ECE_TS_SRC) $(UMICH_ECE_TS_DEP) | clean-cache $(CAC
 $(UMICH_ECE_DS_PDF): $(UMICH_ECE_DS_SRC) $(UMICH_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UMICH_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UMICH_ECE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UMICH_ECE_DS_PDF)) $(UMICH_ECE_DS_PDF)
-	
+
+$(UMICH_CSE_LETTER_PDF): $(UMICH_CSE_LETTER_SRC) $(UMICH_CSE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UMICH_CSE_LETTER_SRC))/.
+	@cd $(dir $(UMICH_CSE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UMICH_CSE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UMICH_CSE_LETTER_PDF)) $(UMICH_CSE_LETTER_PDF)
+
+$(UMICH_CSE_RS_PDF): $(UMICH_CSE_RS_SRC) $(UMICH_CSE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UMICH_CSE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UMICH_CSE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UMICH_CSE_RS_PDF)) $(UMICH_CSE_RS_PDF)
+
+$(UMICH_CSE_TS_PDF): $(UMICH_CSE_TS_SRC) $(UMICH_CSE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UMICH_CSE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UMICH_CSE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UMICH_CSE_TS_PDF)) $(UMICH_CSE_TS_PDF)
+
+$(UMICH_CSE_DS_PDF): $(UMICH_CSE_DS_SRC) $(UMICH_CSE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UMICH_CSE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UMICH_CSE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UMICH_CSE_DS_PDF)) $(UMICH_CSE_DS_PDF)
