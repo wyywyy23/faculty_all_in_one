@@ -19,6 +19,7 @@ RS_COMMON_SRC = $(filter-out common/research_statement/research_statement_common
 RS_COMMON_2PAGE_SRC = $(filter-out common/research_statement/research_statement_common.tex, $(wildcard common/research_statement/*.tex)) common/research_statement/bibliography_short.bib $(STATEMENT_PRE) $(RS_FIG)
 TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex) $(wildcard common/teaching_statement/*.bib) $(STATEMENT_PRE) $(TS_FIG)
 DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(wildcard common/diversity_statement/*.bib) $(STATEMENT_PRE) $(DS_FIG)
+MS_COMMON_SRC = $(wildcard common/mentoring_statement/*.tex) $(wildcard common/mentoring_statement/*.bib) $(STATEMENT_PRE)
 
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
@@ -340,13 +341,33 @@ UMICH_CSE_DS_SRC = umich_cse/diversity_statement/diversity_statement_yw.tex
 UMICH_CSE_DS_PDF = $(UMICH_CSE_DS_SRC:.tex=.pdf)
 UMICH_CSE_DS_DEP = $(DS_COMMON_SRC) umich_cse/common.tex
 
+UT_AUSTIN_LETTER_SRC = ut_austin/cover_letter/cover_letter_yw.tex
+UT_AUSTIN_LETTER_PDF = $(UT_AUSTIN_LETTER_SRC:.tex=.pdf)
+UT_AUSTIN_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ut_austin/common.tex
+
+UT_AUSTIN_RS_SRC = ut_austin/research_statement/research_statement_yw.tex
+UT_AUSTIN_RS_PDF = $(UT_AUSTIN_RS_SRC:.tex=.pdf)
+UT_AUSTIN_RS_DEP = $(RS_COMMON_SRC) ut_austin/common.tex
+
+UT_AUSTIN_TS_SRC = ut_austin/teaching_statement/teaching_statement_yw.tex
+UT_AUSTIN_TS_PDF = $(UT_AUSTIN_TS_SRC:.tex=.pdf)
+UT_AUSTIN_TS_DEP = $(TS_COMMON_SRC) ut_austin/common.tex
+
+UT_AUSTIN_DS_SRC = ut_austin/diversity_statement/diversity_statement_yw.tex
+UT_AUSTIN_DS_PDF = $(UT_AUSTIN_DS_SRC:.tex=.pdf)
+UT_AUSTIN_DS_DEP = $(DS_COMMON_SRC) ut_austin/common.tex
+
+UT_AUSTIN_MS_SRC = ut_austin/mentoring_statement/mentoring_statement_yw.tex
+UT_AUSTIN_MS_PDF = $(UT_AUSTIN_MS_SRC:.tex=.pdf)
+UT_AUSTIN_MS_DEP = $(MS_COMMON_SRC) ut_austin/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin
 
 cv: $(CV_PDF)
 
@@ -471,6 +492,13 @@ umich-cse-letter: $(UMICH_CSE_LETTER_PDF)
 umich-cse-rs: $(UMICH_CSE_RS_PDF)
 umich-cse-ts: $(UMICH_CSE_TS_PDF)
 umich-cse-ds: $(UMICH_CSE_DS_PDF)
+
+ut-austin: ut-austin-letter ut-austin-rs ut-austin-ts ut-austin-ds ut-austin-ms
+ut-austin-letter: $(UT_AUSTIN_LETTER_PDF)
+ut-austin-rs: $(UT_AUSTIN_RS_PDF)
+ut-austin-ts: $(UT_AUSTIN_TS_PDF)
+ut-austin-ds: $(UT_AUSTIN_DS_PDF)
+ut-austin-ms: $(UT_AUSTIN_MS_PDF)
 
 clean: clean-cache
 
@@ -827,3 +855,25 @@ $(UMICH_CSE_TS_PDF): $(UMICH_CSE_TS_SRC) $(UMICH_CSE_TS_DEP) | clean-cache $(CAC
 $(UMICH_CSE_DS_PDF): $(UMICH_CSE_DS_SRC) $(UMICH_CSE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UMICH_CSE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UMICH_CSE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UMICH_CSE_DS_PDF)) $(UMICH_CSE_DS_PDF)
+
+$(UT_AUSTIN_LETTER_PDF): $(UT_AUSTIN_LETTER_SRC) $(UT_AUSTIN_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UT_AUSTIN_LETTER_SRC))/.
+	@cd $(dir $(UT_AUSTIN_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UT_AUSTIN_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UT_AUSTIN_LETTER_PDF)) $(UT_AUSTIN_LETTER_PDF)
+
+$(UT_AUSTIN_RS_PDF): $(UT_AUSTIN_RS_SRC) $(UT_AUSTIN_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UT_AUSTIN_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UT_AUSTIN_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UT_AUSTIN_RS_PDF)) $(UT_AUSTIN_RS_PDF)
+
+$(UT_AUSTIN_TS_PDF): $(UT_AUSTIN_TS_SRC) $(UT_AUSTIN_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UT_AUSTIN_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UT_AUSTIN_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UT_AUSTIN_TS_PDF)) $(UT_AUSTIN_TS_PDF)
+
+$(UT_AUSTIN_DS_PDF): $(UT_AUSTIN_DS_SRC) $(UT_AUSTIN_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UT_AUSTIN_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UT_AUSTIN_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UT_AUSTIN_DS_PDF)) $(UT_AUSTIN_DS_PDF)
+
+$(UT_AUSTIN_MS_PDF): $(UT_AUSTIN_MS_SRC) $(UT_AUSTIN_MS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UT_AUSTIN_MS_SRC)) && $(COMPILE_LUA) $(notdir $(UT_AUSTIN_MS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UT_AUSTIN_MS_PDF)) $(UT_AUSTIN_MS_PDF)
+	
