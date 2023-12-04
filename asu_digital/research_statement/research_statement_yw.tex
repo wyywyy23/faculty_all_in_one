@@ -1,0 +1,39 @@
+%!TEX root = research_statement_yw.tex
+%!TEX program = lualatex
+
+\input{../../common/statement_pre.tex}
+\input{../common.tex}
+
+%%%%%% Customize the following lines %%%%%%
+\title{Research Statement}
+%%%%%% End of customization %%%%%%
+
+\author{Yuyang Wang}
+\date{\vspace{-1em}}
+\makeatletter
+\fancyfoot[L]{\scshape \MakeLowercase{\@author}}
+\fancyfoot[R]{{\scshape \MakeLowercase{\@title}}\quad{\LARGE\sfrac{\thepage}{\pageref*{LastPage}}}}
+\makeatother
+
+\begin{document}
+\bstctlcite{BSTcontrol} % IEEEtran BST control
+
+\maketitle% this prints the handout title, author, and date
+\thispagestyle{fancy}
+
+\input{../../common/research_statement/research_statement_common_2_page.tex}
+% \collabCustom{}
+% \input{../../common/research_statement/research_statement_closing.tex}
+
+% \newlength{\bibitemsep}\setlength{\bibitemsep}{.2\baselineskip plus .05\baselineskip minus .05\baselineskip}
+% \newlength{\bibparskip}\setlength{\bibparskip}{0pt}
+% \let\oldthebibliography\thebibliography
+% \renewcommand\thebibliography[1]{%
+%     \oldthebibliography{#1}%
+%     \setlength{\parskip}{\bibitemsep}%
+%     \setlength{\itemsep}{\bibparskip}%
+% }
+\scriptsize
+\bibliography{\mainabsdir../../common/research_statement/bibliography_short}
+
+\end{document}

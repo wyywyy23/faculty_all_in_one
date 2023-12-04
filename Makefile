@@ -276,13 +276,29 @@ ASU_COMPUTING_DS_SRC = asu_computing/diversity_statement/diversity_statement_yw.
 ASU_COMPUTING_DS_PDF = $(ASU_COMPUTING_DS_SRC:.tex=.pdf)
 ASU_COMPUTING_DS_DEP = $(DS_COMMON_SRC) asu_computing/common.tex
 
+ASU_DIGITAL_LETTER_SRC = asu_digital/cover_letter/cover_letter_yw.tex
+ASU_DIGITAL_LETTER_PDF = $(ASU_DIGITAL_LETTER_SRC:.tex=.pdf)
+ASU_DIGITAL_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) asu_digital/common.tex
+
+ASU_DIGITAL_RS_SRC = asu_digital/research_statement/research_statement_yw.tex
+ASU_DIGITAL_RS_PDF = $(ASU_DIGITAL_RS_SRC:.tex=.pdf)
+ASU_DIGITAL_RS_DEP = $(RS_COMMON_2PAGE_SRC) asu_digital/common.tex
+
+ASU_DIGITAL_TS_SRC = asu_digital/teaching_statement/teaching_statement_yw.tex
+ASU_DIGITAL_TS_PDF = $(ASU_DIGITAL_TS_SRC:.tex=.pdf)
+ASU_DIGITAL_TS_DEP = $(TS_COMMON_SRC) asu_digital/common.tex
+
+ASU_DIGITAL_DS_SRC = asu_digital/diversity_statement/diversity_statement_yw.tex
+ASU_DIGITAL_DS_PDF = $(ASU_DIGITAL_DS_SRC:.tex=.pdf)
+ASU_DIGITAL_DS_DEP = $(DS_COMMON_SRC) asu_digital/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
-.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds upenn upenn-letter upenn-rs upenn-ts upenn-ds uiuc uiuc-letter uiuc-rs uiuc-ts uiuc-ds dartmouth dartmouth-letter dartmouth-rs dartmouth-ts dartmouth-ds uva uva-letter uva-rs uva-ts uva-ds nyu nyu-letter nyu-rs nyu-ts nyu-ds asu-computing asu-computing-letter asu-computing-rs asu-computing-ts asu-computing-ds
+.PHONY: all clean clean-cache cv letterhead example example-letter example-rs example-ts example-ds tamu-cesg tamu-cesg-letter tamu-cesg-rs tamu-cesg-ts tamu-cesg-ds tamu-nano tamu-nano-letter tamu-nano-rs tamu-nano-ts tamu-nano-ds duke duke-letter duke-rs duke-ts duke-ds purdue-ece purdue-ece-letter purdue-ece-rs purdue-ece-ts purdue-ece-ds purdue-computes purdue-computes-letter purdue-computes-rs purdue-computes-ts purdue-computes-ds uw-ece uw-ece-letter uw-ece-rs uw-ece-ts uw-ece-ds uw-cse uw-cse-letter uw-cse-rs uw-cse-ts uw-cse-ds mit mit-letter mit-rs mit-ts mit-ds ucb ucb-letter ucb-rs ucb-ts ucb-ds upenn upenn-letter upenn-rs upenn-ts upenn-ds uiuc uiuc-letter uiuc-rs uiuc-ts uiuc-ds dartmouth dartmouth-letter dartmouth-rs dartmouth-ts dartmouth-ds uva uva-letter uva-rs uva-ts uva-ds nyu nyu-letter nyu-rs nyu-ts nyu-ds asu-computing asu-computing-letter asu-computing-rs asu-computing-ts asu-computing-ds asu-digital asu-digital-letter asu-digital-rs asu-digital-ts asu-digital-ds
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital
 
 cv: $(CV_PDF)
 
@@ -383,6 +399,12 @@ asu-computing-letter: $(ASU_COMPUTING_LETTER_PDF)
 asu-computing-rs: $(ASU_COMPUTING_RS_PDF)
 asu-computing-ts: $(ASU_COMPUTING_TS_PDF)
 asu-computing-ds: $(ASU_COMPUTING_DS_PDF)
+
+asu-digital: asu-digital-letter asu-digital-rs asu-digital-ts asu-digital-ds
+asu-digital-letter: $(ASU_DIGITAL_LETTER_PDF)
+asu-digital-rs: $(ASU_DIGITAL_RS_PDF)
+asu-digital-ts: $(ASU_DIGITAL_TS_PDF)
+asu-digital-ds: $(ASU_DIGITAL_DS_PDF)
 
 clean: clean-cache
 
@@ -671,3 +693,20 @@ $(ASU_COMPUTING_TS_PDF): $(ASU_COMPUTING_TS_SRC) $(ASU_COMPUTING_TS_DEP) | clean
 $(ASU_COMPUTING_DS_PDF): $(ASU_COMPUTING_DS_SRC) $(ASU_COMPUTING_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(ASU_COMPUTING_DS_SRC)) && $(COMPILE_LUA) $(notdir $(ASU_COMPUTING_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(ASU_COMPUTING_DS_PDF)) $(ASU_COMPUTING_DS_PDF)
+
+$(ASU_DIGITAL_LETTER_PDF): $(ASU_DIGITAL_LETTER_SRC) $(ASU_DIGITAL_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(ASU_DIGITAL_LETTER_SRC))/.
+	@cd $(dir $(ASU_DIGITAL_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(ASU_DIGITAL_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(ASU_DIGITAL_LETTER_PDF)) $(ASU_DIGITAL_LETTER_PDF)
+
+$(ASU_DIGITAL_RS_PDF): $(ASU_DIGITAL_RS_SRC) $(ASU_DIGITAL_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(ASU_DIGITAL_RS_SRC)) && $(COMPILE_LUA) $(notdir $(ASU_DIGITAL_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(ASU_DIGITAL_RS_PDF)) $(ASU_DIGITAL_RS_PDF)
+
+$(ASU_DIGITAL_TS_PDF): $(ASU_DIGITAL_TS_SRC) $(ASU_DIGITAL_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(ASU_DIGITAL_TS_SRC)) && $(COMPILE_LUA) $(notdir $(ASU_DIGITAL_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(ASU_DIGITAL_TS_PDF)) $(ASU_DIGITAL_TS_PDF)
+
+$(ASU_DIGITAL_DS_PDF): $(ASU_DIGITAL_DS_SRC) $(ASU_DIGITAL_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(ASU_DIGITAL_DS_SRC)) && $(COMPILE_LUA) $(notdir $(ASU_DIGITAL_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(ASU_DIGITAL_DS_PDF)) $(ASU_DIGITAL_DS_PDF)
