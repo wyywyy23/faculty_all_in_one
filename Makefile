@@ -976,3 +976,21 @@ $(UT_DALLAS_TS_PDF): $(UT_DALLAS_TS_SRC) $(UT_DALLAS_TS_DEP) | clean-cache $(CAC
 $(UT_DALLAS_DS_PDF): $(UT_DALLAS_DS_SRC) $(UT_DALLAS_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UT_DALLAS_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UT_DALLAS_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UT_DALLAS_DS_PDF)) $(UT_DALLAS_DS_PDF)
+
+$(NCSU_LETTER_PDF): $(NCSU_LETTER_SRC) $(NCSU_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(NCSU_LETTER_SRC))/.
+	@cd $(dir $(NCSU_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(NCSU_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NCSU_LETTER_PDF)) $(NCSU_LETTER_PDF)
+
+$(NCSU_RS_PDF): $(NCSU_RS_SRC) $(NCSU_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NCSU_RS_SRC)) && $(COMPILE_LUA) $(notdir $(NCSU_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NCSU_RS_PDF)) $(NCSU_RS_PDF)
+
+$(NCSU_TS_PDF): $(NCSU_TS_SRC) $(NCSU_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NCSU_TS_SRC)) && $(COMPILE_LUA) $(notdir $(NCSU_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NCSU_TS_PDF)) $(NCSU_TS_PDF)
+
+$(NCSU_DS_PDF): $(NCSU_DS_SRC) $(NCSU_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NCSU_DS_SRC)) && $(COMPILE_LUA) $(notdir $(NCSU_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NCSU_DS_PDF)) $(NCSU_DS_PDF)
+	
