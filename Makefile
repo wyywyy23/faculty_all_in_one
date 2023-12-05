@@ -393,13 +393,29 @@ UT_DALLAS_DS_SRC = ut_dallas/diversity_statement/diversity_statement_yw.tex
 UT_DALLAS_DS_PDF = $(UT_DALLAS_DS_SRC:.tex=.pdf)
 UT_DALLAS_DS_DEP = $(DS_COMMON_SRC) ut_dallas/common.tex
 
+NCSU_LETTER_SRC = ncsu/cover_letter/cover_letter_yw.tex
+NCSU_LETTER_PDF = $(NCSU_LETTER_SRC:.tex=.pdf)
+NCSU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ncsu/common.tex
+
+NCSU_RS_SRC = ncsu/research_statement/research_statement_yw.tex
+NCSU_RS_PDF = $(NCSU_RS_SRC:.tex=.pdf)
+NCSU_RS_DEP = $(RS_COMMON_SRC) ncsu/common.tex
+
+NCSU_TS_SRC = ncsu/teaching_statement/teaching_statement_yw.tex
+NCSU_TS_PDF = $(NCSU_TS_SRC:.tex=.pdf)
+NCSU_TS_DEP = $(TS_COMMON_SRC) ncsu/common.tex
+
+NCSU_DS_SRC = ncsu/diversity_statement/diversity_statement_yw.tex
+NCSU_DS_PDF = $(NCSU_DS_SRC:.tex=.pdf)
+NCSU_DS_DEP = $(DS_COMMON_SRC) ncsu/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu
 
 cv: $(CV_PDF)
 
@@ -543,6 +559,12 @@ ut-dallas-letter: $(UT_DALLAS_LETTER_PDF)
 ut-dallas-rs: $(UT_DALLAS_RS_PDF)
 ut-dallas-ts: $(UT_DALLAS_TS_PDF)
 ut-dallas-ds: $(UT_DALLAS_DS_PDF)
+
+ncsu: ncsu-letter ncsu-rs ncsu-ts ncsu-ds
+ncsu-letter: $(NCSU_LETTER_PDF)
+ncsu-rs: $(NCSU_RS_PDF)
+ncsu-ts: $(NCSU_TS_PDF)
+ncsu-ds: $(NCSU_DS_PDF)
 
 clean: clean-cache
 
@@ -954,4 +976,3 @@ $(UT_DALLAS_TS_PDF): $(UT_DALLAS_TS_SRC) $(UT_DALLAS_TS_DEP) | clean-cache $(CAC
 $(UT_DALLAS_DS_PDF): $(UT_DALLAS_DS_SRC) $(UT_DALLAS_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UT_DALLAS_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UT_DALLAS_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UT_DALLAS_DS_PDF)) $(UT_DALLAS_DS_PDF)
-	
