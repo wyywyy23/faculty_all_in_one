@@ -2,6 +2,10 @@ CV_SRC = common/cv/cv_yw.tex
 CV_PDF = $(CV_SRC:.tex=.pdf)
 CV_DEP = $(filter-out $(CV_PDF) $(CV_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f))
 
+PUB_LIST_SRC = common/publication/pub_list/pub_list.tex
+PUB_LIST_PDF = $(PUB_LIST_SRC:.tex=.pdf)
+PUB_LIST_DEP = common/cv/simplecv.sty common/cv/comment_setup.tex common/cv/bibtype.tex common/cv/sections/publications.tex common/cv/papers.bib
+
 LH_SRC = common/letterhead/letter.tex
 LH_PDF = $(LH_SRC:.tex=.pdf)
 LH_DEP = $(filter-out $(LH_PDF) $(LH_SRC) $(wildcard common/letterhead/*.log) common/letterhead/LICENSE common/letterhead/Makefile common/letterhead/README.md $(wildcard common/letterhead/.git*), $(shell find common/letterhead -type f))
@@ -447,9 +451,11 @@ COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece
+all: cv pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece
 
 cv: $(CV_PDF)
+
+pub-list: $(PUB_LIST_PDF)
 
 letterhead: $(LH_PDF)
 
@@ -621,6 +627,10 @@ $(CACHE_DIR):
 $(CV_PDF): $(CV_SRC) $(CV_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(CV_SRC)) && $(COMPILE_LUA) $(notdir $(CV_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(CV_PDF)) $(CV_PDF)
+
+$(PUB_LIST_PDF): $(PUB_LIST_SRC) $(PUB_LIST_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PUB_LIST_SRC)) && $(COMPILE_LUA) $(notdir $(PUB_LIST_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PUB_LIST_PDF)) $(PUB_LIST_PDF)
 
 $(LH_PDF): $(LH_SRC) $(LH_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(LH_SRC)) && $(COMPILE_LUA) $(notdir $(LH_SRC))
@@ -1071,4 +1081,3 @@ $(BU_ECE_TS_PDF): $(BU_ECE_TS_SRC) $(BU_ECE_TS_DEP) | clean-cache $(CACHE_DIR)
 $(BU_ECE_DS_PDF): $(BU_ECE_DS_SRC) $(BU_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(BU_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(BU_ECE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(BU_ECE_DS_PDF)) $(BU_ECE_DS_PDF)
-	

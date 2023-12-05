@@ -1,0 +1,34 @@
+\documentclass[letterpaper,10pt]{article}
+
+% Choose theme, e.g. black, RedViolet, ForestGreen, MidnightBlue
+\def\theme{black}
+
+\usepackage{../../cv/simplecv}
+
+\usepackage{currfile-abspath}
+\getmainfile % get real main file (can be different than jobname in some cases)
+\getabspath{\themainfile} % or use \jobname.tex instead (not as safe)
+\let\mainabsdir\theabsdir % save result away (macro will be overwritten by the next \getabspath
+\let\mainabspath\theabspath % save result away (macro will be overwritten by the next \getabspath
+
+\bibliography{\mainabsdir../../cv/papers}
+\nocite{*}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[L]{\ifnum\thepage=1 {\scshape \MakeLowercase{Last updated on \today}} \else {\scshape \MakeLowercase{Yuyang Wang}} \fi}
+\fancyfoot[R]{{\scshape \MakeLowercase{Publication List}}\quad{\LARGE\sfrac{\thepage}{\pageref*{LastPage}}}}
+
+\input{../../cv/comment_setup.tex}
+\FXRegisterAuthor{yw}{yw3831}{Y.W.}
+
+\input{../../cv/bibtype.tex}
+
+\boldname{Wang}{Yuyang}{Y.}
+
+\begin{document}
+
+\input{../../cv/sections/publications.tex}
+
+\end{document}
+
