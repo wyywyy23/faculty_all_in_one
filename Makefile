@@ -361,13 +361,29 @@ UT_AUSTIN_MS_SRC = ut_austin/mentoring_statement/mentoring_statement_yw.tex
 UT_AUSTIN_MS_PDF = $(UT_AUSTIN_MS_SRC:.tex=.pdf)
 UT_AUSTIN_MS_DEP = $(MS_COMMON_SRC) ut_austin/common.tex
 
+ROCHESTER_LETTER_SRC = rochester/cover_letter/cover_letter_yw.tex
+ROCHESTER_LETTER_PDF = $(ROCHESTER_LETTER_SRC:.tex=.pdf)
+ROCHESTER_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) rochester/common.tex
+
+ROCHESTER_RS_SRC = rochester/research_statement/research_statement_yw.tex
+ROCHESTER_RS_PDF = $(ROCHESTER_RS_SRC:.tex=.pdf)
+ROCHESTER_RS_DEP = $(RS_COMMON_SRC) rochester/common.tex
+
+ROCHESTER_TS_SRC = rochester/teaching_statement/teaching_statement_yw.tex
+ROCHESTER_TS_PDF = $(ROCHESTER_TS_SRC:.tex=.pdf)
+ROCHESTER_TS_DEP = $(TS_COMMON_SRC) rochester/common.tex
+
+ROCHESTER_DS_SRC = rochester/diversity_statement/diversity_statement_yw.tex
+ROCHESTER_DS_PDF = $(ROCHESTER_DS_SRC:.tex=.pdf)
+ROCHESTER_DS_DEP = $(DS_COMMON_SRC) rochester/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin
+all: cv letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester
 
 cv: $(CV_PDF)
 
@@ -499,6 +515,12 @@ ut-austin-rs: $(UT_AUSTIN_RS_PDF)
 ut-austin-ts: $(UT_AUSTIN_TS_PDF)
 ut-austin-ds: $(UT_AUSTIN_DS_PDF)
 ut-austin-ms: $(UT_AUSTIN_MS_PDF)
+
+rochester: rochester-letter rochester-rs rochester-ts rochester-ds
+rochester-letter: $(ROCHESTER_LETTER_PDF)
+rochester-rs: $(ROCHESTER_RS_PDF)
+rochester-ts: $(ROCHESTER_TS_PDF)
+rochester-ds: $(ROCHESTER_DS_PDF)
 
 clean: clean-cache
 
@@ -876,4 +898,21 @@ $(UT_AUSTIN_DS_PDF): $(UT_AUSTIN_DS_SRC) $(UT_AUSTIN_DS_DEP) | clean-cache $(CAC
 $(UT_AUSTIN_MS_PDF): $(UT_AUSTIN_MS_SRC) $(UT_AUSTIN_MS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UT_AUSTIN_MS_SRC)) && $(COMPILE_LUA) $(notdir $(UT_AUSTIN_MS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UT_AUSTIN_MS_PDF)) $(UT_AUSTIN_MS_PDF)
+	
+$(ROCHESTER_LETTER_PDF): $(ROCHESTER_LETTER_SRC) $(ROCHESTER_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(ROCHESTER_LETTER_SRC))/.
+	@cd $(dir $(ROCHESTER_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(ROCHESTER_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(ROCHESTER_LETTER_PDF)) $(ROCHESTER_LETTER_PDF)
+
+$(ROCHESTER_RS_PDF): $(ROCHESTER_RS_SRC) $(ROCHESTER_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(ROCHESTER_RS_SRC)) && $(COMPILE_LUA) $(notdir $(ROCHESTER_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(ROCHESTER_RS_PDF)) $(ROCHESTER_RS_PDF)
+
+$(ROCHESTER_TS_PDF): $(ROCHESTER_TS_SRC) $(ROCHESTER_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(ROCHESTER_TS_SRC)) && $(COMPILE_LUA) $(notdir $(ROCHESTER_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(ROCHESTER_TS_PDF)) $(ROCHESTER_TS_PDF)
+
+$(ROCHESTER_DS_PDF): $(ROCHESTER_DS_SRC) $(ROCHESTER_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(ROCHESTER_DS_SRC)) && $(COMPILE_LUA) $(notdir $(ROCHESTER_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(ROCHESTER_DS_PDF)) $(ROCHESTER_DS_PDF)
 	
