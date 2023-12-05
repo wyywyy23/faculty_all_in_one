@@ -445,13 +445,29 @@ BU_ECE_DS_SRC = bu_ece/diversity_statement/diversity_statement_yw.tex
 BU_ECE_DS_PDF = $(BU_ECE_DS_SRC:.tex=.pdf)
 BU_ECE_DS_DEP = $(DS_COMMON_SRC) bu_ece/common.tex
 
+BU_COE_LETTER_SRC = bu_coe/cover_letter/cover_letter_yw.tex
+BU_COE_LETTER_PDF = $(BU_COE_LETTER_SRC:.tex=.pdf)
+BU_COE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) bu_coe/common.tex
+
+BU_COE_RS_SRC = bu_coe/research_statement/research_statement_yw.tex
+BU_COE_RS_PDF = $(BU_COE_RS_SRC:.tex=.pdf)
+BU_COE_RS_DEP = $(RS_COMMON_SRC) bu_coe/common.tex
+
+BU_COE_TS_SRC = bu_coe/teaching_statement/teaching_statement_yw.tex
+BU_COE_TS_PDF = $(BU_COE_TS_SRC:.tex=.pdf)
+BU_COE_TS_DEP = $(TS_COMMON_SRC) bu_coe/common.tex
+
+BU_COE_DS_SRC = bu_coe/diversity_statement/diversity_statement_yw.tex
+BU_COE_DS_PDF = $(BU_COE_DS_SRC:.tex=.pdf)
+BU_COE_DS_DEP = $(DS_COMMON_SRC) bu_coe/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece
+all: cv pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe
 
 cv: $(CV_PDF)
 
@@ -615,6 +631,12 @@ bu-ece-letter: $(BU_ECE_LETTER_PDF)
 bu-ece-rs: $(BU_ECE_RS_PDF)
 bu-ece-ts: $(BU_ECE_TS_PDF)
 bu-ece-ds: $(BU_ECE_DS_PDF)
+
+bu-coe: bu-coe-letter bu-coe-rs bu-coe-ts bu-coe-ds
+bu-coe-letter: $(BU_COE_LETTER_PDF)
+bu-coe-rs: $(BU_COE_RS_PDF)
+bu-coe-ts: $(BU_COE_TS_PDF)
+bu-coe-ds: $(BU_COE_DS_PDF)
 
 clean: clean-cache
 
@@ -1081,3 +1103,20 @@ $(BU_ECE_TS_PDF): $(BU_ECE_TS_SRC) $(BU_ECE_TS_DEP) | clean-cache $(CACHE_DIR)
 $(BU_ECE_DS_PDF): $(BU_ECE_DS_SRC) $(BU_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(BU_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(BU_ECE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(BU_ECE_DS_PDF)) $(BU_ECE_DS_PDF)
+
+$(BU_COE_LETTER_PDF): $(BU_COE_LETTER_SRC) $(BU_COE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(BU_COE_LETTER_SRC))/.
+	@cd $(dir $(BU_COE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(BU_COE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BU_COE_LETTER_PDF)) $(BU_COE_LETTER_PDF)
+
+$(BU_COE_RS_PDF): $(BU_COE_RS_SRC) $(BU_COE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(BU_COE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(BU_COE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BU_COE_RS_PDF)) $(BU_COE_RS_PDF)
+
+$(BU_COE_TS_PDF): $(BU_COE_TS_SRC) $(BU_COE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(BU_COE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(BU_COE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BU_COE_TS_PDF)) $(BU_COE_TS_PDF)
+
+$(BU_COE_DS_PDF): $(BU_COE_DS_SRC) $(BU_COE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(BU_COE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(BU_COE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BU_COE_DS_PDF)) $(BU_COE_DS_PDF)
