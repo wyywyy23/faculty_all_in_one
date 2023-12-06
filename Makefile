@@ -481,13 +481,29 @@ UFL_DS_SRC = ufl/diversity_statement/diversity_statement_yw.tex
 UFL_DS_PDF = $(UFL_DS_SRC:.tex=.pdf)
 UFL_DS_DEP = $(DS_COMMON_SRC) ufl/common.tex
 
+RPI_LETTER_SRC = rpi/cover_letter/cover_letter_yw.tex
+RPI_LETTER_PDF = $(RPI_LETTER_SRC:.tex=.pdf)
+RPI_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) rpi/common.tex
+
+RPI_RS_SRC = rpi/research_statement/research_statement_yw.tex
+RPI_RS_PDF = $(RPI_RS_SRC:.tex=.pdf)
+RPI_RS_DEP = $(RS_COMMON_SRC) rpi/common.tex
+
+RPI_TS_SRC = rpi/teaching_statement/teaching_statement_yw.tex
+RPI_TS_PDF = $(RPI_TS_SRC:.tex=.pdf)
+RPI_TS_DEP = $(TS_COMMON_SRC) rpi/common.tex
+
+RPI_DS_SRC = rpi/diversity_statement/diversity_statement_yw.tex
+RPI_DS_PDF = $(RPI_DS_SRC:.tex=.pdf)
+RPI_DS_DEP = $(DS_COMMON_SRC) rpi/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -664,6 +680,12 @@ ufl-letter: $(UFL_LETTER_PDF)
 ufl-rs: $(UFL_RS_PDF)
 ufl-ts: $(UFL_TS_PDF)
 ufl-ds: $(UFL_DS_PDF)
+
+rpi: rpi-letter rpi-rs rpi-ts rpi-ds
+rpi-letter: $(RPI_LETTER_PDF)
+rpi-rs: $(RPI_RS_PDF)
+rpi-ts: $(RPI_TS_PDF)
+rpi-ds: $(RPI_DS_PDF)
 
 clean: clean-cache
 
@@ -1168,3 +1190,20 @@ $(UFL_TS_PDF): $(UFL_TS_SRC) $(UFL_TS_DEP) | clean-cache $(CACHE_DIR)
 $(UFL_DS_PDF): $(UFL_DS_SRC) $(UFL_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UFL_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UFL_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UFL_DS_PDF)) $(UFL_DS_PDF)
+
+$(RPI_LETTER_PDF): $(RPI_LETTER_SRC) $(RPI_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(RPI_LETTER_SRC))/.
+	@cd $(dir $(RPI_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(RPI_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RPI_LETTER_PDF)) $(RPI_LETTER_PDF)
+
+$(RPI_RS_PDF): $(RPI_RS_SRC) $(RPI_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(RPI_RS_SRC)) && $(COMPILE_LUA) $(notdir $(RPI_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RPI_RS_PDF)) $(RPI_RS_PDF)
+
+$(RPI_TS_PDF): $(RPI_TS_SRC) $(RPI_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(RPI_TS_SRC)) && $(COMPILE_LUA) $(notdir $(RPI_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RPI_TS_PDF)) $(RPI_TS_PDF)
+
+$(RPI_DS_PDF): $(RPI_DS_SRC) $(RPI_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(RPI_DS_SRC)) && $(COMPILE_LUA) $(notdir $(RPI_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RPI_DS_PDF)) $(RPI_DS_PDF)
