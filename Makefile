@@ -2,7 +2,11 @@ CV_SRC = common/cv/cv_yw.tex
 CV_PDF = $(CV_SRC:.tex=.pdf)
 CV_DEP = $(filter-out $(CV_PDF) $(CV_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f))
 
-PUB_LIST_SRC = common/publication/pub_list/pub_list.tex
+CV_HL_SRC = common/cv/cv_highlights_yw.tex
+CV_HL_PDF = $(CV_HL_SRC:.tex=.pdf)
+CV_HL_DEP = $(filter-out $(CV_HL_PDF) $(CV_HL_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f))
+
+PUB_LIST_SRC = common/publication/pub_list/pub_list_yw.tex
 PUB_LIST_PDF = $(PUB_LIST_SRC:.tex=.pdf)
 PUB_LIST_DEP = common/cv/simplecv.sty common/cv/comment_setup.tex common/cv/bibtype.tex common/cv/sections/publications.tex common/cv/papers.bib
 
@@ -467,9 +471,10 @@ COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe
 
 cv: $(CV_PDF)
+cv-hl: $(CV_HL_PDF)
 
 pub-list: $(PUB_LIST_PDF)
 
@@ -649,6 +654,10 @@ $(CACHE_DIR):
 $(CV_PDF): $(CV_SRC) $(CV_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(CV_SRC)) && $(COMPILE_LUA) $(notdir $(CV_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(CV_PDF)) $(CV_PDF)
+
+$(CV_HL_PDF): $(CV_HL_SRC) $(CV_HL_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CV_HL_SRC)) && $(COMPILE_LUA) $(notdir $(CV_HL_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CV_HL_PDF)) $(CV_HL_PDF)
 
 $(PUB_LIST_PDF): $(PUB_LIST_SRC) $(PUB_LIST_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(PUB_LIST_SRC)) && $(COMPILE_LUA) $(notdir $(PUB_LIST_SRC))
