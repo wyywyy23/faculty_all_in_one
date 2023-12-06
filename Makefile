@@ -1,10 +1,10 @@
 CV_SRC = common/cv/cv_yw.tex
 CV_PDF = $(CV_SRC:.tex=.pdf)
-CV_DEP = $(filter-out $(CV_PDF) $(CV_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f))
+CV_DEP = $(filter-out $(CV_PDF) $(CV_HL_PDF) $(CV_SRC) $(CV_HL_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f))
 
 CV_HL_SRC = common/cv/cv_highlights_yw.tex
 CV_HL_PDF = $(CV_HL_SRC:.tex=.pdf)
-CV_HL_DEP = $(filter-out $(CV_HL_PDF) $(CV_HL_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f))
+CV_HL_DEP = $(filter-out $(CV_PDF) $(CV_HL_PDF) $(CV_SRC) $(CV_HL_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f))
 
 PUB_LIST_SRC = common/publication/pub_list/pub_list_yw.tex
 PUB_LIST_PDF = $(PUB_LIST_SRC:.tex=.pdf)
@@ -465,13 +465,29 @@ BU_COE_DS_SRC = bu_coe/diversity_statement/diversity_statement_yw.tex
 BU_COE_DS_PDF = $(BU_COE_DS_SRC:.tex=.pdf)
 BU_COE_DS_DEP = $(DS_COMMON_SRC) bu_coe/common.tex
 
+UFL_LETTER_SRC = ufl/cover_letter/cover_letter_yw.tex
+UFL_LETTER_PDF = $(UFL_LETTER_SRC:.tex=.pdf)
+UFL_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ufl/common.tex
+
+UFL_RS_SRC = ufl/research_statement/research_statement_yw.tex
+UFL_RS_PDF = $(UFL_RS_SRC:.tex=.pdf)
+UFL_RS_DEP = $(RS_COMMON_SRC) ufl/common.tex
+
+UFL_TS_SRC = ufl/teaching_statement/teaching_statement_yw.tex
+UFL_TS_PDF = $(UFL_TS_SRC:.tex=.pdf)
+UFL_TS_DEP = $(TS_COMMON_SRC) ufl/common.tex
+
+UFL_DS_SRC = ufl/diversity_statement/diversity_statement_yw.tex
+UFL_DS_PDF = $(UFL_DS_SRC:.tex=.pdf)
+UFL_DS_DEP = $(DS_COMMON_SRC) ufl/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -642,6 +658,12 @@ bu-coe-letter: $(BU_COE_LETTER_PDF)
 bu-coe-rs: $(BU_COE_RS_PDF)
 bu-coe-ts: $(BU_COE_TS_PDF)
 bu-coe-ds: $(BU_COE_DS_PDF)
+
+ufl: ufl-letter ufl-rs ufl-ts ufl-ds
+ufl-letter: $(UFL_LETTER_PDF)
+ufl-rs: $(UFL_RS_PDF)
+ufl-ts: $(UFL_TS_PDF)
+ufl-ds: $(UFL_DS_PDF)
 
 clean: clean-cache
 
@@ -1129,3 +1151,20 @@ $(BU_COE_TS_PDF): $(BU_COE_TS_SRC) $(BU_COE_TS_DEP) | clean-cache $(CACHE_DIR)
 $(BU_COE_DS_PDF): $(BU_COE_DS_SRC) $(BU_COE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(BU_COE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(BU_COE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(BU_COE_DS_PDF)) $(BU_COE_DS_PDF)
+
+$(UFL_LETTER_PDF): $(UFL_LETTER_SRC) $(UFL_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UFL_LETTER_SRC))/.
+	@cd $(dir $(UFL_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UFL_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UFL_LETTER_PDF)) $(UFL_LETTER_PDF)
+
+$(UFL_RS_PDF): $(UFL_RS_SRC) $(UFL_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UFL_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UFL_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UFL_RS_PDF)) $(UFL_RS_PDF)
+
+$(UFL_TS_PDF): $(UFL_TS_SRC) $(UFL_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UFL_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UFL_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UFL_TS_PDF)) $(UFL_TS_PDF)
+
+$(UFL_DS_PDF): $(UFL_DS_SRC) $(UFL_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UFL_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UFL_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UFL_DS_PDF)) $(UFL_DS_PDF)
