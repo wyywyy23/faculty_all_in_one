@@ -1,24 +1,24 @@
 CV_SRC = common/cv/cv_yw.tex
 CV_PDF = $(CV_SRC:.tex=.pdf)
-CV_DEP = $(filter-out $(CV_PDF) $(CV_HL_PDF) $(CV_SRC) $(CV_HL_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f))
+CV_DEP = $(filter-out $(CV_PDF) $(CV_HL_PDF) $(CV_SRC) $(CV_HL_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f)) today.date
 
 CV_HL_SRC = common/cv/cv_highlights_yw.tex
 CV_HL_PDF = $(CV_HL_SRC:.tex=.pdf)
-CV_HL_DEP = $(filter-out $(CV_PDF) $(CV_HL_PDF) $(CV_SRC) $(CV_HL_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f))
+CV_HL_DEP = $(filter-out $(CV_PDF) $(CV_HL_PDF) $(CV_SRC) $(CV_HL_SRC) $(wildcard common/cv/*.log) common/cv/LICENSE common/cv/Makefile common/cv/README.md $(wildcard common/cv/.git*), $(shell find common/cv -type f)) today.date
 
 PUB_LIST_SRC = common/publication/pub_list/pub_list_yw.tex
 PUB_LIST_PDF = $(PUB_LIST_SRC:.tex=.pdf)
-PUB_LIST_DEP = common/cv/simplecv.sty common/cv/comment_setup.tex common/cv/bibtype.tex common/cv/sections/publications.tex common/cv/papers.bib
+PUB_LIST_DEP = common/cv/simplecv.sty common/cv/comment_setup.tex common/cv/bibtype.tex common/cv/sections/publications.tex common/cv/papers.bib today.date
 
 LH_SRC = common/letterhead/letter.tex
 LH_PDF = $(LH_SRC:.tex=.pdf)
-LH_DEP = $(filter-out $(LH_PDF) $(LH_SRC) $(wildcard common/letterhead/*.log) common/letterhead/LICENSE common/letterhead/Makefile common/letterhead/README.md $(wildcard common/letterhead/.git*), $(shell find common/letterhead -type f))
+LH_DEP = $(filter-out $(LH_PDF) $(LH_SRC) $(wildcard common/letterhead/*.log) common/letterhead/LICENSE common/letterhead/Makefile common/letterhead/README.md $(wildcard common/letterhead/.git*), $(shell find common/letterhead -type f)) today.date
 
 LH_FONT_DIR       = common/letterhead/font
 SIG_PDF           = common/signature/yuyang.pdf
 LETTER_COMMON_SRC = $(wildcard common/cover_letter/*.tex)
 
-STATEMENT_PRE = common/statement_pre.tex
+STATEMENT_PRE = common/statement_pre.tex today.date
 TS_FIG = fig/color.pdf
 DS_FIG = fig/diversity.png
 RS_FIG = fig/research.pdf
