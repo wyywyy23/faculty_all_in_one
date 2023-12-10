@@ -529,13 +529,29 @@ UDEL_AI_DS_SRC = udel_ai/diversity_statement/diversity_statement_yw.tex
 UDEL_AI_DS_PDF = $(UDEL_AI_DS_SRC:.tex=.pdf)
 UDEL_AI_DS_DEP = $(DS_COMMON_SRC) udel_ai/common.tex
 
+UDEL_DEVICE_LETTER_SRC = udel_device/cover_letter/cover_letter_yw.tex
+UDEL_DEVICE_LETTER_PDF = $(UDEL_DEVICE_LETTER_SRC:.tex=.pdf)
+UDEL_DEVICE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) udel_device/common.tex
+
+UDEL_DEVICE_RS_SRC = udel_device/research_statement/research_statement_yw.tex
+UDEL_DEVICE_RS_PDF = $(UDEL_DEVICE_RS_SRC:.tex=.pdf)
+UDEL_DEVICE_RS_DEP = $(RS_COMMON_SRC) udel_device/common.tex
+
+UDEL_DEVICE_TS_SRC = udel_device/teaching_statement/teaching_statement_yw.tex
+UDEL_DEVICE_TS_PDF = $(UDEL_DEVICE_TS_SRC:.tex=.pdf)
+UDEL_DEVICE_TS_DEP = $(TS_COMMON_SRC) udel_device/common.tex
+
+UDEL_DEVICE_DS_SRC = udel_device/diversity_statement/diversity_statement_yw.tex
+UDEL_DEVICE_DS_PDF = $(UDEL_DEVICE_DS_SRC:.tex=.pdf)
+UDEL_DEVICE_DS_DEP = $(DS_COMMON_SRC) udel_device/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -730,6 +746,12 @@ udel-ai-letter: $(UDEL_AI_LETTER_PDF)
 udel-ai-rs: $(UDEL_AI_RS_PDF)
 udel-ai-ts: $(UDEL_AI_TS_PDF)
 udel-ai-ds: $(UDEL_AI_DS_PDF)
+
+udel-device: udel-device-letter udel-device-rs udel-device-ts udel-device-ds
+udel-device-letter: $(UDEL_DEVICE_LETTER_PDF)
+udel-device-rs: $(UDEL_DEVICE_RS_PDF)
+udel-device-ts: $(UDEL_DEVICE_TS_PDF)
+udel-device-ds: $(UDEL_DEVICE_DS_PDF)
 
 clean: clean-cache
 
@@ -1285,3 +1307,21 @@ $(UDEL_AI_TS_PDF): $(UDEL_AI_TS_SRC) $(UDEL_AI_TS_DEP) | clean-cache $(CACHE_DIR
 $(UDEL_AI_DS_PDF): $(UDEL_AI_DS_SRC) $(UDEL_AI_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UDEL_AI_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UDEL_AI_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UDEL_AI_DS_PDF)) $(UDEL_AI_DS_PDF)
+
+$(UDEL_DEVICE_LETTER_PDF): $(UDEL_DEVICE_LETTER_SRC) $(UDEL_DEVICE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UDEL_DEVICE_LETTER_SRC))/.
+	@cd $(dir $(UDEL_DEVICE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UDEL_DEVICE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UDEL_DEVICE_LETTER_PDF)) $(UDEL_DEVICE_LETTER_PDF)
+
+$(UDEL_DEVICE_RS_PDF): $(UDEL_DEVICE_RS_SRC) $(UDEL_DEVICE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UDEL_DEVICE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UDEL_DEVICE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UDEL_DEVICE_RS_PDF)) $(UDEL_DEVICE_RS_PDF)
+
+$(UDEL_DEVICE_TS_PDF): $(UDEL_DEVICE_TS_SRC) $(UDEL_DEVICE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UDEL_DEVICE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UDEL_DEVICE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UDEL_DEVICE_TS_PDF)) $(UDEL_DEVICE_TS_PDF)
+
+$(UDEL_DEVICE_DS_PDF): $(UDEL_DEVICE_DS_SRC) $(UDEL_DEVICE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UDEL_DEVICE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UDEL_DEVICE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UDEL_DEVICE_DS_PDF)) $(UDEL_DEVICE_DS_PDF)
+
