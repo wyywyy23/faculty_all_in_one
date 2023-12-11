@@ -545,13 +545,29 @@ UDEL_DEVICE_DS_SRC = udel_device/diversity_statement/diversity_statement_yw.tex
 UDEL_DEVICE_DS_PDF = $(UDEL_DEVICE_DS_SRC:.tex=.pdf)
 UDEL_DEVICE_DS_DEP = $(DS_COMMON_SRC) udel_device/common.tex
 
+UCONN_ECE_LETTER_SRC = uconn_ece/cover_letter/cover_letter_yw.tex
+UCONN_ECE_LETTER_PDF = $(UCONN_ECE_LETTER_SRC:.tex=.pdf)
+UCONN_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) uconn_ece/common.tex
+
+UCONN_ECE_RS_SRC = uconn_ece/research_statement/research_statement_yw.tex
+UCONN_ECE_RS_PDF = $(UCONN_ECE_RS_SRC:.tex=.pdf)
+UCONN_ECE_RS_DEP = $(RS_COMMON_SRC) uconn_ece/common.tex
+
+UCONN_ECE_TS_SRC = uconn_ece/teaching_statement/teaching_statement_yw.tex
+UCONN_ECE_TS_PDF = $(UCONN_ECE_TS_SRC:.tex=.pdf)
+UCONN_ECE_TS_DEP = $(TS_COMMON_SRC) uconn_ece/common.tex
+
+UCONN_ECE_DS_SRC = uconn_ece/diversity_statement/diversity_statement_yw.tex
+UCONN_ECE_DS_PDF = $(UCONN_ECE_DS_SRC:.tex=.pdf)
+UCONN_ECE_DS_DEP = $(DS_COMMON_SRC) uconn_ece/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -752,6 +768,12 @@ udel-device-letter: $(UDEL_DEVICE_LETTER_PDF)
 udel-device-rs: $(UDEL_DEVICE_RS_PDF)
 udel-device-ts: $(UDEL_DEVICE_TS_PDF)
 udel-device-ds: $(UDEL_DEVICE_DS_PDF)
+
+uconn-ece: uconn-ece-letter uconn-ece-rs uconn-ece-ts uconn-ece-ds
+uconn-ece-letter: $(UCONN_ECE_LETTER_PDF)
+uconn-ece-rs: $(UCONN_ECE_RS_PDF)
+uconn-ece-ts: $(UCONN_ECE_TS_PDF)
+uconn-ece-ds: $(UCONN_ECE_DS_PDF)
 
 clean: clean-cache
 
@@ -1325,3 +1347,19 @@ $(UDEL_DEVICE_DS_PDF): $(UDEL_DEVICE_DS_SRC) $(UDEL_DEVICE_DS_DEP) | clean-cache
 	@cd $(dir $(UDEL_DEVICE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UDEL_DEVICE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UDEL_DEVICE_DS_PDF)) $(UDEL_DEVICE_DS_PDF)
 
+$(UCONN_ECE_LETTER_PDF): $(UCONN_ECE_LETTER_SRC) $(UCONN_ECE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UCONN_ECE_LETTER_SRC))/.
+	@cd $(dir $(UCONN_ECE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UCONN_ECE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCONN_ECE_LETTER_PDF)) $(UCONN_ECE_LETTER_PDF)
+
+$(UCONN_ECE_RS_PDF): $(UCONN_ECE_RS_SRC) $(UCONN_ECE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UCONN_ECE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UCONN_ECE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCONN_ECE_RS_PDF)) $(UCONN_ECE_RS_PDF)
+
+$(UCONN_ECE_TS_PDF): $(UCONN_ECE_TS_SRC) $(UCONN_ECE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UCONN_ECE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UCONN_ECE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCONN_ECE_TS_PDF)) $(UCONN_ECE_TS_PDF)
+
+$(UCONN_ECE_DS_PDF): $(UCONN_ECE_DS_SRC) $(UCONN_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UCONN_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UCONN_ECE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCONN_ECE_DS_PDF)) $(UCONN_ECE_DS_PDF)
