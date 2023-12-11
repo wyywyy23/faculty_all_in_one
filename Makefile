@@ -593,13 +593,29 @@ SYRACUSE_DS_SRC = syracuse/diversity_statement/diversity_statement_yw.tex
 SYRACUSE_DS_PDF = $(SYRACUSE_DS_SRC:.tex=.pdf)
 SYRACUSE_DS_DEP = $(DS_COMMON_SRC) syracuse/common.tex
 
+RIT_LETTER_SRC = rit/cover_letter/cover_letter_yw.tex
+RIT_LETTER_PDF = $(RIT_LETTER_SRC:.tex=.pdf)
+RIT_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) rit/common.tex
+
+RIT_RS_SRC = rit/research_statement/research_statement_yw.tex
+RIT_RS_PDF = $(RIT_RS_SRC:.tex=.pdf)
+RIT_RS_DEP = $(RS_COMMON_SRC) rit/common.tex
+
+RIT_TS_SRC = rit/teaching_statement/teaching_statement_yw.tex
+RIT_TS_PDF = $(RIT_TS_SRC:.tex=.pdf)
+RIT_TS_DEP = $(TS_COMMON_SRC) rit/common.tex
+
+RIT_DS_SRC = rit/diversity_statement/diversity_statement_yw.tex
+RIT_DS_PDF = $(RIT_DS_SRC:.tex=.pdf)
+RIT_DS_DEP = $(DS_COMMON_SRC) rit/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -818,6 +834,12 @@ syracuse-letter: $(SYRACUSE_LETTER_PDF)
 syracuse-rs: $(SYRACUSE_RS_PDF)
 syracuse-ts: $(SYRACUSE_TS_PDF)
 syracuse-ds: $(SYRACUSE_DS_PDF)
+
+rit: rit-letter rit-rs rit-ts rit-ds
+rit-letter: $(RIT_LETTER_PDF)
+rit-rs: $(RIT_RS_PDF)
+rit-ts: $(RIT_TS_PDF)
+rit-ds: $(RIT_DS_PDF)
 
 clean: clean-cache
 
@@ -1441,4 +1463,21 @@ $(SYRACUSE_TS_PDF): $(SYRACUSE_TS_SRC) $(SYRACUSE_TS_DEP) | clean-cache $(CACHE_
 $(SYRACUSE_DS_PDF): $(SYRACUSE_DS_SRC) $(SYRACUSE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(SYRACUSE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(SYRACUSE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(SYRACUSE_DS_PDF)) $(SYRACUSE_DS_PDF)
+	
+$(RIT_LETTER_PDF): $(RIT_LETTER_SRC) $(RIT_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(RIT_LETTER_SRC))/.
+	@cd $(dir $(RIT_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(RIT_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RIT_LETTER_PDF)) $(RIT_LETTER_PDF)
+
+$(RIT_RS_PDF): $(RIT_RS_SRC) $(RIT_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(RIT_RS_SRC)) && $(COMPILE_LUA) $(notdir $(RIT_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RIT_RS_PDF)) $(RIT_RS_PDF)
+
+$(RIT_TS_PDF): $(RIT_TS_SRC) $(RIT_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(RIT_TS_SRC)) && $(COMPILE_LUA) $(notdir $(RIT_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RIT_TS_PDF)) $(RIT_TS_PDF)
+
+$(RIT_DS_PDF): $(RIT_DS_SRC) $(RIT_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(RIT_DS_SRC)) && $(COMPILE_LUA) $(notdir $(RIT_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RIT_DS_PDF)) $(RIT_DS_PDF)
 	
