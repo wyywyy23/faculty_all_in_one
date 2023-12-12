@@ -641,13 +641,29 @@ CALTECH_DS_SRC = caltech/diversity_statement/diversity_statement_yw.tex
 CALTECH_DS_PDF = $(CALTECH_DS_SRC:.tex=.pdf)
 CALTECH_DS_DEP = $(DS_COMMON_SRC) caltech/common.tex
 
+CORNELL_LETTER_SRC = cornell/cover_letter/cover_letter_yw.tex
+CORNELL_LETTER_PDF = $(CORNELL_LETTER_SRC:.tex=.pdf)
+CORNELL_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) cornell/common.tex
+
+CORNELL_RS_SRC = cornell/research_statement/research_statement_yw.tex
+CORNELL_RS_PDF = $(CORNELL_RS_SRC:.tex=.pdf)
+CORNELL_RS_DEP = $(RS_COMMON_SRC) cornell/common.tex
+
+CORNELL_TS_SRC = cornell/teaching_statement/teaching_statement_yw.tex
+CORNELL_TS_PDF = $(CORNELL_TS_SRC:.tex=.pdf)
+CORNELL_TS_DEP = $(TS_COMMON_SRC) cornell/common.tex
+
+CORNELL_DS_SRC = cornell/diversity_statement/diversity_statement_yw.tex
+CORNELL_DS_PDF = $(CORNELL_DS_SRC:.tex=.pdf)
+CORNELL_DS_DEP = $(DS_COMMON_SRC) cornell/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -884,6 +900,12 @@ caltech-letter: $(CALTECH_LETTER_PDF)
 caltech-rs: $(CALTECH_RS_PDF)
 caltech-ts: $(CALTECH_TS_PDF)
 caltech-ds: $(CALTECH_DS_PDF)
+
+cornell: cornell-letter cornell-rs cornell-ts cornell-ds
+cornell-letter: $(CORNELL_LETTER_PDF)
+cornell-rs: $(CORNELL_RS_PDF)
+cornell-ts: $(CORNELL_TS_PDF)
+cornell-ds: $(CORNELL_DS_PDF)
 
 clean: clean-cache
 
@@ -1558,4 +1580,22 @@ $(CALTECH_TS_PDF): $(CALTECH_TS_SRC) $(CALTECH_TS_DEP) | clean-cache $(CACHE_DIR
 $(CALTECH_DS_PDF): $(CALTECH_DS_SRC) $(CALTECH_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(CALTECH_DS_SRC)) && $(COMPILE_LUA) $(notdir $(CALTECH_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(CALTECH_DS_PDF)) $(CALTECH_DS_PDF)
+
+$(CORNELL_LETTER_PDF): $(CORNELL_LETTER_SRC) $(CORNELL_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(CORNELL_LETTER_SRC))/.
+	@cd $(dir $(CORNELL_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CORNELL_LETTER_PDF)) $(CORNELL_LETTER_PDF)
+
+$(CORNELL_RS_PDF): $(CORNELL_RS_SRC) $(CORNELL_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CORNELL_RS_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CORNELL_RS_PDF)) $(CORNELL_RS_PDF)
+
+$(CORNELL_TS_PDF): $(CORNELL_TS_SRC) $(CORNELL_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CORNELL_TS_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CORNELL_TS_PDF)) $(CORNELL_TS_PDF)
+
+$(CORNELL_DS_PDF): $(CORNELL_DS_SRC) $(CORNELL_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CORNELL_DS_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CORNELL_DS_PDF)) $(CORNELL_DS_PDF)
+
 	
