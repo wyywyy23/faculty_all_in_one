@@ -609,13 +609,45 @@ RIT_DS_SRC = rit/diversity_statement/diversity_statement_yw.tex
 RIT_DS_PDF = $(RIT_DS_SRC:.tex=.pdf)
 RIT_DS_DEP = $(DS_COMMON_SRC) rit/common.tex
 
+GATECH_LETTER_SRC = gatech/cover_letter/cover_letter_yw.tex
+GATECH_LETTER_PDF = $(GATECH_LETTER_SRC:.tex=.pdf)
+GATECH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) gatech/common.tex
+
+GATECH_RS_SRC = gatech/research_statement/research_statement_yw.tex
+GATECH_RS_PDF = $(GATECH_RS_SRC:.tex=.pdf)
+GATECH_RS_DEP = $(RS_COMMON_SRC) gatech/common.tex
+
+GATECH_TS_SRC = gatech/teaching_statement/teaching_statement_yw.tex
+GATECH_TS_PDF = $(GATECH_TS_SRC:.tex=.pdf)
+GATECH_TS_DEP = $(TS_COMMON_SRC) gatech/common.tex
+
+GATECH_DS_SRC = gatech/diversity_statement/diversity_statement_yw.tex
+GATECH_DS_PDF = $(GATECH_DS_SRC:.tex=.pdf)
+GATECH_DS_DEP = $(DS_COMMON_SRC) gatech/common.tex
+
+CALTECH_LETTER_SRC = caltech/cover_letter/cover_letter_yw.tex
+CALTECH_LETTER_PDF = $(CALTECH_LETTER_SRC:.tex=.pdf)
+CALTECH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) caltech/common.tex
+
+CALTECH_RS_SRC = caltech/research_statement/research_statement_yw.tex
+CALTECH_RS_PDF = $(CALTECH_RS_SRC:.tex=.pdf)
+CALTECH_RS_DEP = $(RS_COMMON_SRC) caltech/common.tex
+
+CALTECH_TS_SRC = caltech/teaching_statement/teaching_statement_yw.tex
+CALTECH_TS_PDF = $(CALTECH_TS_SRC:.tex=.pdf)
+CALTECH_TS_DEP = $(TS_COMMON_SRC) caltech/common.tex
+
+CALTECH_DS_SRC = caltech/diversity_statement/diversity_statement_yw.tex
+CALTECH_DS_PDF = $(CALTECH_DS_SRC:.tex=.pdf)
+CALTECH_DS_DEP = $(DS_COMMON_SRC) caltech/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -840,6 +872,18 @@ rit-letter: $(RIT_LETTER_PDF)
 rit-rs: $(RIT_RS_PDF)
 rit-ts: $(RIT_TS_PDF)
 rit-ds: $(RIT_DS_PDF)
+
+gatech: gatech-letter gatech-rs gatech-ts gatech-ds
+gatech-letter: $(GATECH_LETTER_PDF)
+gatech-rs: $(GATECH_RS_PDF)
+gatech-ts: $(GATECH_TS_PDF)
+gatech-ds: $(GATECH_DS_PDF)
+
+caltech: caltech-letter caltech-rs caltech-ts caltech-ds
+caltech-letter: $(CALTECH_LETTER_PDF)
+caltech-rs: $(CALTECH_RS_PDF)
+caltech-ts: $(CALTECH_TS_PDF)
+caltech-ds: $(CALTECH_DS_PDF)
 
 clean: clean-cache
 
@@ -1480,4 +1524,38 @@ $(RIT_TS_PDF): $(RIT_TS_SRC) $(RIT_TS_DEP) | clean-cache $(CACHE_DIR)
 $(RIT_DS_PDF): $(RIT_DS_SRC) $(RIT_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(RIT_DS_SRC)) && $(COMPILE_LUA) $(notdir $(RIT_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(RIT_DS_PDF)) $(RIT_DS_PDF)
+
+$(GATECH_LETTER_PDF): $(GATECH_LETTER_SRC) $(GATECH_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(GATECH_LETTER_SRC))/.
+	@cd $(dir $(GATECH_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(GATECH_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(GATECH_LETTER_PDF)) $(GATECH_LETTER_PDF)
+
+$(GATECH_RS_PDF): $(GATECH_RS_SRC) $(GATECH_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(GATECH_RS_SRC)) && $(COMPILE_LUA) $(notdir $(GATECH_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(GATECH_RS_PDF)) $(GATECH_RS_PDF)
+
+$(GATECH_TS_PDF): $(GATECH_TS_SRC) $(GATECH_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(GATECH_TS_SRC)) && $(COMPILE_LUA) $(notdir $(GATECH_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(GATECH_TS_PDF)) $(GATECH_TS_PDF)
+
+$(GATECH_DS_PDF): $(GATECH_DS_SRC) $(GATECH_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(GATECH_DS_SRC)) && $(COMPILE_LUA) $(notdir $(GATECH_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(GATECH_DS_PDF)) $(GATECH_DS_PDF)
+
+$(CALTECH_LETTER_PDF): $(CALTECH_LETTER_SRC) $(CALTECH_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(CALTECH_LETTER_SRC))/.
+	@cd $(dir $(CALTECH_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(CALTECH_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CALTECH_LETTER_PDF)) $(CALTECH_LETTER_PDF)
+
+$(CALTECH_RS_PDF): $(CALTECH_RS_SRC) $(CALTECH_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CALTECH_RS_SRC)) && $(COMPILE_LUA) $(notdir $(CALTECH_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CALTECH_RS_PDF)) $(CALTECH_RS_PDF)
+
+$(CALTECH_TS_PDF): $(CALTECH_TS_SRC) $(CALTECH_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CALTECH_TS_SRC)) && $(COMPILE_LUA) $(notdir $(CALTECH_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CALTECH_TS_PDF)) $(CALTECH_TS_PDF)
+
+$(CALTECH_DS_PDF): $(CALTECH_DS_SRC) $(CALTECH_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CALTECH_DS_SRC)) && $(COMPILE_LUA) $(notdir $(CALTECH_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CALTECH_DS_PDF)) $(CALTECH_DS_PDF)
 	
