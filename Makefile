@@ -657,13 +657,29 @@ CORNELL_DS_SRC = cornell/diversity_statement/diversity_statement_yw.tex
 CORNELL_DS_PDF = $(CORNELL_DS_SRC:.tex=.pdf)
 CORNELL_DS_DEP = $(DS_COMMON_SRC) cornell/common.tex
 
+NWU_LETTER_SRC = nwu/cover_letter/cover_letter_yw.tex
+NWU_LETTER_PDF = $(NWU_LETTER_SRC:.tex=.pdf)
+NWU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) nwu/common.tex
+
+NWU_RS_SRC = nwu/research_statement/research_statement_yw.tex
+NWU_RS_PDF = $(NWU_RS_SRC:.tex=.pdf)
+NWU_RS_DEP = $(RS_COMMON_SRC) nwu/common.tex
+
+NWU_TS_SRC = nwu/teaching_statement/teaching_statement_yw.tex
+NWU_TS_PDF = $(NWU_TS_SRC:.tex=.pdf)
+NWU_TS_DEP = $(TS_COMMON_SRC) nwu/common.tex
+
+NWU_DS_SRC = nwu/diversity_statement/diversity_statement_yw.tex
+NWU_DS_PDF = $(NWU_DS_SRC:.tex=.pdf)
+NWU_DS_DEP = $(DS_COMMON_SRC) nwu/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -906,6 +922,12 @@ cornell-letter: $(CORNELL_LETTER_PDF)
 cornell-rs: $(CORNELL_RS_PDF)
 cornell-ts: $(CORNELL_TS_PDF)
 cornell-ds: $(CORNELL_DS_PDF)
+
+nwu: nwu-letter nwu-rs nwu-ts nwu-ds
+nwu-letter: $(NWU_LETTER_PDF)
+nwu-rs: $(NWU_RS_PDF)
+nwu-ts: $(NWU_TS_PDF)
+nwu-ds: $(NWU_DS_PDF)
 
 clean: clean-cache
 
@@ -1598,4 +1620,19 @@ $(CORNELL_DS_PDF): $(CORNELL_DS_SRC) $(CORNELL_DS_DEP) | clean-cache $(CACHE_DIR
 	@cd $(dir $(CORNELL_DS_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(CORNELL_DS_PDF)) $(CORNELL_DS_PDF)
 
-	
+$(NWU_LETTER_PDF): $(NWU_LETTER_SRC) $(NWU_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(NWU_LETTER_SRC))/.
+	@cd $(dir $(NWU_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(NWU_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NWU_LETTER_PDF)) $(NWU_LETTER_PDF)
+
+$(NWU_RS_PDF): $(NWU_RS_SRC) $(NWU_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NWU_RS_SRC)) && $(COMPILE_LUA) $(notdir $(NWU_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NWU_RS_PDF)) $(NWU_RS_PDF)
+
+$(NWU_TS_PDF): $(NWU_TS_SRC) $(NWU_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NWU_TS_SRC)) && $(COMPILE_LUA) $(notdir $(NWU_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NWU_TS_PDF)) $(NWU_TS_PDF)
+
+$(NWU_DS_PDF): $(NWU_DS_SRC) $(NWU_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NWU_DS_SRC)) && $(COMPILE_LUA) $(notdir $(NWU_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NWU_DS_PDF)) $(NWU_DS_PDF)
