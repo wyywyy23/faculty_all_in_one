@@ -673,13 +673,29 @@ NWU_DS_SRC = nwu/diversity_statement/diversity_statement_yw.tex
 NWU_DS_PDF = $(NWU_DS_SRC:.tex=.pdf)
 NWU_DS_DEP = $(DS_COMMON_SRC) nwu/common.tex
 
+UCLA_LETTER_SRC = ucla/cover_letter/cover_letter_yw.tex
+UCLA_LETTER_PDF = $(UCLA_LETTER_SRC:.tex=.pdf)
+UCLA_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ucla/common.tex
+
+UCLA_RS_SRC = ucla/research_statement/research_statement_yw.tex
+UCLA_RS_PDF = $(UCLA_RS_SRC:.tex=.pdf)
+UCLA_RS_DEP = $(RS_COMMON_SRC) ucla/common.tex
+
+UCLA_TS_SRC = ucla/teaching_statement/teaching_statement_yw.tex
+UCLA_TS_PDF = $(UCLA_TS_SRC:.tex=.pdf)
+UCLA_TS_DEP = $(TS_COMMON_SRC) ucla/common.tex
+
+UCLA_DS_SRC = ucla/diversity_statement/diversity_statement_yw.tex
+UCLA_DS_PDF = $(UCLA_DS_SRC:.tex=.pdf)
+UCLA_DS_DEP = $(DS_COMMON_SRC) ucla/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -928,6 +944,12 @@ nwu-letter: $(NWU_LETTER_PDF)
 nwu-rs: $(NWU_RS_PDF)
 nwu-ts: $(NWU_TS_PDF)
 nwu-ds: $(NWU_DS_PDF)
+
+ucla: ucla-letter ucla-rs ucla-ts ucla-ds
+ucla-letter: $(UCLA_LETTER_PDF)
+ucla-rs: $(UCLA_RS_PDF)
+ucla-ts: $(UCLA_TS_PDF)
+ucla-ds: $(UCLA_DS_PDF)
 
 clean: clean-cache
 
@@ -1636,3 +1658,21 @@ $(NWU_TS_PDF): $(NWU_TS_SRC) $(NWU_TS_DEP) | clean-cache $(CACHE_DIR)
 $(NWU_DS_PDF): $(NWU_DS_SRC) $(NWU_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(NWU_DS_SRC)) && $(COMPILE_LUA) $(notdir $(NWU_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(NWU_DS_PDF)) $(NWU_DS_PDF)
+
+$(UCLA_LETTER_PDF): $(UCLA_LETTER_SRC) $(UCLA_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UCLA_LETTER_SRC))/.
+	@cd $(dir $(UCLA_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UCLA_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCLA_LETTER_PDF)) $(UCLA_LETTER_PDF)
+
+$(UCLA_RS_PDF): $(UCLA_RS_SRC) $(UCLA_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UCLA_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UCLA_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCLA_RS_PDF)) $(UCLA_RS_PDF)
+
+$(UCLA_TS_PDF): $(UCLA_TS_SRC) $(UCLA_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UCLA_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UCLA_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCLA_TS_PDF)) $(UCLA_TS_PDF)
+
+$(UCLA_DS_PDF): $(UCLA_DS_SRC) $(UCLA_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UCLA_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UCLA_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCLA_DS_PDF)) $(UCLA_DS_PDF)
+
