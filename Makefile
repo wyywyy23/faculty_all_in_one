@@ -689,13 +689,29 @@ UCLA_DS_SRC = ucla/diversity_statement/diversity_statement_yw.tex
 UCLA_DS_PDF = $(UCLA_DS_SRC:.tex=.pdf)
 UCLA_DS_DEP = $(DS_COMMON_SRC) ucla/common.tex
 
+WU_ST_LOUIS_LETTER_SRC = wu_st_louis/cover_letter/cover_letter_yw.tex
+WU_ST_LOUIS_LETTER_PDF = $(WU_ST_LOUIS_LETTER_SRC:.tex=.pdf)
+WU_ST_LOUIS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) wu_st_louis/common.tex
+
+WU_ST_LOUIS_RS_SRC = wu_st_louis/research_statement/research_statement_yw.tex
+WU_ST_LOUIS_RS_PDF = $(WU_ST_LOUIS_RS_SRC:.tex=.pdf)
+WU_ST_LOUIS_RS_DEP = $(RS_COMMON_SRC) wu_st_louis/common.tex
+
+WU_ST_LOUIS_TS_SRC = wu_st_louis/teaching_statement/teaching_statement_yw.tex
+WU_ST_LOUIS_TS_PDF = $(WU_ST_LOUIS_TS_SRC:.tex=.pdf)
+WU_ST_LOUIS_TS_DEP = $(TS_COMMON_SRC) wu_st_louis/common.tex
+
+WU_ST_LOUIS_DS_SRC = wu_st_louis/diversity_statement/diversity_statement_yw.tex
+WU_ST_LOUIS_DS_PDF = $(WU_ST_LOUIS_DS_SRC:.tex=.pdf)
+WU_ST_LOUIS_DS_DEP = $(DS_COMMON_SRC) wu_st_louis/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla wu-st-louis
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -950,6 +966,12 @@ ucla-letter: $(UCLA_LETTER_PDF)
 ucla-rs: $(UCLA_RS_PDF)
 ucla-ts: $(UCLA_TS_PDF)
 ucla-ds: $(UCLA_DS_PDF)
+
+wu-st-louis: wu-st-louis-letter wu-st-louis-rs wu-st-louis-ts wu-st-louis-ds
+wu-st-louis-letter: $(WU_ST_LOUIS_LETTER_PDF)
+wu-st-louis-rs: $(WU_ST_LOUIS_RS_PDF)
+wu-st-louis-ts: $(WU_ST_LOUIS_TS_PDF)
+wu-st-louis-ds: $(WU_ST_LOUIS_DS_PDF)
 
 clean: clean-cache
 
@@ -1676,3 +1698,19 @@ $(UCLA_DS_PDF): $(UCLA_DS_SRC) $(UCLA_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UCLA_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UCLA_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UCLA_DS_PDF)) $(UCLA_DS_PDF)
 
+$(WU_ST_LOUIS_LETTER_PDF): $(WU_ST_LOUIS_LETTER_SRC) $(WU_ST_LOUIS_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(WU_ST_LOUIS_LETTER_SRC))/.
+	@cd $(dir $(WU_ST_LOUIS_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(WU_ST_LOUIS_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(WU_ST_LOUIS_LETTER_PDF)) $(WU_ST_LOUIS_LETTER_PDF)
+
+$(WU_ST_LOUIS_RS_PDF): $(WU_ST_LOUIS_RS_SRC) $(WU_ST_LOUIS_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(WU_ST_LOUIS_RS_SRC)) && $(COMPILE_LUA) $(notdir $(WU_ST_LOUIS_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(WU_ST_LOUIS_RS_PDF)) $(WU_ST_LOUIS_RS_PDF)
+
+$(WU_ST_LOUIS_TS_PDF): $(WU_ST_LOUIS_TS_SRC) $(WU_ST_LOUIS_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(WU_ST_LOUIS_TS_SRC)) && $(COMPILE_LUA) $(notdir $(WU_ST_LOUIS_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(WU_ST_LOUIS_TS_PDF)) $(WU_ST_LOUIS_TS_PDF)
+
+$(WU_ST_LOUIS_DS_PDF): $(WU_ST_LOUIS_DS_SRC) $(WU_ST_LOUIS_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(WU_ST_LOUIS_DS_SRC)) && $(COMPILE_LUA) $(notdir $(WU_ST_LOUIS_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(WU_ST_LOUIS_DS_PDF)) $(WU_ST_LOUIS_DS_PDF)
