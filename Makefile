@@ -705,13 +705,29 @@ WU_ST_LOUIS_DS_SRC = wu_st_louis/diversity_statement/diversity_statement_yw.tex
 WU_ST_LOUIS_DS_PDF = $(WU_ST_LOUIS_DS_SRC:.tex=.pdf)
 WU_ST_LOUIS_DS_DEP = $(DS_COMMON_SRC) wu_st_louis/common.tex
 
+NOTRE_DAME_LETTER_SRC = notre_dame/cover_letter/cover_letter_yw.tex
+NOTRE_DAME_LETTER_PDF = $(NOTRE_DAME_LETTER_SRC:.tex=.pdf)
+NOTRE_DAME_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) notre_dame/common.tex
+
+NOTRE_DAME_RS_SRC = notre_dame/research_statement/research_statement_yw.tex
+NOTRE_DAME_RS_PDF = $(NOTRE_DAME_RS_SRC:.tex=.pdf)
+NOTRE_DAME_RS_DEP = $(RS_COMMON_SRC) notre_dame/common.tex
+
+NOTRE_DAME_TS_SRC = notre_dame/teaching_statement/teaching_statement_yw.tex
+NOTRE_DAME_TS_PDF = $(NOTRE_DAME_TS_SRC:.tex=.pdf)
+NOTRE_DAME_TS_DEP = $(TS_COMMON_SRC) notre_dame/common.tex
+
+NOTRE_DAME_DS_SRC = notre_dame/diversity_statement/diversity_statement_yw.tex
+NOTRE_DAME_DS_PDF = $(NOTRE_DAME_DS_SRC:.tex=.pdf)
+NOTRE_DAME_DS_DEP = $(DS_COMMON_SRC) notre_dame/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla wu-st-louis
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla wu-st-louis notre-dame
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -972,6 +988,12 @@ wu-st-louis-letter: $(WU_ST_LOUIS_LETTER_PDF)
 wu-st-louis-rs: $(WU_ST_LOUIS_RS_PDF)
 wu-st-louis-ts: $(WU_ST_LOUIS_TS_PDF)
 wu-st-louis-ds: $(WU_ST_LOUIS_DS_PDF)
+
+notre-dame: notre-dame-letter notre-dame-rs notre-dame-ts notre-dame-ds
+notre-dame-letter: $(NOTRE_DAME_LETTER_PDF)
+notre-dame-rs: $(NOTRE_DAME_RS_PDF)
+notre-dame-ts: $(NOTRE_DAME_TS_PDF)
+notre-dame-ds: $(NOTRE_DAME_DS_PDF)
 
 clean: clean-cache
 
@@ -1714,3 +1736,20 @@ $(WU_ST_LOUIS_TS_PDF): $(WU_ST_LOUIS_TS_SRC) $(WU_ST_LOUIS_TS_DEP) | clean-cache
 $(WU_ST_LOUIS_DS_PDF): $(WU_ST_LOUIS_DS_SRC) $(WU_ST_LOUIS_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(WU_ST_LOUIS_DS_SRC)) && $(COMPILE_LUA) $(notdir $(WU_ST_LOUIS_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(WU_ST_LOUIS_DS_PDF)) $(WU_ST_LOUIS_DS_PDF)
+
+$(NOTRE_DAME_LETTER_PDF): $(NOTRE_DAME_LETTER_SRC) $(NOTRE_DAME_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(NOTRE_DAME_LETTER_SRC))/.
+	@cd $(dir $(NOTRE_DAME_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(NOTRE_DAME_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NOTRE_DAME_LETTER_PDF)) $(NOTRE_DAME_LETTER_PDF)
+
+$(NOTRE_DAME_RS_PDF): $(NOTRE_DAME_RS_SRC) $(NOTRE_DAME_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NOTRE_DAME_RS_SRC)) && $(COMPILE_LUA) $(notdir $(NOTRE_DAME_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NOTRE_DAME_RS_PDF)) $(NOTRE_DAME_RS_PDF)
+
+$(NOTRE_DAME_TS_PDF): $(NOTRE_DAME_TS_SRC) $(NOTRE_DAME_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NOTRE_DAME_TS_SRC)) && $(COMPILE_LUA) $(notdir $(NOTRE_DAME_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NOTRE_DAME_TS_PDF)) $(NOTRE_DAME_TS_PDF)
+
+$(NOTRE_DAME_DS_PDF): $(NOTRE_DAME_DS_SRC) $(NOTRE_DAME_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(NOTRE_DAME_DS_SRC)) && $(COMPILE_LUA) $(notdir $(NOTRE_DAME_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(NOTRE_DAME_DS_PDF)) $(NOTRE_DAME_DS_PDF)
