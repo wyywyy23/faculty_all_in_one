@@ -25,7 +25,8 @@ RS_FIG = fig/research.pdf
 
 RS_COMMON_SRC = $(filter-out common/research_statement/research_statement_common_2_page.tex, $(wildcard common/research_statement/*.tex)) common/research_statement/bibliography.bib $(STATEMENT_PRE) $(RS_FIG)
 RS_COMMON_2PAGE_SRC = $(filter-out common/research_statement/research_statement_common.tex, $(wildcard common/research_statement/*.tex)) common/research_statement/bibliography_short.bib $(STATEMENT_PRE) $(RS_FIG)
-TS_COMMON_SRC = $(wildcard common/teaching_statement/*.tex) $(wildcard common/teaching_statement/*.bib) $(STATEMENT_PRE) $(TS_FIG)
+TS_COMMON_SRC = $(filter-out common/teaching_statement/teaching_statement_common_1_page.tex, $(wildcard common/teaching_statement/*.tex)) $(wildcard common/teaching_statement/*.bib) $(STATEMENT_PRE) $(TS_FIG)
+TS_COMMON_1PAGE_SRC = $(filter-out common/teaching_statement/teaching_statement_common.tex, $(wildcard common/teaching_statement/*.tex)) $(STATEMENT_PRE) $(TS_FIG)
 DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(wildcard common/diversity_statement/*.bib) $(STATEMENT_PRE) $(DS_FIG)
 MS_COMMON_SRC = $(wildcard common/mentoring_statement/*.tex) $(wildcard common/mentoring_statement/*.bib) $(STATEMENT_PRE)
 
@@ -721,13 +722,27 @@ NOTRE_DAME_DS_SRC = notre_dame/diversity_statement/diversity_statement_yw.tex
 NOTRE_DAME_DS_PDF = $(NOTRE_DAME_DS_SRC:.tex=.pdf)
 NOTRE_DAME_DS_DEP = $(DS_COMMON_SRC) notre_dame/common.tex
 
+STANFORD_ECE_LETTER_SRC = stanford_ece/cover_letter/cover_letter_yw.tex
+STANFORD_ECE_LETTER_PDF = $(STANFORD_ECE_LETTER_SRC:.tex=.pdf)
+STANFORD_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) stanford_ece/common.tex
+
+STANFORD_ECE_RS_SRC = stanford_ece/research_statement/research_statement_yw.tex
+STANFORD_ECE_RS_PDF = $(STANFORD_ECE_RS_SRC:.tex=.pdf)
+STANFORD_ECE_RS_DEP = $(RS_COMMON_2PAGE_SRC) stanford_ece/common.tex
+
+STANFORD_ECE_TS_DEP = $(TS_COMMON_1PAGE_SRC) stanford_ece/common.tex
+
+STANFORD_ECE_DS_SRC = stanford_ece/diversity_statement/diversity_statement_yw.tex
+STANFORD_ECE_DS_PDF = $(STANFORD_ECE_DS_SRC:.tex=.pdf)
+STANFORD_ECE_DS_DEP = $(DS_COMMON_SRC) stanford_ece/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla wu-st-louis notre-dame
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla wu-st-louis notre-dame stanford-ece
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -994,6 +1009,11 @@ notre-dame-letter: $(NOTRE_DAME_LETTER_PDF)
 notre-dame-rs: $(NOTRE_DAME_RS_PDF)
 notre-dame-ts: $(NOTRE_DAME_TS_PDF)
 notre-dame-ds: $(NOTRE_DAME_DS_PDF)
+
+stanford-ece: stanford-ece-letter stanford-ece-rs stanford-ece-ds
+stanford-ece-letter: $(STANFORD_ECE_LETTER_PDF)
+stanford-ece-rs: $(STANFORD_ECE_RS_PDF)
+stanford-ece-ds: $(STANFORD_ECE_DS_PDF)
 
 clean: clean-cache
 
@@ -1753,3 +1773,16 @@ $(NOTRE_DAME_TS_PDF): $(NOTRE_DAME_TS_SRC) $(NOTRE_DAME_TS_DEP) | clean-cache $(
 $(NOTRE_DAME_DS_PDF): $(NOTRE_DAME_DS_SRC) $(NOTRE_DAME_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(NOTRE_DAME_DS_SRC)) && $(COMPILE_LUA) $(notdir $(NOTRE_DAME_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(NOTRE_DAME_DS_PDF)) $(NOTRE_DAME_DS_PDF)
+
+$(STANFORD_ECE_LETTER_PDF): $(STANFORD_ECE_LETTER_SRC) $(STANFORD_ECE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(STANFORD_ECE_LETTER_SRC))/.
+	@cd $(dir $(STANFORD_ECE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(STANFORD_ECE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(STANFORD_ECE_LETTER_PDF)) $(STANFORD_ECE_LETTER_PDF)
+
+$(STANFORD_ECE_RS_PDF): $(STANFORD_ECE_RS_SRC) $(STANFORD_ECE_RS_DEP) $(STANFORD_ECE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(STANFORD_ECE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(STANFORD_ECE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(STANFORD_ECE_RS_PDF)) $(STANFORD_ECE_RS_PDF)
+
+$(STANFORD_ECE_DS_PDF): $(STANFORD_ECE_DS_SRC) $(STANFORD_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(STANFORD_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(STANFORD_ECE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(STANFORD_ECE_DS_PDF)) $(STANFORD_ECE_DS_PDF)
