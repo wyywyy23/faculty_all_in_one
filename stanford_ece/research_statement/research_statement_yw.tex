@@ -9,6 +9,8 @@
 \titleformat{\part}[display]{\scshape\Large\bfseries}{\vspace{-6ex}}{0pt}{\Large}
 \titlespacing*\section{0pt}{12pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
 
+\usepackage{wrapfig}
+
 %%%%%% Customize the following lines %%%%%%
 \title{Research and Teaching Statement}
 
@@ -27,21 +29,21 @@
 
 \def\rsCustom{%
 such as 
-\begin{itemize}[nosep]
-    \item \courseOneName{} (\courseOneNumber{}),
-    \item \courseTwoName{} (\courseTwoNumber{}), and
-    \item \courseThreeName{} (\courseThreeNumber{}).
-\end{itemize}
-Believing that the preparation for teaching materials deepens my own understanding of the subject matter, I am also open to teaching courses beyond my immediate expertise, such as
-\begin{itemize}[nosep]
-    \item \courseFourName{} (\courseFourNumber{}), and
-    \item \courseFiveName{} (\courseFiveNumber{}).
-\end{itemize}
+\begin{enumerate*}[label=\arabic*)]
+    \item \emph{\courseOneName{}} (\courseOneNumber{}),
+    \item \emph{\courseTwoName{}} (\courseTwoNumber{}), and
+    \item \emph{\courseThreeName{}} (\courseThreeNumber{}).
+\end{enumerate*}
+Believing that the preparation for teaching materials deepens my own understanding of the subject, I am also open to teaching courses beyond my immediate expertise, such as
+\begin{enumerate*}[label=\arabic*)]
+    \item \emph{\courseFourName{}} (\courseFourNumber{}), and
+    \item \emph{\courseFiveName{}} (\courseFiveNumber{}).
+\end{enumerate*}
 Moreover, I am enthusiastic about the prospect of designing new courses, currently not offered at the \appSchool{}, such as
-\begin{itemize}[nosep]
-    \item \courseSixName{}, and 
-    \item \courseSevenName{},
-\end{itemize}
+\begin{enumerate*}[label=\arabic*)]
+    \item \emph{\courseSixName{}}, and 
+    \item \emph{\courseSevenName{}},
+\end{enumerate*}
 which could expand and enrich the department's already distinguished curriculum.
 }
 %%%%%% End of customization %%%%%%
@@ -72,6 +74,5 @@ which could expand and enrich the department's already distinguished curriculum.
 \part{Teaching Philosophy and Interest}
 
 \input{../../common/teaching_statement/teaching_statement_common_1_page.tex}
-\rsCustom{}
 
 \end{document}
