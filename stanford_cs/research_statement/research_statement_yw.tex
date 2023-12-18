@@ -1,0 +1,78 @@
+%!TEX root = research_statement_yw.tex
+%!TEX program = lualatex
+
+\input{../../common/statement_pre.tex}
+\input{../common.tex}
+
+% Let's customize \part
+\usepackage{titlesec}
+\titleformat{\part}[display]{\scshape\Large\bfseries}{\vspace{-6ex}}{0pt}{\Large}
+\titlespacing*\section{0pt}{12pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
+
+\usepackage{wrapfig}
+
+%%%%%% Customize the following lines %%%%%%
+\title{Research and Teaching Statement}
+
+\def\courseOneName{Introduction to Computer Networking}
+\def\courseOneNumber{CS 144}
+\def\courseTwoName{Embedded Systems Workshop}
+\def\courseTwoNumber{CS 241}
+\def\courseThreeName{Advanced Optical Fiber Communications}
+\def\courseThreeNumber{EE 348}
+\def\courseFourName{Dissecting The Modern Computer}
+\def\courseFourNumber{CS 80E}
+\def\courseFiveName{Electronic Design Automation (EDA) and Machine Learning Hardware}
+\def\courseFiveNumber{EE 292A}
+\def\courseSixName{Electronic Photonic Design Automation}
+\def\courseSevenName{Optical Interconnects for Computing Systems}
+
+\def\rsCustom{%
+such as 
+\begin{enumerate*}[label={},afterlabel={}]
+    \item \emph{\courseOneName{}} (\courseOneNumber{}),
+    \item \emph{\courseTwoName{}} (\courseTwoNumber{}), and
+    \item \emph{\courseThreeName{}} (\courseThreeNumber{}).
+\end{enumerate*}
+Believing that the preparation for teaching materials deepens my own understanding of the subject, I am also open to teaching courses beyond my immediate expertise, such as
+\begin{enumerate*}[label={},afterlabel={}]
+    \item \emph{\courseFourName{}} (\courseFourNumber{}), and
+    \item \emph{\courseFiveName{}} (\courseFiveNumber{}).
+\end{enumerate*}
+Moreover, I am enthusiastic about the prospect of designing new courses, currently not offered at the \appSchool{}, such as
+\begin{enumerate*}[label={},afterlabel={}]
+    \item \emph{\courseSixName{}}, and 
+    \item \emph{\courseSevenName{}},
+\end{enumerate*}
+which could expand and enrich the department's already distinguished curriculum.
+}
+%%%%%% End of customization %%%%%%
+
+\author{Yuyang Wang}
+\date{\vspace{-7ex}}
+\makeatletter
+\fancyfoot[L]{\scshape \MakeLowercase{\@author}}
+\fancyfoot[R]{{\scshape \MakeLowercase{\@title}}\quad{\LARGE\sfrac{\thepage}{\pageref*{LastPage}}}}
+\makeatother
+
+\begin{document}
+\bstctlcite{BSTcontrol} % IEEEtran BST control
+
+\maketitle% this prints the handout title, author, and date
+\thispagestyle{fancy}
+
+% {\noindent\Large\textbf{\scshape Research Vision and Agenda}}
+% \bigskip
+\part{Research Vision and Agenda}
+
+\input{../../common/research_statement/research_statement_common_2_page.tex}
+
+{\scriptsize
+    \bibliography{\mainabsdir../../common/research_statement/bibliography_short}
+}
+
+\part{Teaching Philosophy and Interest}
+
+\input{../../common/teaching_statement/teaching_statement_common_1_page.tex}
+
+\end{document}

@@ -737,13 +737,27 @@ STANFORD_ECE_DS_SRC = stanford_ece/diversity_statement/diversity_statement_yw.te
 STANFORD_ECE_DS_PDF = $(STANFORD_ECE_DS_SRC:.tex=.pdf)
 STANFORD_ECE_DS_DEP = $(DS_COMMON_SRC) stanford_ece/common.tex
 
+STANFORD_CS_LETTER_SRC = stanford_cs/cover_letter/cover_letter_yw.tex
+STANFORD_CS_LETTER_PDF = $(STANFORD_CS_LETTER_SRC:.tex=.pdf)
+STANFORD_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) stanford_cs/common.tex
+
+STANFORD_CS_RS_SRC = stanford_cs/research_statement/research_statement_yw.tex
+STANFORD_CS_RS_PDF = $(STANFORD_CS_RS_SRC:.tex=.pdf)
+STANFORD_CS_RS_DEP = $(RS_COMMON_2PAGE_SRC) stanford_cs/common.tex
+
+STANFORD_CS_TS_DEP = $(TS_COMMON_1PAGE_SRC) stanford_cs/common.tex
+
+STANFORD_CS_DS_SRC = stanford_cs/diversity_statement/diversity_statement_yw.tex
+STANFORD_CS_DS_PDF = $(STANFORD_CS_DS_SRC:.tex=.pdf)
+STANFORD_CS_DS_DEP = $(DS_COMMON_SRC) stanford_cs/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla wu-st-louis notre-dame stanford-ece
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1015,6 +1029,11 @@ stanford-ece: stanford-ece-letter stanford-ece-rs stanford-ece-ds
 stanford-ece-letter: $(STANFORD_ECE_LETTER_PDF)
 stanford-ece-rs: $(STANFORD_ECE_RS_PDF)
 stanford-ece-ds: $(STANFORD_ECE_DS_PDF)
+
+stanford-cs: stanford-cs-letter stanford-cs-rs stanford-cs-ds
+stanford-cs-letter: $(STANFORD_CS_LETTER_PDF)
+stanford-cs-rs: $(STANFORD_CS_RS_PDF)
+stanford-cs-ds: $(STANFORD_CS_DS_PDF)
 
 clean: clean-cache
 
@@ -1787,3 +1806,16 @@ $(STANFORD_ECE_RS_PDF): $(STANFORD_ECE_RS_SRC) $(STANFORD_ECE_RS_DEP) $(STANFORD
 $(STANFORD_ECE_DS_PDF): $(STANFORD_ECE_DS_SRC) $(STANFORD_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(STANFORD_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(STANFORD_ECE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(STANFORD_ECE_DS_PDF)) $(STANFORD_ECE_DS_PDF)
+
+$(STANFORD_CS_LETTER_PDF): $(STANFORD_CS_LETTER_SRC) $(STANFORD_CS_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(STANFORD_CS_LETTER_SRC))/.
+	@cd $(dir $(STANFORD_CS_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(STANFORD_CS_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(STANFORD_CS_LETTER_PDF)) $(STANFORD_CS_LETTER_PDF)
+
+$(STANFORD_CS_RS_PDF): $(STANFORD_CS_RS_SRC) $(STANFORD_CS_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(STANFORD_CS_RS_SRC)) && $(COMPILE_LUA) $(notdir $(STANFORD_CS_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(STANFORD_CS_RS_PDF)) $(STANFORD_CS_RS_PDF)
+
+$(STANFORD_CS_DS_PDF): $(STANFORD_CS_DS_SRC) $(STANFORD_CS_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(STANFORD_CS_DS_SRC)) && $(COMPILE_LUA) $(notdir $(STANFORD_CS_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(STANFORD_CS_DS_PDF)) $(STANFORD_CS_DS_PDF)
