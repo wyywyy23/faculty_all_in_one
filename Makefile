@@ -783,13 +783,29 @@ UCSD_CSE_DS_SRC = ucsd_cse/diversity_statement/diversity_statement_yw.tex
 UCSD_CSE_DS_PDF = $(UCSD_CSE_DS_SRC:.tex=.pdf)
 UCSD_CSE_DS_DEP = $(DS_COMMON_SRC) ucsd_cse/common.tex
 
+USC_LETTER_SRC = usc/cover_letter/cover_letter_yw.tex
+USC_LETTER_PDF = $(USC_LETTER_SRC:.tex=.pdf)
+USC_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) usc/common.tex
+
+USC_RS_SRC = usc/research_statement/research_statement_yw.tex
+USC_RS_PDF = $(USC_RS_SRC:.tex=.pdf)
+USC_RS_DEP = $(RS_COMMON_SRC) usc/common.tex
+
+USC_TS_SRC = usc/teaching_statement/teaching_statement_yw.tex
+USC_TS_PDF = $(USC_TS_SRC:.tex=.pdf)
+USC_TS_DEP = $(TS_COMMON_SRC) usc/common.tex
+
+USC_DS_SRC = usc/diversity_statement/diversity_statement_yw.tex
+USC_DS_PDF = $(USC_DS_SRC:.tex=.pdf)
+USC_DS_DEP = $(DS_COMMON_SRC) usc/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1078,6 +1094,12 @@ ucsd-cse-letter: $(UCSD_CSE_LETTER_PDF)
 ucsd-cse-rs: $(UCSD_CSE_RS_PDF)
 ucsd-cse-ts: $(UCSD_CSE_TS_PDF)
 ucsd-cse-ds: $(UCSD_CSE_DS_PDF)
+
+usc: usc-letter usc-rs usc-ts usc-ds
+usc-letter: $(USC_LETTER_PDF)
+usc-rs: $(USC_RS_PDF)
+usc-ts: $(USC_TS_PDF)
+usc-ds: $(USC_DS_PDF)
 
 clean: clean-cache
 
@@ -1897,4 +1919,21 @@ $(UCSD_CSE_TS_PDF): $(UCSD_CSE_TS_SRC) $(UCSD_CSE_TS_DEP) | clean-cache $(CACHE_
 $(UCSD_CSE_DS_PDF): $(UCSD_CSE_DS_SRC) $(UCSD_CSE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UCSD_CSE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UCSD_CSE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UCSD_CSE_DS_PDF)) $(UCSD_CSE_DS_PDF)
+
+$(USC_LETTER_PDF): $(USC_LETTER_SRC) $(USC_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(USC_LETTER_SRC))/.
+	@cd $(dir $(USC_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(USC_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(USC_LETTER_PDF)) $(USC_LETTER_PDF)
+
+$(USC_RS_PDF): $(USC_RS_SRC) $(USC_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(USC_RS_SRC)) && $(COMPILE_LUA) $(notdir $(USC_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(USC_RS_PDF)) $(USC_RS_PDF)
+
+$(USC_TS_PDF): $(USC_TS_SRC) $(USC_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(USC_TS_SRC)) && $(COMPILE_LUA) $(notdir $(USC_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(USC_TS_PDF)) $(USC_TS_PDF)
+
+$(USC_DS_PDF): $(USC_DS_SRC) $(USC_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(USC_DS_SRC)) && $(COMPILE_LUA) $(notdir $(USC_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(USC_DS_PDF)) $(USC_DS_PDF)
 
