@@ -30,6 +30,7 @@ TS_COMMON_SRC = $(filter-out common/teaching_statement/teaching_statement_common
 TS_COMMON_1PAGE_SRC = $(filter-out common/teaching_statement/teaching_statement_common.tex, $(wildcard common/teaching_statement/*.tex)) $(STATEMENT_PRE) $(TS_FIG_1PAGE)
 DS_COMMON_SRC = $(wildcard common/diversity_statement/*.tex) $(wildcard common/diversity_statement/*.bib) $(STATEMENT_PRE) $(DS_FIG)
 MS_COMMON_SRC = $(wildcard common/mentoring_statement/*.tex) $(wildcard common/mentoring_statement/*.bib) $(STATEMENT_PRE)
+ES_COMMON_SRC = $(wildcard common/engagement_statement/*.tex) $(wildcard common/engagement_statement/*.bib) $(STATEMENT_PRE)
 
 EXAMPLE_LETTER_SRC = example/cover_letter/cover_letter_yw.tex
 EXAMPLE_LETTER_PDF = $(EXAMPLE_LETTER_SRC:.tex=.pdf)
@@ -659,6 +660,26 @@ CORNELL_DS_SRC = cornell/diversity_statement/diversity_statement_yw.tex
 CORNELL_DS_PDF = $(CORNELL_DS_SRC:.tex=.pdf)
 CORNELL_DS_DEP = $(DS_COMMON_SRC) cornell/common.tex
 
+CORNELL_TECH_LETTER_SRC = cornell_tech/cover_letter/cover_letter_yw.tex
+CORNELL_TECH_LETTER_PDF = $(CORNELL_TECH_LETTER_SRC:.tex=.pdf)
+CORNELL_TECH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) cornell_tech/common.tex
+
+CORNELL_TECH_RS_SRC = cornell_tech/research_statement/research_statement_yw.tex
+CORNELL_TECH_RS_PDF = $(CORNELL_TECH_RS_SRC:.tex=.pdf)
+CORNELL_TECH_RS_DEP = $(RS_COMMON_SRC) cornell_tech/common.tex
+
+CORNELL_TECH_TS_SRC = cornell_tech/teaching_statement/teaching_statement_yw.tex
+CORNELL_TECH_TS_PDF = $(CORNELL_TECH_TS_SRC:.tex=.pdf)
+CORNELL_TECH_TS_DEP = $(TS_COMMON_SRC) cornell_tech/common.tex
+
+CORNELL_TECH_DS_SRC = cornell_tech/diversity_statement/diversity_statement_yw.tex
+CORNELL_TECH_DS_PDF = $(CORNELL_TECH_DS_SRC:.tex=.pdf)
+CORNELL_TECH_DS_DEP = $(DS_COMMON_SRC) cornell_tech/common.tex
+
+CORNELL_TECH_ES_SRC = cornell_tech/engagement_statement/engagement_statement_yw.tex
+CORNELL_TECH_ES_PDF = $(CORNELL_TECH_ES_SRC:.tex=.pdf)
+CORNELL_TECH_ES_DEP = $(ES_COMMON_SRC) cornell_tech/common.tex
+
 NWU_LETTER_SRC = nwu/cover_letter/cover_letter_yw.tex
 NWU_LETTER_PDF = $(NWU_LETTER_SRC:.tex=.pdf)
 NWU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) nwu/common.tex
@@ -805,7 +826,7 @@ COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1048,6 +1069,13 @@ cornell-letter: $(CORNELL_LETTER_PDF)
 cornell-rs: $(CORNELL_RS_PDF)
 cornell-ts: $(CORNELL_TS_PDF)
 cornell-ds: $(CORNELL_DS_PDF)
+
+cornell-tech: cornell-tech-letter cornell-tech-rs cornell-tech-ts cornell-tech-ds cornell-tech-es
+cornell-tech-letter: $(CORNELL_TECH_LETTER_PDF)
+cornell-tech-rs: $(CORNELL_TECH_RS_PDF)
+cornell-tech-ts: $(CORNELL_TECH_TS_PDF)
+cornell-tech-ds: $(CORNELL_TECH_DS_PDF)
+cornell-tech-es: $(CORNELL_TECH_ES_PDF)
 
 nwu: nwu-letter nwu-rs nwu-ts nwu-ds
 nwu-letter: $(NWU_LETTER_PDF)
@@ -1791,6 +1819,27 @@ $(CORNELL_TS_PDF): $(CORNELL_TS_SRC) $(CORNELL_TS_DEP) | clean-cache $(CACHE_DIR
 $(CORNELL_DS_PDF): $(CORNELL_DS_SRC) $(CORNELL_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(CORNELL_DS_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(CORNELL_DS_PDF)) $(CORNELL_DS_PDF)
+
+$(CORNELL_TECH_LETTER_PDF): $(CORNELL_TECH_LETTER_SRC) $(CORNELL_TECH_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(CORNELL_TECH_LETTER_SRC))/.
+	@cd $(dir $(CORNELL_TECH_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_TECH_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CORNELL_TECH_LETTER_PDF)) $(CORNELL_TECH_LETTER_PDF)
+
+$(CORNELL_TECH_RS_PDF): $(CORNELL_TECH_RS_SRC) $(CORNELL_TECH_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CORNELL_TECH_RS_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_TECH_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CORNELL_TECH_RS_PDF)) $(CORNELL_TECH_RS_PDF)
+
+$(CORNELL_TECH_TS_PDF): $(CORNELL_TECH_TS_SRC) $(CORNELL_TECH_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CORNELL_TECH_TS_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_TECH_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CORNELL_TECH_TS_PDF)) $(CORNELL_TECH_TS_PDF)
+
+$(CORNELL_TECH_DS_PDF): $(CORNELL_TECH_DS_SRC) $(CORNELL_TECH_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CORNELL_TECH_DS_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_TECH_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CORNELL_TECH_DS_PDF)) $(CORNELL_TECH_DS_PDF)
+
+$(CORNELL_TECH_ES_PDF): $(CORNELL_TECH_ES_SRC) $(CORNELL_TECH_ES_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(CORNELL_TECH_ES_SRC)) && $(COMPILE_LUA) $(notdir $(CORNELL_TECH_ES_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(CORNELL_TECH_ES_PDF)) $(CORNELL_TECH_ES_PDF)
 
 $(NWU_LETTER_PDF): $(NWU_LETTER_SRC) $(NWU_LETTER_DEP) | clean-cache $(CACHE_DIR)
 	@cp -r $(LH_FONT_DIR) $(dir $(NWU_LETTER_SRC))/.

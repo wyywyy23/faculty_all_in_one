@@ -1,0 +1,32 @@
+%!TEX root = cover_letter_yw.tex
+%!TEX program = lualatex
+
+\input{../../common/cover_letter/cover_letter_pre.tex}
+\input{../common.tex}
+
+%%%%%% Customize the following lines %%%%%%
+\addAttach%
+{Curriculum Vitae}%
+{Research Statement}%
+{Teaching Statement}%
+{External Engagement Statement}%
+{Diversity Statement}
+%%%%%% End of customization %%%%%%
+
+\def\appJobID{%
+    \ifthenelse{\equal{\jobID}{}}{\unskip}{\unskip\textemdash Job \# \jobID{}}%
+}
+\def\toAddr{%
+Faculty Search Committee \\ \appDept{} \\ \appSchool{} \\ \appAddr{}%
+}
+\regard{Application for the \capitalisewords{\appPosition{}} Position}
+\begin{document}
+\begin{letter}{\toAddr{}}
+    \opening{\myOpening{}}
+    \input{../../common/cover_letter/cover_letter_common.tex}
+    \collabCustom{}%
+    \input{../../common/cover_letter/cover_letter_closing.tex}
+    \closing{Yours sincerely,}
+    \encl{\listAttach{}}
+\end{letter}
+\end{document}
