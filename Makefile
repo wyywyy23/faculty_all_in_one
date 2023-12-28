@@ -884,13 +884,29 @@ LEHIGH_ECE_DS_SRC = lehigh_ece/diversity_statement/diversity_statement_yw.tex
 LEHIGH_ECE_DS_PDF = $(LEHIGH_ECE_DS_SRC:.tex=.pdf)
 LEHIGH_ECE_DS_DEP = $(DS_COMMON_SRC) lehigh_ece/common.tex
 
+LEHIGH_CSE_LETTER_SRC = lehigh_cse/cover_letter/cover_letter_yw.tex
+LEHIGH_CSE_LETTER_PDF = $(LEHIGH_CSE_LETTER_SRC:.tex=.pdf)
+LEHIGH_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) lehigh_cse/common.tex
+
+LEHIGH_CSE_RS_SRC = lehigh_cse/research_statement/research_statement_yw.tex
+LEHIGH_CSE_RS_PDF = $(LEHIGH_CSE_RS_SRC:.tex=.pdf)
+LEHIGH_CSE_RS_DEP = $(RS_COMMON_SRC) lehigh_cse/common.tex
+
+LEHIGH_CSE_TS_SRC = lehigh_cse/teaching_statement/teaching_statement_yw.tex
+LEHIGH_CSE_TS_PDF = $(LEHIGH_CSE_TS_SRC:.tex=.pdf)
+LEHIGH_CSE_TS_DEP = $(TS_COMMON_SRC) lehigh_cse/common.tex
+
+LEHIGH_CSE_DS_SRC = lehigh_cse/diversity_statement/diversity_statement_yw.tex
+LEHIGH_CSE_DS_PDF = $(LEHIGH_CSE_DS_SRC:.tex=.pdf)
+LEHIGH_CSE_DS_DEP = $(DS_COMMON_SRC) lehigh_cse/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1216,6 +1232,12 @@ lehigh-ece-letter: $(LEHIGH_ECE_LETTER_PDF)
 lehigh-ece-rs: $(LEHIGH_ECE_RS_PDF)
 lehigh-ece-ts: $(LEHIGH_ECE_TS_PDF)
 lehigh-ece-ds: $(LEHIGH_ECE_DS_PDF)
+
+lehigh-cse: lehigh-cse-letter lehigh-cse-rs lehigh-cse-ts lehigh-cse-ds
+lehigh-cse-letter: $(LEHIGH_CSE_LETTER_PDF)
+lehigh-cse-rs: $(LEHIGH_CSE_RS_PDF)
+lehigh-cse-ts: $(LEHIGH_CSE_TS_PDF)
+lehigh-cse-ds: $(LEHIGH_CSE_DS_PDF)
 
 clean: clean-cache
 
@@ -2141,3 +2163,20 @@ $(LEHIGH_ECE_TS_PDF): $(LEHIGH_ECE_TS_SRC) $(LEHIGH_ECE_TS_DEP) | clean-cache $(
 $(LEHIGH_ECE_DS_PDF): $(LEHIGH_ECE_DS_SRC) $(LEHIGH_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(LEHIGH_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(LEHIGH_ECE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(LEHIGH_ECE_DS_PDF)) $(LEHIGH_ECE_DS_PDF)
+
+$(LEHIGH_CSE_LETTER_PDF): $(LEHIGH_CSE_LETTER_SRC) $(LEHIGH_CSE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(LEHIGH_CSE_LETTER_SRC))/.
+	@cd $(dir $(LEHIGH_CSE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(LEHIGH_CSE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(LEHIGH_CSE_LETTER_PDF)) $(LEHIGH_CSE_LETTER_PDF)
+
+$(LEHIGH_CSE_RS_PDF): $(LEHIGH_CSE_RS_SRC) $(LEHIGH_CSE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(LEHIGH_CSE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(LEHIGH_CSE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(LEHIGH_CSE_RS_PDF)) $(LEHIGH_CSE_RS_PDF)
+
+$(LEHIGH_CSE_TS_PDF): $(LEHIGH_CSE_TS_SRC) $(LEHIGH_CSE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(LEHIGH_CSE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(LEHIGH_CSE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(LEHIGH_CSE_TS_PDF)) $(LEHIGH_CSE_TS_PDF)
+
+$(LEHIGH_CSE_DS_PDF): $(LEHIGH_CSE_DS_SRC) $(LEHIGH_CSE_DS_DEP) | clean-cache $(CACHE_DIR)	
+	@cd $(dir $(LEHIGH_CSE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(LEHIGH_CSE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(LEHIGH_CSE_DS_PDF)) $(LEHIGH_CSE_DS_PDF)
