@@ -900,13 +900,29 @@ LEHIGH_CSE_DS_SRC = lehigh_cse/diversity_statement/diversity_statement_yw.tex
 LEHIGH_CSE_DS_PDF = $(LEHIGH_CSE_DS_SRC:.tex=.pdf)
 LEHIGH_CSE_DS_DEP = $(DS_COMMON_SRC) lehigh_cse/common.tex
 
+PRINCETON_ECE_LETTER_SRC = princeton_ece/cover_letter/cover_letter_yw.tex
+PRINCETON_ECE_LETTER_PDF = $(PRINCETON_ECE_LETTER_SRC:.tex=.pdf)
+PRINCETON_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) princeton_ece/common.tex
+
+PRINCETON_ECE_RS_SRC = princeton_ece/research_statement/research_statement_yw.tex
+PRINCETON_ECE_RS_PDF = $(PRINCETON_ECE_RS_SRC:.tex=.pdf)
+PRINCETON_ECE_RS_DEP = $(RS_COMMON_SRC) princeton_ece/common.tex
+
+PRINCETON_ECE_TS_SRC = princeton_ece/teaching_statement/teaching_statement_yw.tex
+PRINCETON_ECE_TS_PDF = $(PRINCETON_ECE_TS_SRC:.tex=.pdf)
+PRINCETON_ECE_TS_DEP = $(TS_COMMON_SRC) princeton_ece/common.tex
+
+PRINCETON_ECE_DS_SRC = princeton_ece/diversity_statement/diversity_statement_yw.tex
+PRINCETON_ECE_DS_PDF = $(PRINCETON_ECE_DS_SRC:.tex=.pdf)
+PRINCETON_ECE_DS_DEP = $(DS_COMMON_SRC) princeton_ece/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1238,6 +1254,12 @@ lehigh-cse-letter: $(LEHIGH_CSE_LETTER_PDF)
 lehigh-cse-rs: $(LEHIGH_CSE_RS_PDF)
 lehigh-cse-ts: $(LEHIGH_CSE_TS_PDF)
 lehigh-cse-ds: $(LEHIGH_CSE_DS_PDF)
+
+princeton-ece: princeton-ece-letter princeton-ece-rs princeton-ece-ts princeton-ece-ds
+princeton-ece-letter: $(PRINCETON_ECE_LETTER_PDF)
+princeton-ece-rs: $(PRINCETON_ECE_RS_PDF)
+princeton-ece-ts: $(PRINCETON_ECE_TS_PDF)
+princeton-ece-ds: $(PRINCETON_ECE_DS_PDF)
 
 clean: clean-cache
 
@@ -2180,3 +2202,20 @@ $(LEHIGH_CSE_TS_PDF): $(LEHIGH_CSE_TS_SRC) $(LEHIGH_CSE_TS_DEP) | clean-cache $(
 $(LEHIGH_CSE_DS_PDF): $(LEHIGH_CSE_DS_SRC) $(LEHIGH_CSE_DS_DEP) | clean-cache $(CACHE_DIR)	
 	@cd $(dir $(LEHIGH_CSE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(LEHIGH_CSE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(LEHIGH_CSE_DS_PDF)) $(LEHIGH_CSE_DS_PDF)
+
+$(PRINCETON_ECE_LETTER_PDF): $(PRINCETON_ECE_LETTER_SRC) $(PRINCETON_ECE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(PRINCETON_ECE_LETTER_SRC))/.
+	@cd $(dir $(PRINCETON_ECE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(PRINCETON_ECE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PRINCETON_ECE_LETTER_PDF)) $(PRINCETON_ECE_LETTER_PDF)
+
+$(PRINCETON_ECE_RS_PDF): $(PRINCETON_ECE_RS_SRC) $(PRINCETON_ECE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PRINCETON_ECE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(PRINCETON_ECE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PRINCETON_ECE_RS_PDF)) $(PRINCETON_ECE_RS_PDF)
+
+$(PRINCETON_ECE_TS_PDF): $(PRINCETON_ECE_TS_SRC) $(PRINCETON_ECE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PRINCETON_ECE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(PRINCETON_ECE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PRINCETON_ECE_TS_PDF)) $(PRINCETON_ECE_TS_PDF)
+
+$(PRINCETON_ECE_DS_PDF): $(PRINCETON_ECE_DS_SRC) $(PRINCETON_ECE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PRINCETON_ECE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(PRINCETON_ECE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PRINCETON_ECE_DS_PDF)) $(PRINCETON_ECE_DS_PDF)
