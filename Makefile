@@ -948,13 +948,29 @@ CMU_DS_SRC = cmu/diversity_statement/diversity_statement_yw.tex
 CMU_DS_PDF = $(CMU_DS_SRC:.tex=.pdf)
 CMU_DS_DEP = $(DS_COMMON_SRC) cmu/common.tex
 
+UCR_LETTER_SRC = ucr/cover_letter/cover_letter_yw.tex
+UCR_LETTER_PDF = $(UCR_LETTER_SRC:.tex=.pdf)
+UCR_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ucr/common.tex
+
+UCR_RS_SRC = ucr/research_statement/research_statement_yw.tex
+UCR_RS_PDF = $(UCR_RS_SRC:.tex=.pdf)
+UCR_RS_DEP = $(RS_COMMON_SRC) ucr/common.tex
+
+UCR_TS_SRC = ucr/teaching_statement/teaching_statement_yw.tex
+UCR_TS_PDF = $(UCR_TS_SRC:.tex=.pdf)
+UCR_TS_DEP = $(TS_COMMON_SRC) ucr/common.tex
+
+UCR_DS_SRC = ucr/diversity_statement/diversity_statement_yw.tex
+UCR_DS_PDF = $(UCR_DS_SRC:.tex=.pdf)
+UCR_DS_DEP = $(DS_COMMON_SRC) ucr/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1304,6 +1320,12 @@ cmu-letter: $(CMU_LETTER_PDF)
 cmu-rs: $(CMU_RS_PDF)
 cmu-ts: $(CMU_TS_PDF)
 cmu-ds: $(CMU_DS_PDF)
+
+ucr: ucr-letter ucr-rs ucr-ts ucr-ds
+ucr-letter: $(UCR_LETTER_PDF)
+ucr-rs: $(UCR_RS_PDF)
+ucr-ts: $(UCR_TS_PDF)
+ucr-ds: $(UCR_DS_PDF)
 
 clean: clean-cache
 
@@ -2297,3 +2319,20 @@ $(CMU_TS_PDF): $(CMU_TS_SRC) $(CMU_TS_DEP) | clean-cache $(CACHE_DIR)
 $(CMU_DS_PDF): $(CMU_DS_SRC) $(CMU_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(CMU_DS_SRC)) && $(COMPILE_LUA) $(notdir $(CMU_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(CMU_DS_PDF)) $(CMU_DS_PDF)
+
+$(UCR_LETTER_PDF): $(UCR_LETTER_SRC) $(UCR_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UCR_LETTER_SRC))/.
+	@cd $(dir $(UCR_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UCR_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCR_LETTER_PDF)) $(UCR_LETTER_PDF)
+
+$(UCR_RS_PDF): $(UCR_RS_SRC) $(UCR_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UCR_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UCR_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCR_RS_PDF)) $(UCR_RS_PDF)
+
+$(UCR_TS_PDF): $(UCR_TS_SRC) $(UCR_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UCR_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UCR_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCR_TS_PDF)) $(UCR_TS_PDF)
+
+$(UCR_DS_PDF): $(UCR_DS_SRC) $(UCR_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UCR_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UCR_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UCR_DS_PDF)) $(UCR_DS_PDF)
