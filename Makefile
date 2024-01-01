@@ -1044,13 +1044,29 @@ WISC_DS_SRC = wisc/diversity_statement/diversity_statement_yw.tex
 WISC_DS_PDF = $(WISC_DS_SRC:.tex=.pdf)
 WISC_DS_DEP = $(DS_COMMON_SRC) wisc/common.tex
 
+WISC_CS_LETTER_SRC = wisc_cs/cover_letter/cover_letter_yw.tex
+WISC_CS_LETTER_PDF = $(WISC_CS_LETTER_SRC:.tex=.pdf)
+WISC_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) wisc_cs/common.tex
+
+WISC_CS_RS_SRC = wisc_cs/research_statement/research_statement_yw.tex
+WISC_CS_RS_PDF = $(WISC_CS_RS_SRC:.tex=.pdf)
+WISC_CS_RS_DEP = $(RS_COMMON_SRC) wisc_cs/common.tex
+
+WISC_CS_TS_SRC = wisc_cs/teaching_statement/teaching_statement_yw.tex
+WISC_CS_TS_PDF = $(WISC_CS_TS_SRC:.tex=.pdf)
+WISC_CS_TS_DEP = $(TS_COMMON_SRC) wisc_cs/common.tex
+
+WISC_CS_DS_SRC = wisc_cs/diversity_statement/diversity_statement_yw.tex
+WISC_CS_DS_PDF = $(WISC_CS_DS_SRC:.tex=.pdf)
+WISC_CS_DS_DEP = $(DS_COMMON_SRC) wisc_cs/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1436,6 +1452,12 @@ wisc-letter: $(WISC_LETTER_PDF)
 wisc-rs: $(WISC_RS_PDF)
 wisc-ts: $(WISC_TS_PDF)
 wisc-ds: $(WISC_DS_PDF)
+
+wisc-cs: wisc-cs-letter wisc-cs-rs wisc-cs-ts wisc-cs-ds
+wisc-cs-letter: $(WISC_CS_LETTER_PDF)
+wisc-cs-rs: $(WISC_CS_RS_PDF)
+wisc-cs-ts: $(WISC_CS_TS_PDF)
+wisc-cs-ds: $(WISC_CS_DS_PDF)
 
 clean: clean-cache
 
@@ -2531,3 +2553,21 @@ $(WISC_TS_PDF): $(WISC_TS_SRC) $(WISC_TS_DEP) | clean-cache $(CACHE_DIR)
 $(WISC_DS_PDF): $(WISC_DS_SRC) $(WISC_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(WISC_DS_SRC)) && $(COMPILE_LUA) $(notdir $(WISC_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(WISC_DS_PDF)) $(WISC_DS_PDF)
+
+$(WISC_CS_LETTER_PDF): $(WISC_CS_LETTER_SRC) $(WISC_CS_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(WISC_CS_LETTER_SRC))/.
+	@cd $(dir $(WISC_CS_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(WISC_CS_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(WISC_CS_LETTER_PDF)) $(WISC_CS_LETTER_PDF)
+
+$(WISC_CS_RS_PDF): $(WISC_CS_RS_SRC) $(WISC_CS_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(WISC_CS_RS_SRC)) && $(COMPILE_LUA) $(notdir $(WISC_CS_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(WISC_CS_RS_PDF)) $(WISC_CS_RS_PDF)
+
+$(WISC_CS_TS_PDF): $(WISC_CS_TS_SRC) $(WISC_CS_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(WISC_CS_TS_SRC)) && $(COMPILE_LUA) $(notdir $(WISC_CS_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(WISC_CS_TS_PDF)) $(WISC_CS_TS_PDF)
+
+$(WISC_CS_DS_PDF): $(WISC_CS_DS_SRC) $(WISC_CS_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(WISC_CS_DS_SRC)) && $(COMPILE_LUA) $(notdir $(WISC_CS_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(WISC_CS_DS_PDF)) $(WISC_CS_DS_PDF)
+
