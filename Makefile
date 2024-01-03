@@ -1076,13 +1076,29 @@ RUTGERS_CS_DS_SRC = rutgers_cs/diversity_statement/diversity_statement_yw.tex
 RUTGERS_CS_DS_PDF = $(RUTGERS_CS_DS_SRC:.tex=.pdf)
 RUTGERS_CS_DS_DEP = $(DS_COMMON_SRC) rutgers_cs/common.tex
 
+RICE_LETTER_SRC = rice/cover_letter/cover_letter_yw.tex
+RICE_LETTER_PDF = $(RICE_LETTER_SRC:.tex=.pdf)
+RICE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) rice/common.tex
+
+RICE_RS_SRC = rice/research_statement/research_statement_yw.tex
+RICE_RS_PDF = $(RICE_RS_SRC:.tex=.pdf)
+RICE_RS_DEP = $(RS_COMMON_SRC) rice/common.tex
+
+RICE_TS_SRC = rice/teaching_statement/teaching_statement_yw.tex
+RICE_TS_PDF = $(RICE_TS_SRC:.tex=.pdf)
+RICE_TS_DEP = $(TS_COMMON_SRC) rice/common.tex
+
+RICE_DS_SRC = rice/diversity_statement/diversity_statement_yw.tex
+RICE_DS_PDF = $(RICE_DS_SRC:.tex=.pdf)
+RICE_DS_DEP = $(DS_COMMON_SRC) rice/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1480,6 +1496,12 @@ rutgers-cs-letter: $(RUTGERS_CS_LETTER_PDF)
 rutgers-cs-rs: $(RUTGERS_CS_RS_PDF)
 rutgers-cs-ts: $(RUTGERS_CS_TS_PDF)
 rutgers-cs-ds: $(RUTGERS_CS_DS_PDF)
+
+rice: rice-letter rice-rs rice-ts rice-ds
+rice-letter: $(RICE_LETTER_PDF)
+rice-rs: $(RICE_RS_PDF)
+rice-ts: $(RICE_TS_PDF)
+rice-ds: $(RICE_DS_PDF)
 
 clean: clean-cache
 
@@ -2609,4 +2631,21 @@ $(RUTGERS_CS_TS_PDF): $(RUTGERS_CS_TS_SRC) $(RUTGERS_CS_TS_DEP) | clean-cache $(
 $(RUTGERS_CS_DS_PDF): $(RUTGERS_CS_DS_SRC) $(RUTGERS_CS_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(RUTGERS_CS_DS_SRC)) && $(COMPILE_LUA) $(notdir $(RUTGERS_CS_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(RUTGERS_CS_DS_PDF)) $(RUTGERS_CS_DS_PDF)
+
+$(RICE_LETTER_PDF): $(RICE_LETTER_SRC) $(RICE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(RICE_LETTER_SRC))/.
+	@cd $(dir $(RICE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(RICE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RICE_LETTER_PDF)) $(RICE_LETTER_PDF)
+
+$(RICE_RS_PDF): $(RICE_RS_SRC) $(RICE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(RICE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(RICE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RICE_RS_PDF)) $(RICE_RS_PDF)
+
+$(RICE_TS_PDF): $(RICE_TS_SRC) $(RICE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(RICE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(RICE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RICE_TS_PDF)) $(RICE_TS_PDF)
+
+$(RICE_DS_PDF): $(RICE_DS_SRC) $(RICE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(RICE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(RICE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RICE_DS_PDF)) $(RICE_DS_PDF)
 
