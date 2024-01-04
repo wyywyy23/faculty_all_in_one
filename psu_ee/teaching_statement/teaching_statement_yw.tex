@@ -1,0 +1,63 @@
+%!TEX root = teaching_statement_yw.tex
+%!TEX program = lualatex
+
+\input{../../common/statement_pre.tex}
+\input{../common.tex}
+
+%%%%%% Customize the following lines %%%%%%
+\title{Statement of Teaching}
+
+\def\courseOneName{Circuits and Devices}
+\def\courseOneNumber{EE 210}
+\def\courseTwoName{Digital Integrated Circuits}
+\def\courseTwoNumber{EE 416}
+\def\courseThreeName{Optical Fiber Communications}
+\def\courseThreeNumber{EE 421}
+\def\courseFourName{Communication Networks}
+\def\courseFourNumber{EE 362}
+\def\courseFiveName{Electro Optics\textemdash Systems and Computing}
+\def\courseFiveNumber{EE 520}
+\def\courseSixName{Electronic Photonic Design Automation}
+\def\courseSevenName{Silicon Photonics Optical Interconnects}
+
+\def\rsCustom{%
+such as 
+\begin{itemize}[nosep]
+    \item \courseOneName{} (\courseOneNumber{}),
+    \item \courseTwoName{} (\courseTwoNumber{}), and
+    \item \courseThreeName{} (\courseThreeNumber{}).
+\end{itemize}
+Believing that the preparation for teaching materials deepens my own understanding of the subject matter, I am also open to teaching courses beyond my immediate expertise, such as
+\begin{itemize}[nosep]
+    \item \courseFourName{} (\courseFourNumber{}), and
+    \item \courseFiveName{} (\courseFiveNumber{}).
+\end{itemize}
+Moreover, I am enthusiastic about the prospect of designing new courses, currently not offered at the \appSchool{}, such as
+\begin{itemize}[nosep]
+    \item \courseSixName{}, and 
+    \item \courseSevenName{},
+\end{itemize}
+which could expand and enrich the department's already distinguished curriculum.
+}
+%%%%%% End of customization %%%%%%
+
+\author{Yuyang Wang}
+\date{\today}
+\makeatletter
+\fancyfoot[L]{\scshape \MakeLowercase{\@author}}
+\fancyfoot[R]{{\scshape \MakeLowercase{\@title}}\quad{\LARGE\sfrac{\thepage}{\pageref*{LastPage}}}}
+\makeatother
+
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+\thispagestyle{fancy}
+
+\input{../../common/teaching_statement/teaching_statement_common.tex}
+\rsCustom{}
+\input{../../common/teaching_statement/teaching_statement_closing.tex}
+
+\footnotesize
+\bibliography{\mainabsdir../../common/teaching_statement/bibliography}
+
+\end{document}

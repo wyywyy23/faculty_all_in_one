@@ -1092,13 +1092,29 @@ RICE_DS_SRC = rice/diversity_statement/diversity_statement_yw.tex
 RICE_DS_PDF = $(RICE_DS_SRC:.tex=.pdf)
 RICE_DS_DEP = $(DS_COMMON_SRC) rice/common.tex
 
+PSU_EE_LETTER_SRC = psu_ee/cover_letter/cover_letter_yw.tex
+PSU_EE_LETTER_PDF = $(PSU_EE_LETTER_SRC:.tex=.pdf)
+PSU_EE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) psu_ee/common.tex
+
+PSU_EE_RS_SRC = psu_ee/research_statement/research_statement_yw.tex
+PSU_EE_RS_PDF = $(PSU_EE_RS_SRC:.tex=.pdf)
+PSU_EE_RS_DEP = $(RS_COMMON_SRC) psu_ee/common.tex
+
+PSU_EE_TS_SRC = psu_ee/teaching_statement/teaching_statement_yw.tex
+PSU_EE_TS_PDF = $(PSU_EE_TS_SRC:.tex=.pdf)
+PSU_EE_TS_DEP = $(TS_COMMON_SRC) psu_ee/common.tex
+
+PSU_EE_DS_SRC = psu_ee/diversity_statement/diversity_statement_yw.tex
+PSU_EE_DS_PDF = $(PSU_EE_DS_SRC:.tex=.pdf)
+PSU_EE_DS_DEP = $(DS_COMMON_SRC) psu_ee/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1502,6 +1518,12 @@ rice-letter: $(RICE_LETTER_PDF)
 rice-rs: $(RICE_RS_PDF)
 rice-ts: $(RICE_TS_PDF)
 rice-ds: $(RICE_DS_PDF)
+
+psu-ee: psu-ee-letter psu-ee-rs psu-ee-ts psu-ee-ds
+psu-ee-letter: $(PSU_EE_LETTER_PDF)
+psu-ee-rs: $(PSU_EE_RS_PDF)
+psu-ee-ts: $(PSU_EE_TS_PDF)
+psu-ee-ds: $(PSU_EE_DS_PDF)
 
 clean: clean-cache
 
@@ -2649,3 +2671,19 @@ $(RICE_DS_PDF): $(RICE_DS_SRC) $(RICE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(RICE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(RICE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(RICE_DS_PDF)) $(RICE_DS_PDF)
 
+$(PSU_EE_LETTER_PDF): $(PSU_EE_LETTER_SRC) $(PSU_EE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(PSU_EE_LETTER_SRC))/.
+	@cd $(dir $(PSU_EE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(PSU_EE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PSU_EE_LETTER_PDF)) $(PSU_EE_LETTER_PDF)
+
+$(PSU_EE_RS_PDF): $(PSU_EE_RS_SRC) $(PSU_EE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PSU_EE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(PSU_EE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PSU_EE_RS_PDF)) $(PSU_EE_RS_PDF)
+
+$(PSU_EE_TS_PDF): $(PSU_EE_TS_SRC) $(PSU_EE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PSU_EE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(PSU_EE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PSU_EE_TS_PDF)) $(PSU_EE_TS_PDF)
+
+$(PSU_EE_DS_PDF): $(PSU_EE_DS_SRC) $(PSU_EE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PSU_EE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(PSU_EE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PSU_EE_DS_PDF)) $(PSU_EE_DS_PDF)
