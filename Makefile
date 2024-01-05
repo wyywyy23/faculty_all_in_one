@@ -1124,13 +1124,29 @@ PSU_CSE_DS_SRC = psu_cse/diversity_statement/diversity_statement_yw.tex
 PSU_CSE_DS_PDF = $(PSU_CSE_DS_SRC:.tex=.pdf)
 PSU_CSE_DS_DEP = $(DS_COMMON_SRC) psu_cse/common.tex
 
+BROWN_LETTER_SRC = brown/cover_letter/cover_letter_yw.tex
+BROWN_LETTER_PDF = $(BROWN_LETTER_SRC:.tex=.pdf)
+BROWN_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) brown/common.tex
+
+BROWN_RS_SRC = brown/research_statement/research_statement_yw.tex
+BROWN_RS_PDF = $(BROWN_RS_SRC:.tex=.pdf)
+BROWN_RS_DEP = $(RS_COMMON_SRC) brown/common.tex
+
+BROWN_TS_SRC = brown/teaching_statement/teaching_statement_yw.tex
+BROWN_TS_PDF = $(BROWN_TS_SRC:.tex=.pdf)
+BROWN_TS_DEP = $(TS_COMMON_SRC) brown/common.tex
+
+BROWN_DS_SRC = brown/diversity_statement/diversity_statement_yw.tex
+BROWN_DS_PDF = $(BROWN_DS_SRC:.tex=.pdf)
+BROWN_DS_DEP = $(DS_COMMON_SRC) brown/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1546,6 +1562,12 @@ psu-cse-letter: $(PSU_CSE_LETTER_PDF)
 psu-cse-rs: $(PSU_CSE_RS_PDF)
 psu-cse-ts: $(PSU_CSE_TS_PDF)
 psu-cse-ds: $(PSU_CSE_DS_PDF)
+
+brown: brown-letter brown-rs brown-ts brown-ds
+brown-letter: $(BROWN_LETTER_PDF)
+brown-rs: $(BROWN_RS_PDF)
+brown-ts: $(BROWN_TS_PDF)
+brown-ds: $(BROWN_DS_PDF)
 
 clean: clean-cache
 
@@ -2726,3 +2748,20 @@ $(PSU_CSE_TS_PDF): $(PSU_CSE_TS_SRC) $(PSU_CSE_TS_DEP) | clean-cache $(CACHE_DIR
 $(PSU_CSE_DS_PDF): $(PSU_CSE_DS_SRC) $(PSU_CSE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(PSU_CSE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(PSU_CSE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(PSU_CSE_DS_PDF)) $(PSU_CSE_DS_PDF)
+
+$(BROWN_LETTER_PDF): $(BROWN_LETTER_SRC) $(BROWN_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(BROWN_LETTER_SRC))/.
+	@cd $(dir $(BROWN_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(BROWN_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BROWN_LETTER_PDF)) $(BROWN_LETTER_PDF)
+
+$(BROWN_RS_PDF): $(BROWN_RS_SRC) $(BROWN_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(BROWN_RS_SRC)) && $(COMPILE_LUA) $(notdir $(BROWN_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BROWN_RS_PDF)) $(BROWN_RS_PDF)
+
+$(BROWN_TS_PDF): $(BROWN_TS_SRC) $(BROWN_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(BROWN_TS_SRC)) && $(COMPILE_LUA) $(notdir $(BROWN_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BROWN_TS_PDF)) $(BROWN_TS_PDF)
+
+$(BROWN_DS_PDF): $(BROWN_DS_SRC) $(BROWN_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(BROWN_DS_SRC)) && $(COMPILE_LUA) $(notdir $(BROWN_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BROWN_DS_PDF)) $(BROWN_DS_PDF)
