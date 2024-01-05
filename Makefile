@@ -256,6 +256,22 @@ UVA_DS_SRC = uva/diversity_statement/diversity_statement_yw.tex
 UVA_DS_PDF = $(UVA_DS_SRC:.tex=.pdf)
 UVA_DS_DEP = $(DS_COMMON_SRC) uva/common.tex
 
+UVA_CS_LETTER_SRC = uva_cs/cover_letter/cover_letter_yw.tex
+UVA_CS_LETTER_PDF = $(UVA_CS_LETTER_SRC:.tex=.pdf)
+UVA_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) uva_cs/common.tex
+
+UVA_CS_RS_SRC = uva_cs/research_statement/research_statement_yw.tex
+UVA_CS_RS_PDF = $(UVA_CS_RS_SRC:.tex=.pdf)
+UVA_CS_RS_DEP = $(RS_COMMON_SRC) uva_cs/common.tex
+
+UVA_CS_TS_SRC = uva_cs/teaching_statement/teaching_statement_yw.tex
+UVA_CS_TS_PDF = $(UVA_CS_TS_SRC:.tex=.pdf)
+UVA_CS_TS_DEP = $(TS_COMMON_SRC) uva_cs/common.tex
+
+UVA_CS_DS_SRC = uva_cs/diversity_statement/diversity_statement_yw.tex
+UVA_CS_DS_PDF = $(UVA_CS_DS_SRC:.tex=.pdf)
+UVA_CS_DS_DEP = $(DS_COMMON_SRC) uva_cs/common.tex
+
 NYU_LETTER_SRC = nyu/cover_letter/cover_letter_yw.tex
 NYU_LETTER_PDF = $(NYU_LETTER_SRC:.tex=.pdf)
 NYU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) nyu/common.tex
@@ -322,7 +338,7 @@ ASU_MICRO_DS_DEP = $(DS_COMMON_SRC) asu_micro/common.tex
 
 UMICH_ECE_LETTER_SRC = umich_ece/cover_letter/cover_letter_yw.tex
 UMICH_ECE_LETTER_PDF = $(UMICH_ECE_LETTER_SRC:.tex=.pdf)
-UMICH_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) umich_ece/common.tex
+UMICH_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) umich_ece/common.tex
 
 UMICH_ECE_RS_SRC = umich_ece/research_statement/research_statement_yw.tex
 UMICH_ECE_RS_PDF = $(UMICH_ECE_RS_SRC:.tex=.pdf)
@@ -338,7 +354,7 @@ UMICH_ECE_DS_DEP = $(DS_COMMON_SRC) umich_ece/common.tex
 
 UMICH_CSE_LETTER_SRC = umich_cse/cover_letter/cover_letter_yw.tex
 UMICH_CSE_LETTER_PDF = $(UMICH_CSE_LETTER_SRC:.tex=.pdf)
-UMICH_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) umich_cse/common.tex
+UMICH_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) umich_cse/common.tex
 
 UMICH_CSE_RS_SRC = umich_cse/research_statement/research_statement_yw.tex
 UMICH_CSE_RS_PDF = $(UMICH_CSE_RS_SRC:.tex=.pdf)
@@ -354,7 +370,7 @@ UMICH_CSE_DS_DEP = $(DS_COMMON_SRC) umich_cse/common.tex
 
 UT_AUSTIN_LETTER_SRC = ut_austin/cover_letter/cover_letter_yw.tex
 UT_AUSTIN_LETTER_PDF = $(UT_AUSTIN_LETTER_SRC:.tex=.pdf)
-UT_AUSTIN_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ut_austin/common.tex
+UT_AUSTIN_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) ut_austin/common.tex
 
 UT_AUSTIN_RS_SRC = ut_austin/research_statement/research_statement_yw.tex
 UT_AUSTIN_RS_PDF = $(UT_AUSTIN_RS_SRC:.tex=.pdf)
@@ -374,7 +390,7 @@ UT_AUSTIN_MS_DEP = $(MS_COMMON_SRC) ut_austin/common.tex
 
 ROCHESTER_LETTER_SRC = rochester/cover_letter/cover_letter_yw.tex
 ROCHESTER_LETTER_PDF = $(ROCHESTER_LETTER_SRC:.tex=.pdf)
-ROCHESTER_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) rochester/common.tex
+ROCHESTER_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) rochester/common.tex
 
 ROCHESTER_RS_SRC = rochester/research_statement/research_statement_yw.tex
 ROCHESTER_RS_PDF = $(ROCHESTER_RS_SRC:.tex=.pdf)
@@ -390,7 +406,7 @@ ROCHESTER_DS_DEP = $(DS_COMMON_SRC) rochester/common.tex
 
 UT_DALLAS_LETTER_SRC = ut_dallas/cover_letter/cover_letter_yw.tex
 UT_DALLAS_LETTER_PDF = $(UT_DALLAS_LETTER_SRC:.tex=.pdf)
-UT_DALLAS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ut_dallas/common.tex
+UT_DALLAS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) ut_dallas/common.tex
 
 UT_DALLAS_RS_SRC = ut_dallas/research_statement/research_statement_yw.tex
 UT_DALLAS_RS_PDF = $(UT_DALLAS_RS_SRC:.tex=.pdf)
@@ -406,7 +422,7 @@ UT_DALLAS_DS_DEP = $(DS_COMMON_SRC) ut_dallas/common.tex
 
 NCSU_LETTER_SRC = ncsu/cover_letter/cover_letter_yw.tex
 NCSU_LETTER_PDF = $(NCSU_LETTER_SRC:.tex=.pdf)
-NCSU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ncsu/common.tex
+NCSU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) ncsu/common.tex
 
 NCSU_RS_SRC = ncsu/research_statement/research_statement_yw.tex
 NCSU_RS_PDF = $(NCSU_RS_SRC:.tex=.pdf)
@@ -422,7 +438,7 @@ NCSU_DS_DEP = $(DS_COMMON_SRC) ncsu/common.tex
 
 BU_AI_LETTER_SRC = bu_ai/cover_letter/cover_letter_yw.tex
 BU_AI_LETTER_PDF = $(BU_AI_LETTER_SRC:.tex=.pdf)
-BU_AI_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) bu_ai/common.tex
+BU_AI_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) bu_ai/common.tex
 
 BU_AI_RS_SRC = bu_ai/research_statement/research_statement_yw.tex
 BU_AI_RS_PDF = $(BU_AI_RS_SRC:.tex=.pdf)
@@ -438,7 +454,7 @@ BU_AI_DS_DEP = $(DS_COMMON_SRC) bu_ai/common.tex
 
 BU_ECE_LETTER_SRC = bu_ece/cover_letter/cover_letter_yw.tex
 BU_ECE_LETTER_PDF = $(BU_ECE_LETTER_SRC:.tex=.pdf)
-BU_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) bu_ece/common.tex
+BU_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) bu_ece/common.tex
 
 BU_ECE_RS_SRC = bu_ece/research_statement/research_statement_yw.tex
 BU_ECE_RS_PDF = $(BU_ECE_RS_SRC:.tex=.pdf)
@@ -454,7 +470,7 @@ BU_ECE_DS_DEP = $(DS_COMMON_SRC) bu_ece/common.tex
 
 BU_COE_LETTER_SRC = bu_coe/cover_letter/cover_letter_yw.tex
 BU_COE_LETTER_PDF = $(BU_COE_LETTER_SRC:.tex=.pdf)
-BU_COE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) bu_coe/common.tex
+BU_COE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) bu_coe/common.tex
 
 BU_COE_RS_SRC = bu_coe/research_statement/research_statement_yw.tex
 BU_COE_RS_PDF = $(BU_COE_RS_SRC:.tex=.pdf)
@@ -470,7 +486,7 @@ BU_COE_DS_DEP = $(DS_COMMON_SRC) bu_coe/common.tex
 
 UFL_LETTER_SRC = ufl/cover_letter/cover_letter_yw.tex
 UFL_LETTER_PDF = $(UFL_LETTER_SRC:.tex=.pdf)
-UFL_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ufl/common.tex
+UFL_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) ufl/common.tex
 
 UFL_RS_SRC = ufl/research_statement/research_statement_yw.tex
 UFL_RS_PDF = $(UFL_RS_SRC:.tex=.pdf)
@@ -486,7 +502,7 @@ UFL_DS_DEP = $(DS_COMMON_SRC) ufl/common.tex
 
 RPI_LETTER_SRC = rpi/cover_letter/cover_letter_yw.tex
 RPI_LETTER_PDF = $(RPI_LETTER_SRC:.tex=.pdf)
-RPI_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) rpi/common.tex
+RPI_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) rpi/common.tex
 
 RPI_RS_SRC = rpi/research_statement/research_statement_yw.tex
 RPI_RS_PDF = $(RPI_RS_SRC:.tex=.pdf)
@@ -502,7 +518,7 @@ RPI_DS_DEP = $(DS_COMMON_SRC) rpi/common.tex
 
 UTAH_LETTER_SRC = utah/cover_letter/cover_letter_yw.tex
 UTAH_LETTER_PDF = $(UTAH_LETTER_SRC:.tex=.pdf)
-UTAH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) utah/common.tex
+UTAH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) utah/common.tex
 
 UTAH_RS_SRC = utah/research_statement/research_statement_yw.tex
 UTAH_RS_PDF = $(UTAH_RS_SRC:.tex=.pdf)
@@ -518,7 +534,7 @@ UTAH_DS_DEP = $(DS_COMMON_SRC) utah/common.tex
 
 UDEL_AI_LETTER_SRC = udel_ai/cover_letter/cover_letter_yw.tex
 UDEL_AI_LETTER_PDF = $(UDEL_AI_LETTER_SRC:.tex=.pdf)
-UDEL_AI_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) udel_ai/common.tex
+UDEL_AI_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) udel_ai/common.tex
 
 UDEL_AI_RS_SRC = udel_ai/research_statement/research_statement_yw.tex
 UDEL_AI_RS_PDF = $(UDEL_AI_RS_SRC:.tex=.pdf)
@@ -534,7 +550,7 @@ UDEL_AI_DS_DEP = $(DS_COMMON_SRC) udel_ai/common.tex
 
 UDEL_DEVICE_LETTER_SRC = udel_device/cover_letter/cover_letter_yw.tex
 UDEL_DEVICE_LETTER_PDF = $(UDEL_DEVICE_LETTER_SRC:.tex=.pdf)
-UDEL_DEVICE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) udel_device/common.tex
+UDEL_DEVICE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) udel_device/common.tex
 
 UDEL_DEVICE_RS_SRC = udel_device/research_statement/research_statement_yw.tex
 UDEL_DEVICE_RS_PDF = $(UDEL_DEVICE_RS_SRC:.tex=.pdf)
@@ -550,7 +566,7 @@ UDEL_DEVICE_DS_DEP = $(DS_COMMON_SRC) udel_device/common.tex
 
 UCONN_ECE_LETTER_SRC = uconn_ece/cover_letter/cover_letter_yw.tex
 UCONN_ECE_LETTER_PDF = $(UCONN_ECE_LETTER_SRC:.tex=.pdf)
-UCONN_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) uconn_ece/common.tex
+UCONN_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) uconn_ece/common.tex
 
 UCONN_ECE_RS_SRC = uconn_ece/research_statement/research_statement_yw.tex
 UCONN_ECE_RS_PDF = $(UCONN_ECE_RS_SRC:.tex=.pdf)
@@ -566,7 +582,7 @@ UCONN_ECE_DS_DEP = $(DS_COMMON_SRC) uconn_ece/common.tex
 
 UCONN_CSE_LETTER_SRC = uconn_cse/cover_letter/cover_letter_yw.tex
 UCONN_CSE_LETTER_PDF = $(UCONN_CSE_LETTER_SRC:.tex=.pdf)
-UCONN_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) uconn_cse/common.tex
+UCONN_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) uconn_cse/common.tex
 
 UCONN_CSE_RS_SRC = uconn_cse/research_statement/research_statement_yw.tex
 UCONN_CSE_RS_PDF = $(UCONN_CSE_RS_SRC:.tex=.pdf)
@@ -582,7 +598,7 @@ UCONN_CSE_DS_DEP = $(DS_COMMON_SRC) uconn_cse/common.tex
 
 SYRACUSE_LETTER_SRC = syracuse/cover_letter/cover_letter_yw.tex
 SYRACUSE_LETTER_PDF = $(SYRACUSE_LETTER_SRC:.tex=.pdf)
-SYRACUSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) syracuse/common.tex
+SYRACUSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) syracuse/common.tex
 
 SYRACUSE_RS_SRC = syracuse/research_statement/research_statement_yw.tex
 SYRACUSE_RS_PDF = $(SYRACUSE_RS_SRC:.tex=.pdf)
@@ -598,7 +614,7 @@ SYRACUSE_DS_DEP = $(DS_COMMON_SRC) syracuse/common.tex
 
 RIT_LETTER_SRC = rit/cover_letter/cover_letter_yw.tex
 RIT_LETTER_PDF = $(RIT_LETTER_SRC:.tex=.pdf)
-RIT_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) rit/common.tex
+RIT_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) rit/common.tex
 
 RIT_RS_SRC = rit/research_statement/research_statement_yw.tex
 RIT_RS_PDF = $(RIT_RS_SRC:.tex=.pdf)
@@ -614,7 +630,7 @@ RIT_DS_DEP = $(DS_COMMON_SRC) rit/common.tex
 
 GATECH_LETTER_SRC = gatech/cover_letter/cover_letter_yw.tex
 GATECH_LETTER_PDF = $(GATECH_LETTER_SRC:.tex=.pdf)
-GATECH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) gatech/common.tex
+GATECH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) gatech/common.tex
 
 GATECH_RS_SRC = gatech/research_statement/research_statement_yw.tex
 GATECH_RS_PDF = $(GATECH_RS_SRC:.tex=.pdf)
@@ -630,7 +646,7 @@ GATECH_DS_DEP = $(DS_COMMON_SRC) gatech/common.tex
 
 CALTECH_LETTER_SRC = caltech/cover_letter/cover_letter_yw.tex
 CALTECH_LETTER_PDF = $(CALTECH_LETTER_SRC:.tex=.pdf)
-CALTECH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) caltech/common.tex
+CALTECH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) caltech/common.tex
 
 CALTECH_RS_SRC = caltech/research_statement/research_statement_yw.tex
 CALTECH_RS_PDF = $(CALTECH_RS_SRC:.tex=.pdf)
@@ -646,7 +662,7 @@ CALTECH_DS_DEP = $(DS_COMMON_SRC) caltech/common.tex
 
 CORNELL_LETTER_SRC = cornell/cover_letter/cover_letter_yw.tex
 CORNELL_LETTER_PDF = $(CORNELL_LETTER_SRC:.tex=.pdf)
-CORNELL_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) cornell/common.tex
+CORNELL_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) cornell/common.tex
 
 CORNELL_RS_SRC = cornell/research_statement/research_statement_yw.tex
 CORNELL_RS_PDF = $(CORNELL_RS_SRC:.tex=.pdf)
@@ -662,7 +678,7 @@ CORNELL_DS_DEP = $(DS_COMMON_SRC) cornell/common.tex
 
 CORNELL_TECH_LETTER_SRC = cornell_tech/cover_letter/cover_letter_yw.tex
 CORNELL_TECH_LETTER_PDF = $(CORNELL_TECH_LETTER_SRC:.tex=.pdf)
-CORNELL_TECH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) cornell_tech/common.tex
+CORNELL_TECH_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) cornell_tech/common.tex
 
 CORNELL_TECH_RS_SRC = cornell_tech/research_statement/research_statement_yw.tex
 CORNELL_TECH_RS_PDF = $(CORNELL_TECH_RS_SRC:.tex=.pdf)
@@ -682,7 +698,7 @@ CORNELL_TECH_ES_DEP = $(ES_COMMON_SRC) cornell_tech/common.tex
 
 NWU_LETTER_SRC = nwu/cover_letter/cover_letter_yw.tex
 NWU_LETTER_PDF = $(NWU_LETTER_SRC:.tex=.pdf)
-NWU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) nwu/common.tex
+NWU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) nwu/common.tex
 
 NWU_RS_SRC = nwu/research_statement/research_statement_yw.tex
 NWU_RS_PDF = $(NWU_RS_SRC:.tex=.pdf)
@@ -698,7 +714,7 @@ NWU_DS_DEP = $(DS_COMMON_SRC) nwu/common.tex
 
 UCLA_LETTER_SRC = ucla/cover_letter/cover_letter_yw.tex
 UCLA_LETTER_PDF = $(UCLA_LETTER_SRC:.tex=.pdf)
-UCLA_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ucla/common.tex
+UCLA_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) ucla/common.tex
 
 UCLA_RS_SRC = ucla/research_statement/research_statement_yw.tex
 UCLA_RS_PDF = $(UCLA_RS_SRC:.tex=.pdf)
@@ -714,7 +730,7 @@ UCLA_DS_DEP = $(DS_COMMON_SRC) ucla/common.tex
 
 WU_ST_LOUIS_LETTER_SRC = wu_st_louis/cover_letter/cover_letter_yw.tex
 WU_ST_LOUIS_LETTER_PDF = $(WU_ST_LOUIS_LETTER_SRC:.tex=.pdf)
-WU_ST_LOUIS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) wu_st_louis/common.tex
+WU_ST_LOUIS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) wu_st_louis/common.tex
 
 WU_ST_LOUIS_RS_SRC = wu_st_louis/research_statement/research_statement_yw.tex
 WU_ST_LOUIS_RS_PDF = $(WU_ST_LOUIS_RS_SRC:.tex=.pdf)
@@ -730,7 +746,7 @@ WU_ST_LOUIS_DS_DEP = $(DS_COMMON_SRC) wu_st_louis/common.tex
 
 NOTRE_DAME_LETTER_SRC = notre_dame/cover_letter/cover_letter_yw.tex
 NOTRE_DAME_LETTER_PDF = $(NOTRE_DAME_LETTER_SRC:.tex=.pdf)
-NOTRE_DAME_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) notre_dame/common.tex
+NOTRE_DAME_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) notre_dame/common.tex
 
 NOTRE_DAME_RS_SRC = notre_dame/research_statement/research_statement_yw.tex
 NOTRE_DAME_RS_PDF = $(NOTRE_DAME_RS_SRC:.tex=.pdf)
@@ -746,7 +762,7 @@ NOTRE_DAME_DS_DEP = $(DS_COMMON_SRC) notre_dame/common.tex
 
 STANFORD_ECE_LETTER_SRC = stanford_ece/cover_letter/cover_letter_yw.tex
 STANFORD_ECE_LETTER_PDF = $(STANFORD_ECE_LETTER_SRC:.tex=.pdf)
-STANFORD_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) stanford_ece/common.tex
+STANFORD_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) stanford_ece/common.tex
 
 STANFORD_ECE_RS_SRC = stanford_ece/research_statement/research_statement_yw.tex
 STANFORD_ECE_RS_PDF = $(STANFORD_ECE_RS_SRC:.tex=.pdf)
@@ -760,7 +776,7 @@ STANFORD_ECE_DS_DEP = $(DS_COMMON_SRC) stanford_ece/common.tex
 
 STANFORD_CS_LETTER_SRC = stanford_cs/cover_letter/cover_letter_yw.tex
 STANFORD_CS_LETTER_PDF = $(STANFORD_CS_LETTER_SRC:.tex=.pdf)
-STANFORD_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) stanford_cs/common.tex
+STANFORD_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) stanford_cs/common.tex
 
 STANFORD_CS_RS_SRC = stanford_cs/research_statement/research_statement_yw.tex
 STANFORD_CS_RS_PDF = $(STANFORD_CS_RS_SRC:.tex=.pdf)
@@ -774,7 +790,7 @@ STANFORD_CS_DS_DEP = $(DS_COMMON_SRC) stanford_cs/common.tex
 
 UCSD_ECE_LETTER_SRC = ucsd_ece/cover_letter/cover_letter_yw.tex
 UCSD_ECE_LETTER_PDF = $(UCSD_ECE_LETTER_SRC:.tex=.pdf)
-UCSD_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ucsd_ece/common.tex
+UCSD_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) ucsd_ece/common.tex
 
 UCSD_ECE_RS_SRC = ucsd_ece/research_statement/research_statement_yw.tex
 UCSD_ECE_RS_PDF = $(UCSD_ECE_RS_SRC:.tex=.pdf)
@@ -790,7 +806,7 @@ UCSD_ECE_DS_DEP = $(DS_COMMON_SRC) ucsd_ece/common.tex
 
 UCSD_CSE_LETTER_SRC = ucsd_cse/cover_letter/cover_letter_yw.tex
 UCSD_CSE_LETTER_PDF = $(UCSD_CSE_LETTER_SRC:.tex=.pdf)
-UCSD_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ucsd_cse/common.tex
+UCSD_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) ucsd_cse/common.tex
 
 UCSD_CSE_RS_SRC = ucsd_cse/research_statement/research_statement_yw.tex
 UCSD_CSE_RS_PDF = $(UCSD_CSE_RS_SRC:.tex=.pdf)
@@ -806,7 +822,7 @@ UCSD_CSE_DS_DEP = $(DS_COMMON_SRC) ucsd_cse/common.tex
 
 USC_LETTER_SRC = usc/cover_letter/cover_letter_yw.tex
 USC_LETTER_PDF = $(USC_LETTER_SRC:.tex=.pdf)
-USC_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) usc/common.tex
+USC_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) usc/common.tex
 
 USC_RS_SRC = usc/research_statement/research_statement_yw.tex
 USC_RS_PDF = $(USC_RS_SRC:.tex=.pdf)
@@ -822,7 +838,7 @@ USC_DS_DEP = $(DS_COMMON_SRC) usc/common.tex
 
 UCI_AI_LETTER_SRC = uci_ai/cover_letter/cover_letter_yw.tex
 UCI_AI_LETTER_PDF = $(UCI_AI_LETTER_SRC:.tex=.pdf)
-UCI_AI_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) uci_ai/common.tex
+UCI_AI_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) uci_ai/common.tex
 
 UCI_AI_RS_SRC = uci_ai/research_statement/research_statement_yw.tex
 UCI_AI_RS_PDF = $(UCI_AI_RS_SRC:.tex=.pdf)
@@ -838,7 +854,7 @@ UCI_AI_DS_DEP = $(DS_COMMON_SRC) uci_ai/common.tex
 
 UCI_SYSTEM_LETTER_SRC = uci_system/cover_letter/cover_letter_yw.tex
 UCI_SYSTEM_LETTER_PDF = $(UCI_SYSTEM_LETTER_SRC:.tex=.pdf)
-UCI_SYSTEM_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) uci_system/common.tex
+UCI_SYSTEM_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) uci_system/common.tex
 
 UCI_SYSTEM_RS_SRC = uci_system/research_statement/research_statement_yw.tex
 UCI_SYSTEM_RS_PDF = $(UCI_SYSTEM_RS_SRC:.tex=.pdf)
@@ -854,7 +870,7 @@ UCI_SYSTEM_DS_DEP = $(DS_COMMON_SRC) uci_system/common.tex
 
 UCI_EECS_LETTER_SRC = uci_eecs/cover_letter/cover_letter_yw.tex
 UCI_EECS_LETTER_PDF = $(UCI_EECS_LETTER_SRC:.tex=.pdf)
-UCI_EECS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) uci_eecs/common.tex
+UCI_EECS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) uci_eecs/common.tex
 
 UCI_EECS_RS_SRC = uci_eecs/research_statement/research_statement_yw.tex
 UCI_EECS_RS_PDF = $(UCI_EECS_RS_SRC:.tex=.pdf)
@@ -870,7 +886,7 @@ UCI_EECS_DS_DEP = $(DS_COMMON_SRC) uci_eecs/common.tex
 
 LEHIGH_ECE_LETTER_SRC = lehigh_ece/cover_letter/cover_letter_yw.tex
 LEHIGH_ECE_LETTER_PDF = $(LEHIGH_ECE_LETTER_SRC:.tex=.pdf)
-LEHIGH_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) lehigh_ece/common.tex
+LEHIGH_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) lehigh_ece/common.tex
 
 LEHIGH_ECE_RS_SRC = lehigh_ece/research_statement/research_statement_yw.tex
 LEHIGH_ECE_RS_PDF = $(LEHIGH_ECE_RS_SRC:.tex=.pdf)
@@ -886,7 +902,7 @@ LEHIGH_ECE_DS_DEP = $(DS_COMMON_SRC) lehigh_ece/common.tex
 
 LEHIGH_CSE_LETTER_SRC = lehigh_cse/cover_letter/cover_letter_yw.tex
 LEHIGH_CSE_LETTER_PDF = $(LEHIGH_CSE_LETTER_SRC:.tex=.pdf)
-LEHIGH_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) lehigh_cse/common.tex
+LEHIGH_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) lehigh_cse/common.tex
 
 LEHIGH_CSE_RS_SRC = lehigh_cse/research_statement/research_statement_yw.tex
 LEHIGH_CSE_RS_PDF = $(LEHIGH_CSE_RS_SRC:.tex=.pdf)
@@ -902,7 +918,7 @@ LEHIGH_CSE_DS_DEP = $(DS_COMMON_SRC) lehigh_cse/common.tex
 
 PRINCETON_ECE_LETTER_SRC = princeton_ece/cover_letter/cover_letter_yw.tex
 PRINCETON_ECE_LETTER_PDF = $(PRINCETON_ECE_LETTER_SRC:.tex=.pdf)
-PRINCETON_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) princeton_ece/common.tex
+PRINCETON_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) princeton_ece/common.tex
 
 PRINCETON_ECE_RS_SRC = princeton_ece/research_statement/research_statement_yw.tex
 PRINCETON_ECE_RS_PDF = $(PRINCETON_ECE_RS_SRC:.tex=.pdf)
@@ -918,7 +934,7 @@ PRINCETON_ECE_DS_DEP = $(DS_COMMON_SRC) princeton_ece/common.tex
 
 PRINCETON_CS_LETTER_SRC = princeton_cs/cover_letter/cover_letter_yw.tex
 PRINCETON_CS_LETTER_PDF = $(PRINCETON_CS_LETTER_SRC:.tex=.pdf)
-PRINCETON_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) princeton_cs/common.tex
+PRINCETON_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) princeton_cs/common.tex
 
 PRINCETON_CS_RS_SRC = princeton_cs/research_statement/research_statement_yw.tex
 PRINCETON_CS_RS_PDF = $(PRINCETON_CS_RS_SRC:.tex=.pdf)
@@ -934,7 +950,7 @@ PRINCETON_CS_DS_DEP = $(DS_COMMON_SRC) princeton_cs/common.tex
 
 CMU_LETTER_SRC = cmu/cover_letter/cover_letter_yw.tex
 CMU_LETTER_PDF = $(CMU_LETTER_SRC:.tex=.pdf)
-CMU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) cmu/common.tex
+CMU_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) cmu/common.tex
 
 CMU_RS_SRC = cmu/research_statement/research_statement_yw.tex
 CMU_RS_PDF = $(CMU_RS_SRC:.tex=.pdf)
@@ -950,7 +966,7 @@ CMU_DS_DEP = $(DS_COMMON_SRC) cmu/common.tex
 
 UCR_LETTER_SRC = ucr/cover_letter/cover_letter_yw.tex
 UCR_LETTER_PDF = $(UCR_LETTER_SRC:.tex=.pdf)
-UCR_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) ucr/common.tex
+UCR_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) ucr/common.tex
 
 UCR_RS_SRC = ucr/research_statement/research_statement_yw.tex
 UCR_RS_PDF = $(UCR_RS_SRC:.tex=.pdf)
@@ -966,7 +982,7 @@ UCR_DS_DEP = $(DS_COMMON_SRC) ucr/common.tex
 
 YALE_EE_LETTER_SRC = yale_ee/cover_letter/cover_letter_yw.tex
 YALE_EE_LETTER_PDF = $(YALE_EE_LETTER_SRC:.tex=.pdf)
-YALE_EE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) yale_ee/common.tex
+YALE_EE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) yale_ee/common.tex
 
 YALE_EE_RS_SRC = yale_ee/research_statement/research_statement_yw.tex
 YALE_EE_RS_PDF = $(YALE_EE_RS_SRC:.tex=.pdf)
@@ -982,7 +998,7 @@ YALE_EE_DS_DEP = $(DS_COMMON_SRC) yale_ee/common.tex
 
 YALE_CS_LETTER_SRC = yale_cs/cover_letter/cover_letter_yw.tex
 YALE_CS_LETTER_PDF = $(YALE_CS_LETTER_SRC:.tex=.pdf)
-YALE_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) yale_cs/common.tex
+YALE_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) yale_cs/common.tex
 
 YALE_CS_RS_SRC = yale_cs/research_statement/research_statement_yw.tex
 YALE_CS_RS_PDF = $(YALE_CS_RS_SRC:.tex=.pdf)
@@ -998,7 +1014,7 @@ YALE_CS_DS_DEP = $(DS_COMMON_SRC) yale_cs/common.tex
 
 UMD_CS_LETTER_SRC = umd_cs/cover_letter/cover_letter_yw.tex
 UMD_CS_LETTER_PDF = $(UMD_CS_LETTER_SRC:.tex=.pdf)
-UMD_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) umd_cs/common.tex
+UMD_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) umd_cs/common.tex
 
 UMD_CS_RS_SRC = umd_cs/research_statement/research_statement_yw.tex
 UMD_CS_RS_PDF = $(UMD_CS_RS_SRC:.tex=.pdf)
@@ -1014,7 +1030,7 @@ UMD_CS_DS_DEP = $(DS_COMMON_SRC) umd_cs/common.tex
 
 UMD_ECE_LETTER_SRC = umd_ece/cover_letter/cover_letter_yw.tex
 UMD_ECE_LETTER_PDF = $(UMD_ECE_LETTER_SRC:.tex=.pdf)
-UMD_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) umd_ece/common.tex
+UMD_ECE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) umd_ece/common.tex
 
 UMD_ECE_RS_SRC = umd_ece/research_statement/research_statement_yw.tex
 UMD_ECE_RS_PDF = $(UMD_ECE_RS_SRC:.tex=.pdf)
@@ -1030,7 +1046,7 @@ UMD_ECE_DS_DEP = $(DS_COMMON_SRC) umd_ece/common.tex
 
 WISC_LETTER_SRC = wisc/cover_letter/cover_letter_yw.tex
 WISC_LETTER_PDF = $(WISC_LETTER_SRC:.tex=.pdf)
-WISC_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) wisc/common.tex
+WISC_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) wisc/common.tex
 
 WISC_RS_SRC = wisc/research_statement/research_statement_yw.tex
 WISC_RS_PDF = $(WISC_RS_SRC:.tex=.pdf)
@@ -1046,7 +1062,7 @@ WISC_DS_DEP = $(DS_COMMON_SRC) wisc/common.tex
 
 WISC_CS_LETTER_SRC = wisc_cs/cover_letter/cover_letter_yw.tex
 WISC_CS_LETTER_PDF = $(WISC_CS_LETTER_SRC:.tex=.pdf)
-WISC_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) wisc_cs/common.tex
+WISC_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) wisc_cs/common.tex
 
 WISC_CS_RS_SRC = wisc_cs/research_statement/research_statement_yw.tex
 WISC_CS_RS_PDF = $(WISC_CS_RS_SRC:.tex=.pdf)
@@ -1062,7 +1078,7 @@ WISC_CS_DS_DEP = $(DS_COMMON_SRC) wisc_cs/common.tex
 
 RUTGERS_CS_LETTER_SRC = rutgers_cs/cover_letter/cover_letter_yw.tex
 RUTGERS_CS_LETTER_PDF = $(RUTGERS_CS_LETTER_SRC:.tex=.pdf)
-RUTGERS_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) rutgers_cs/common.tex
+RUTGERS_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) rutgers_cs/common.tex
 
 RUTGERS_CS_RS_SRC = rutgers_cs/research_statement/research_statement_yw.tex
 RUTGERS_CS_RS_PDF = $(RUTGERS_CS_RS_SRC:.tex=.pdf)
@@ -1078,7 +1094,7 @@ RUTGERS_CS_DS_DEP = $(DS_COMMON_SRC) rutgers_cs/common.tex
 
 RICE_LETTER_SRC = rice/cover_letter/cover_letter_yw.tex
 RICE_LETTER_PDF = $(RICE_LETTER_SRC:.tex=.pdf)
-RICE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) rice/common.tex
+RICE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) rice/common.tex
 
 RICE_RS_SRC = rice/research_statement/research_statement_yw.tex
 RICE_RS_PDF = $(RICE_RS_SRC:.tex=.pdf)
@@ -1094,7 +1110,7 @@ RICE_DS_DEP = $(DS_COMMON_SRC) rice/common.tex
 
 PSU_EE_LETTER_SRC = psu_ee/cover_letter/cover_letter_yw.tex
 PSU_EE_LETTER_PDF = $(PSU_EE_LETTER_SRC:.tex=.pdf)
-PSU_EE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) psu_ee/common.tex
+PSU_EE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) psu_ee/common.tex
 
 PSU_EE_RS_SRC = psu_ee/research_statement/research_statement_yw.tex
 PSU_EE_RS_PDF = $(PSU_EE_RS_SRC:.tex=.pdf)
@@ -1110,7 +1126,7 @@ PSU_EE_DS_DEP = $(DS_COMMON_SRC) psu_ee/common.tex
 
 PSU_CSE_LETTER_SRC = psu_cse/cover_letter/cover_letter_yw.tex
 PSU_CSE_LETTER_PDF = $(PSU_CSE_LETTER_SRC:.tex=.pdf)
-PSU_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) psu_cse/common.tex
+PSU_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) psu_cse/common.tex
 
 PSU_CSE_RS_SRC = psu_cse/research_statement/research_statement_yw.tex
 PSU_CSE_RS_PDF = $(PSU_CSE_RS_SRC:.tex=.pdf)
@@ -1126,7 +1142,7 @@ PSU_CSE_DS_DEP = $(DS_COMMON_SRC) psu_cse/common.tex
 
 BROWN_LETTER_SRC = brown/cover_letter/cover_letter_yw.tex
 BROWN_LETTER_PDF = $(BROWN_LETTER_SRC:.tex=.pdf)
-BROWN_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) brown/common.tex
+BROWN_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) brown/common.tex
 
 BROWN_RS_SRC = brown/research_statement/research_statement_yw.tex
 BROWN_RS_PDF = $(BROWN_RS_SRC:.tex=.pdf)
@@ -1142,7 +1158,7 @@ BROWN_DS_DEP = $(DS_COMMON_SRC) brown/common.tex
 
 JHU_CS_LETTER_SRC = jhu_cs/cover_letter/cover_letter_yw.tex
 JHU_CS_LETTER_PDF = $(JHU_CS_LETTER_SRC:.tex=.pdf)
-JHU_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) jhu_cs/common.tex
+JHU_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) jhu_cs/common.tex
 
 JHU_CS_RS_SRC = jhu_cs/research_statement/research_statement_yw.tex
 JHU_CS_RS_PDF = $(JHU_CS_RS_SRC:.tex=.pdf)
@@ -1162,7 +1178,7 @@ COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown jhu-cs
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva uva-cs nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown jhu-cs
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1254,6 +1270,12 @@ uva-letter: $(UVA_LETTER_PDF)
 uva-rs: $(UVA_RS_PDF)
 uva-ts: $(UVA_TS_PDF)
 uva-ds: $(UVA_DS_PDF)
+
+uva-cs: uva-cs-letter uva-cs-rs uva-cs-ts uva-cs-ds
+uva-cs-letter: $(UVA_CS_LETTER_PDF)
+uva-cs-rs: $(UVA_CS_RS_PDF)
+uva-cs-ts: $(UVA_CS_TS_PDF)
+uva-cs-ds: $(UVA_CS_DS_PDF)
 
 nyu: nyu-letter nyu-rs nyu-ts nyu-ds
 nyu-letter: $(NYU_LETTER_PDF)
@@ -1852,6 +1874,23 @@ $(UVA_TS_PDF): $(UVA_TS_SRC) $(UVA_TS_DEP) | clean-cache $(CACHE_DIR)
 $(UVA_DS_PDF): $(UVA_DS_SRC) $(UVA_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(UVA_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UVA_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(UVA_DS_PDF)) $(UVA_DS_PDF)
+
+$(UVA_CS_LETTER_PDF): $(UVA_CS_LETTER_SRC) $(UVA_CS_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(UVA_CS_LETTER_SRC))/.
+	@cd $(dir $(UVA_CS_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(UVA_CS_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UVA_CS_LETTER_PDF)) $(UVA_CS_LETTER_PDF)
+
+$(UVA_CS_RS_PDF): $(UVA_CS_RS_SRC) $(UVA_CS_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UVA_CS_RS_SRC)) && $(COMPILE_LUA) $(notdir $(UVA_CS_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UVA_CS_RS_PDF)) $(UVA_CS_RS_PDF)
+
+$(UVA_CS_TS_PDF): $(UVA_CS_TS_SRC) $(UVA_CS_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UVA_CS_TS_SRC)) && $(COMPILE_LUA) $(notdir $(UVA_CS_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UVA_CS_TS_PDF)) $(UVA_CS_TS_PDF)
+
+$(UVA_CS_DS_PDF): $(UVA_CS_DS_SRC) $(UVA_CS_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(UVA_CS_DS_SRC)) && $(COMPILE_LUA) $(notdir $(UVA_CS_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(UVA_CS_DS_PDF)) $(UVA_CS_DS_PDF)
 
 $(NYU_LETTER_PDF): $(NYU_LETTER_SRC) $(NYU_LETTER_DEP) | clean-cache $(CACHE_DIR)
 	@cp -r $(LH_FONT_DIR) $(dir $(NYU_LETTER_SRC))/.
