@@ -1188,13 +1188,29 @@ CASE_DS_SRC = case/diversity_statement/diversity_statement_yw.tex
 CASE_DS_PDF = $(CASE_DS_SRC:.tex=.pdf)
 CASE_DS_DEP = $(DS_COMMON_SRC) case/common.tex
 
+BUFFALO_EE_LETTER_SRC = buffalo_ee/cover_letter/cover_letter_yw.tex
+BUFFALO_EE_LETTER_PDF = $(BUFFALO_EE_LETTER_SRC:.tex=.pdf)
+BUFFALO_EE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) buffalo_ee/common.tex
+
+BUFFALO_EE_RS_SRC = buffalo_ee/research_statement/research_statement_yw.tex
+BUFFALO_EE_RS_PDF = $(BUFFALO_EE_RS_SRC:.tex=.pdf)
+BUFFALO_EE_RS_DEP = $(RS_COMMON_SRC) buffalo_ee/common.tex
+
+BUFFALO_EE_TS_SRC = buffalo_ee/teaching_statement/teaching_statement_yw.tex
+BUFFALO_EE_TS_PDF = $(BUFFALO_EE_TS_SRC:.tex=.pdf)
+BUFFALO_EE_TS_DEP = $(TS_COMMON_SRC) buffalo_ee/common.tex
+
+BUFFALO_EE_DS_SRC = buffalo_ee/diversity_statement/diversity_statement_yw.tex
+BUFFALO_EE_DS_PDF = $(BUFFALO_EE_DS_SRC:.tex=.pdf)
+BUFFALO_EE_DS_DEP = $(DS_COMMON_SRC) buffalo_ee/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva uva-cs nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown jhu-cs case
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva uva-cs nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown jhu-cs case buffalo-ee
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1634,6 +1650,12 @@ case-letter: $(CASE_LETTER_PDF)
 case-rs: $(CASE_RS_PDF)
 case-ts: $(CASE_TS_PDF)
 case-ds: $(CASE_DS_PDF)
+
+buffalo-ee: buffalo-ee-letter buffalo-ee-rs buffalo-ee-ts buffalo-ee-ds
+buffalo-ee-letter: $(BUFFALO_EE_LETTER_PDF)
+buffalo-ee-rs: $(BUFFALO_EE_RS_PDF)
+buffalo-ee-ts: $(BUFFALO_EE_TS_PDF)
+buffalo-ee-ds: $(BUFFALO_EE_DS_PDF)
 
 clean: clean-cache
 
@@ -2882,3 +2904,21 @@ $(CASE_TS_PDF): $(CASE_TS_SRC) $(CASE_TS_DEP) | clean-cache $(CACHE_DIR)
 $(CASE_DS_PDF): $(CASE_DS_SRC) $(CASE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(CASE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(CASE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(CASE_DS_PDF)) $(CASE_DS_PDF)
+
+$(BUFFALO_EE_LETTER_PDF): $(BUFFALO_EE_LETTER_SRC) $(BUFFALO_EE_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(BUFFALO_EE_LETTER_SRC))/.
+	@cd $(dir $(BUFFALO_EE_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(BUFFALO_EE_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BUFFALO_EE_LETTER_PDF)) $(BUFFALO_EE_LETTER_PDF)
+
+$(BUFFALO_EE_RS_PDF): $(BUFFALO_EE_RS_SRC) $(BUFFALO_EE_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(BUFFALO_EE_RS_SRC)) && $(COMPILE_LUA) $(notdir $(BUFFALO_EE_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BUFFALO_EE_RS_PDF)) $(BUFFALO_EE_RS_PDF)
+
+$(BUFFALO_EE_TS_PDF): $(BUFFALO_EE_TS_SRC) $(BUFFALO_EE_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(BUFFALO_EE_TS_SRC)) && $(COMPILE_LUA) $(notdir $(BUFFALO_EE_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BUFFALO_EE_TS_PDF)) $(BUFFALO_EE_TS_PDF)
+
+$(BUFFALO_EE_DS_PDF): $(BUFFALO_EE_DS_SRC) $(BUFFALO_EE_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(BUFFALO_EE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(BUFFALO_EE_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(BUFFALO_EE_DS_PDF)) $(BUFFALO_EE_DS_PDF)
+
