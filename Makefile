@@ -1220,13 +1220,29 @@ BUFFALO_CSE_DS_SRC = buffalo_cse/diversity_statement/diversity_statement_yw.tex
 BUFFALO_CSE_DS_PDF = $(BUFFALO_CSE_DS_SRC:.tex=.pdf)
 BUFFALO_CSE_DS_DEP = $(DS_COMMON_SRC) buffalo_cse/common.tex
 
+HARVARD_CS_LETTER_SRC = harvard_cs/cover_letter/cover_letter_yw.tex
+HARVARD_CS_LETTER_PDF = $(HARVARD_CS_LETTER_SRC:.tex=.pdf)
+HARVARD_CS_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) harvard_cs/common.tex
+
+HARVARD_CS_RS_SRC = harvard_cs/research_statement/research_statement_yw.tex
+HARVARD_CS_RS_PDF = $(HARVARD_CS_RS_SRC:.tex=.pdf)
+HARVARD_CS_RS_DEP = $(RS_COMMON_SRC) harvard_cs/common.tex
+
+HARVARD_CS_TS_SRC = harvard_cs/teaching_statement/teaching_statement_yw.tex
+HARVARD_CS_TS_PDF = $(HARVARD_CS_TS_SRC:.tex=.pdf)
+HARVARD_CS_TS_DEP = $(TS_COMMON_SRC) harvard_cs/common.tex
+
+HARVARD_CS_DS_SRC = harvard_cs/diversity_statement/diversity_statement_yw.tex
+HARVARD_CS_DS_PDF = $(HARVARD_CS_DS_SRC:.tex=.pdf)
+HARVARD_CS_DS_DEP = $(DS_COMMON_SRC) harvard_cs/common.tex
+
 CACHE_DIR   := $(shell pwd)/.latex-cache
 COMPILE_LUA := latexmk -lualatex -output-directory=$(CACHE_DIR)
 COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva uva-cs nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown jhu-cs case buffalo-ee buffalo-cse
+all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva uva-cs nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown jhu-cs case buffalo-ee buffalo-cse harvard-cs
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1678,6 +1694,12 @@ buffalo-cse-letter: $(BUFFALO_CSE_LETTER_PDF)
 buffalo-cse-rs: $(BUFFALO_CSE_RS_PDF)
 buffalo-cse-ts: $(BUFFALO_CSE_TS_PDF)
 buffalo-cse-ds: $(BUFFALO_CSE_DS_PDF)
+
+harvard-cs: harvard-cs-letter harvard-cs-rs harvard-cs-ts harvard-cs-ds
+harvard-cs-letter: $(HARVARD_CS_LETTER_PDF)
+harvard-cs-rs: $(HARVARD_CS_RS_PDF)
+harvard-cs-ts: $(HARVARD_CS_TS_PDF)
+harvard-cs-ds: $(HARVARD_CS_DS_PDF)
 
 clean: clean-cache
 
@@ -2960,3 +2982,20 @@ $(BUFFALO_CSE_TS_PDF): $(BUFFALO_CSE_TS_SRC) $(BUFFALO_CSE_TS_DEP) | clean-cache
 $(BUFFALO_CSE_DS_PDF): $(BUFFALO_CSE_DS_SRC) $(BUFFALO_CSE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(BUFFALO_CSE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(BUFFALO_CSE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(BUFFALO_CSE_DS_PDF)) $(BUFFALO_CSE_DS_PDF)
+
+$(HARVARD_CS_LETTER_PDF): $(HARVARD_CS_LETTER_SRC) $(HARVARD_CS_LETTER_DEP) | clean-cache $(CACHE_DIR)
+	@cp -r $(LH_FONT_DIR) $(dir $(HARVARD_CS_LETTER_SRC))/.
+	@cd $(dir $(HARVARD_CS_LETTER_SRC)) && $(COMPILE_LUA) $(notdir $(HARVARD_CS_LETTER_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(HARVARD_CS_LETTER_PDF)) $(HARVARD_CS_LETTER_PDF)
+
+$(HARVARD_CS_RS_PDF): $(HARVARD_CS_RS_SRC) $(HARVARD_CS_RS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(HARVARD_CS_RS_SRC)) && $(COMPILE_LUA) $(notdir $(HARVARD_CS_RS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(HARVARD_CS_RS_PDF)) $(HARVARD_CS_RS_PDF)
+
+$(HARVARD_CS_TS_PDF): $(HARVARD_CS_TS_SRC) $(HARVARD_CS_TS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(HARVARD_CS_TS_SRC)) && $(COMPILE_LUA) $(notdir $(HARVARD_CS_TS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(HARVARD_CS_TS_PDF)) $(HARVARD_CS_TS_PDF)
+
+$(HARVARD_CS_DS_PDF): $(HARVARD_CS_DS_SRC) $(HARVARD_CS_DS_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(HARVARD_CS_DS_SRC)) && $(COMPILE_LUA) $(notdir $(HARVARD_CS_DS_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(HARVARD_CS_DS_PDF)) $(HARVARD_CS_DS_PDF)
