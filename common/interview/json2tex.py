@@ -29,13 +29,40 @@ def printQuestions(
             # Print all 'question' field under 'questions'
             for question in data["questions"]:
                 print("\\subsection{" + question["question"] + "}")
-                # if question["prepAnswers"] has an element with field 'employer' being 'gerenal' or schoolName, print the element's field 'answer'
+                # if question["prepAnswers"] has an element with field 'employer' being schoolName, print the element's field 'answer', else print the element with field 'employer' being 'general'
+                schoolFound = False
                 for answer in question["prepAnswers"]:
-                    if (
-                        answer["employer"] == "general"
-                        or answer["employer"] == schoolName
-                    ):
-                        print(answer["answer"])
+                    if answer["employer"].lower() == schoolName.lower():
+                        print("\\begin{itemize}")
+                        for point in answer["answerPoints"]:
+                            # if point is string, print it directly
+                            if isinstance(point, str):
+                                print("\\item " + point)
+                            # if point is list, print each element in the list
+                            elif isinstance(point, list):
+                                print("\\begin{itemize}")
+                                for subPoint in point:
+                                    print("\\item " + subPoint)
+                                print("\\end{itemize}")
+                        print("\\end{itemize}")
+                        schoolFound = True
+                        break
+                if not schoolFound:
+                    for answer in question["prepAnswers"]:
+                        if answer["employer"].lower() == "general":
+                            print("\\begin{itemize}")
+                            for point in answer["answerPoints"]:
+                                # if point is string, print it directly
+                                if isinstance(point, str):
+                                    print("\\item " + point)
+                                # if point is list, print each element in the list
+                                elif isinstance(point, list):
+                                    print("\\begin{itemize}")
+                                    for subPoint in point:
+                                        print("\\item " + subPoint)
+                                    print("\\end{itemize}")
+                            print("\\end{itemize}")
+                            break
 
 
 if __name__ == "__main__":
