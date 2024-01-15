@@ -10,9 +10,13 @@ PUB_LIST_SRC = common/publication/pub_list/pub_list_yw.tex
 PUB_LIST_PDF = $(PUB_LIST_SRC:.tex=.pdf)
 PUB_LIST_DEP = common/cv/simplecv.sty common/cv/comment_setup.tex common/cv/bibtype.tex common/cv/sections/publications.tex common/cv/papers.bib today.date
 
+INTVW_SRC = common/interview/online_interview.tex
+INTVW_PDF = $(INTVW_SRC:.tex=.pdf)
+INTVW_DEP = common/statement_pre.tex common/interview/online_interview.json common/interview/json2tex.py today.date
+
 LH_SRC = common/letterhead/letter.tex
 LH_PDF = $(LH_SRC:.tex=.pdf)
-LH_DEP = $(filter-out $(LH_PDF) $(LH_SRC) $(wildcard common/letterhead/*.log) common/letterhead/LICENSE common/letterhead/Makefile common/letterhead/README.md $(wildcard common/letterhead/.git*), $(shell find common/letterhead -type f)) today.date
+LH_DEP = $(filter-out $(LH_PDF) $(LH_SRC) $(wildcard common/letterhead/*.log) common/letterhead/.DS_Store common/letterhead/LICENSE common/letterhead/Makefile common/letterhead/README.md $(wildcard common/letterhead/.git*), $(shell find common/letterhead -type f)) today.date
 
 LH_FONT_DIR       = common/letterhead/font
 SIG_PDF           = common/signature/yuyang.pdf
@@ -515,6 +519,10 @@ RPI_TS_DEP = $(TS_COMMON_SRC) rpi/common.tex
 RPI_DS_SRC = rpi/diversity_statement/diversity_statement_yw.tex
 RPI_DS_PDF = $(RPI_DS_SRC:.tex=.pdf)
 RPI_DS_DEP = $(DS_COMMON_SRC) rpi/common.tex
+
+RPI_INTVW_SRC = rpi/online_interview_prep.tex
+RPI_INTVW_PDF = $(RPI_INTVW_SRC:.tex=.pdf)
+RPI_INTVW_DEP = common/statement_pre.tex common/interview/online_interview.json common/interview/json2tex.py today.date
 
 UTAH_LETTER_SRC = utah/cover_letter/cover_letter_yw.tex
 UTAH_LETTER_PDF = $(UTAH_LETTER_SRC:.tex=.pdf)
@@ -1242,12 +1250,14 @@ COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva uva-cs nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown jhu-cs case buffalo-ee buffalo-cse harvard-cs
+all: cv cv-hl pub-list intvw letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva uva-cs nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi rpi-intvw utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown jhu-cs case buffalo-ee buffalo-cse harvard-cs
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
 
 pub-list: $(PUB_LIST_PDF)
+
+intvw: $(INTVW_PDF)
 
 letterhead: $(LH_PDF)
 
@@ -1431,6 +1441,7 @@ rpi-letter: $(RPI_LETTER_PDF)
 rpi-rs: $(RPI_RS_PDF)
 rpi-ts: $(RPI_TS_PDF)
 rpi-ds: $(RPI_DS_PDF)
+rpi-intvw: $(RPI_INTVW_PDF)
 
 utah: utah-letter utah-rs utah-ts utah-ds
 utah-letter: $(UTAH_LETTER_PDF)
@@ -1720,6 +1731,10 @@ $(CV_HL_PDF): $(CV_HL_SRC) $(CV_HL_DEP) | clean-cache $(CACHE_DIR)
 $(PUB_LIST_PDF): $(PUB_LIST_SRC) $(PUB_LIST_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(PUB_LIST_SRC)) && $(COMPILE_LUA) $(notdir $(PUB_LIST_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(PUB_LIST_PDF)) $(PUB_LIST_PDF)
+
+$(INTVW_PDF): $(INTVW_SRC) $(INTVW_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(INTVW_SRC)) && $(COMPILE_LUA) --shell-escape $(notdir $(INTVW_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(INTVW_PDF)) $(INTVW_PDF)
 
 $(LH_PDF): $(LH_SRC) $(LH_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(LH_SRC)) && $(COMPILE_LUA) $(notdir $(LH_SRC))
@@ -2238,6 +2253,10 @@ $(RPI_TS_PDF): $(RPI_TS_SRC) $(RPI_TS_DEP) | clean-cache $(CACHE_DIR)
 $(RPI_DS_PDF): $(RPI_DS_SRC) $(RPI_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(RPI_DS_SRC)) && $(COMPILE_LUA) $(notdir $(RPI_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(RPI_DS_PDF)) $(RPI_DS_PDF)
+
+$(RPI_INTVW_PDF): $(RPI_INTVW_SRC) $(RPI_INTVW_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(RPI_INTVW_SRC)) && $(COMPILE_LUA) --shell-escape $(notdir $(RPI_INTVW_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(RPI_INTVW_PDF)) $(RPI_INTVW_PDF)
 
 $(UTAH_LETTER_PDF): $(UTAH_LETTER_SRC) $(UTAH_LETTER_DEP) | clean-cache $(CACHE_DIR)
 	@cp -r $(LH_FONT_DIR) $(dir $(UTAH_LETTER_SRC))/.

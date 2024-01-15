@@ -1,0 +1,24 @@
+%!TEX root = online_interview.tex
+%!TEX program = lualatex
+
+\input{../statement_pre.tex}
+
+\title{Online Interview Reflection}
+%%%%%% End of customization %%%%%%
+
+\author{Yuyang Wang}
+\date{\today}
+\makeatletter
+\fancyfoot[L]{\scshape \MakeLowercase{\@author}}
+\fancyfoot[R]{{\scshape \MakeLowercase{\@title}}\quad{\LARGE\sfrac{\thepage}{\pageref*{LastPage}}}}
+\makeatother
+
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+\thispagestyle{fancy}
+
+\section{Common Questions}
+\input{|python json2tex.py}
+
+\end{document}

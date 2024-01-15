@@ -1,0 +1,34 @@
+{
+  "questions": [
+    {
+      "question": "Introduce your research at high-level; elaborate on the importance of your research.",
+      "prepAnswers": [
+        {
+          "employer": "general",
+          "answer": "My greatest strength is my ability to adapt to new situations and learn quickly. I have a strong problem-solving skills and can effectively work both independently and in a team."
+        }
+      ],
+      "askedBy": [
+        {
+          "name": "RPI",
+          "date": "1/9/2024"
+        }
+      ]
+    },
+    {
+      "question": "What are your most important accomplishments/work that you are most proud of?",
+      "prepAnswers": [
+        {
+          "employer": "general",
+          "answer": "My greatest strength is my ability to adapt to new situations and learn quickly. I have a strong problem-solving skills and can effectively work both independently and in a team."
+        }
+      ],
+      "askedBy": [
+        {
+          "name": "RPI",
+          "date": "1/9/2024"
+        }
+      ]
+    }
+  ]
+}
