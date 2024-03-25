@@ -520,7 +520,7 @@ RPI_DS_SRC = rpi/diversity_statement/diversity_statement_yw.tex
 RPI_DS_PDF = $(RPI_DS_SRC:.tex=.pdf)
 RPI_DS_DEP = $(DS_COMMON_SRC) rpi/common.tex
 
-RPI_INTVW_SRC = rpi/online_interview_prep.tex
+RPI_INTVW_SRC = rpi/online_interview/online_interview_prep.tex
 RPI_INTVW_PDF = $(RPI_INTVW_SRC:.tex=.pdf)
 RPI_INTVW_DEP = common/statement_pre.tex common/interview/online_interview.json common/interview/json2tex.py today.date
 
@@ -1132,6 +1132,10 @@ PSU_EE_DS_SRC = psu_ee/diversity_statement/diversity_statement_yw.tex
 PSU_EE_DS_PDF = $(PSU_EE_DS_SRC:.tex=.pdf)
 PSU_EE_DS_DEP = $(DS_COMMON_SRC) psu_ee/common.tex
 
+PSU_EE_INTVW_SRC = psu_ee/online_interview/online_interview_prep.tex
+PSU_EE_INTVW_PDF = $(PSU_EE_INTVW_SRC:.tex=.pdf)
+PSU_EE_INTVW_DEP = common/statement_pre.tex common/interview/online_interview.json common/interview/json2tex.py today.date
+
 PSU_CSE_LETTER_SRC = psu_cse/cover_letter/cover_letter_yw.tex
 PSU_CSE_LETTER_PDF = $(PSU_CSE_LETTER_SRC:.tex=.pdf)
 PSU_CSE_LETTER_DEP = $(filter-out $(wildcard common/letterhead/attachment/*) $(wildcard common/letterhead/signature/*), $(LH_DEP)) $(SIG_PDF) $(LETTER_COMMON_SRC) psu_cse/common.tex
@@ -1250,7 +1254,7 @@ COMPILE_PDF := latexmk -pdflatex -output-directory=$(CACHE_DIR)
 
 .PHONY: all clean clean-cache
 
-all: cv cv-hl pub-list intvw letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva uva-cs nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi rpi-intvw utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown jhu-cs case buffalo-ee buffalo-cse harvard-cs
+all: cv cv-hl pub-list intvw letterhead example tamu-cesg tamu-nano duke purdue-ece purdue-computes uw-ece uw-cse mit ucb upenn uiuc dartmouth uva uva-cs nyu asu-computing asu-digital asu-micro umich-ece umich-cse ut-austin rochester ut-dallas ncsu bu-ai bu-ece bu-coe ufl rpi utah udel-ai udel-device uconn-ece uconn-cse syracuse rit gatech caltech cornell cornell-tech nwu ucla wu-st-louis notre-dame stanford-ece stanford-cs ucsd-ece ucsd-cse usc uci-ai uci-system uci-eecs lehigh-ece lehigh-cse princeton-ece princeton-cs cmu ucr yale-ee yale-cs umd-cs umd-ece wisc wisc-cs rutgers-cs rice psu-ee psu-cse brown jhu-cs case buffalo-ee buffalo-cse harvard-cs
 
 cv: $(CV_PDF)
 cv-hl: $(CV_HL_PDF)
@@ -1436,7 +1440,7 @@ ufl-rs: $(UFL_RS_PDF)
 ufl-ts: $(UFL_TS_PDF)
 ufl-ds: $(UFL_DS_PDF)
 
-rpi: rpi-letter rpi-rs rpi-ts rpi-ds
+rpi: rpi-letter rpi-rs rpi-ts rpi-ds rpi-intvw
 rpi-letter: $(RPI_LETTER_PDF)
 rpi-rs: $(RPI_RS_PDF)
 rpi-ts: $(RPI_TS_PDF)
@@ -1664,11 +1668,12 @@ rice-rs: $(RICE_RS_PDF)
 rice-ts: $(RICE_TS_PDF)
 rice-ds: $(RICE_DS_PDF)
 
-psu-ee: psu-ee-letter psu-ee-rs psu-ee-ts psu-ee-ds
+psu-ee: psu-ee-letter psu-ee-rs psu-ee-ts psu-ee-ds psu-ee-intvw
 psu-ee-letter: $(PSU_EE_LETTER_PDF)
 psu-ee-rs: $(PSU_EE_RS_PDF)
 psu-ee-ts: $(PSU_EE_TS_PDF)
 psu-ee-ds: $(PSU_EE_DS_PDF)
+psu-ee-intvw: $(PSU_EE_INTVW_PDF)
 
 psu-cse: psu-cse-letter psu-cse-rs psu-cse-ts psu-cse-ds
 psu-cse-letter: $(PSU_CSE_LETTER_PDF)
@@ -2899,6 +2904,10 @@ $(PSU_EE_TS_PDF): $(PSU_EE_TS_SRC) $(PSU_EE_TS_DEP) | clean-cache $(CACHE_DIR)
 $(PSU_EE_DS_PDF): $(PSU_EE_DS_SRC) $(PSU_EE_DS_DEP) | clean-cache $(CACHE_DIR)
 	@cd $(dir $(PSU_EE_DS_SRC)) && $(COMPILE_LUA) $(notdir $(PSU_EE_DS_SRC))
 	@cp $(CACHE_DIR)/$(notdir $(PSU_EE_DS_PDF)) $(PSU_EE_DS_PDF)
+
+$(PSU_EE_INTVW_PDF): $(PSU_EE_INTVW_SRC) $(PSU_EE_INTVW_DEP) | clean-cache $(CACHE_DIR)
+	@cd $(dir $(PSU_EE_INTVW_SRC)) && $(COMPILE_LUA) --shell-escape $(notdir $(PSU_EE_INTVW_SRC))
+	@cp $(CACHE_DIR)/$(notdir $(PSU_EE_INTVW_PDF)) $(PSU_EE_INTVW_PDF)
 
 $(PSU_CSE_LETTER_PDF): $(PSU_CSE_LETTER_SRC) $(PSU_CSE_LETTER_DEP) | clean-cache $(CACHE_DIR)
 	@cp -r $(LH_FONT_DIR) $(dir $(PSU_CSE_LETTER_SRC))/.
